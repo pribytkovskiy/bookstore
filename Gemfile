@@ -40,6 +40,7 @@ gem 'haml'
 gem 'i18n'
 gem 'interactor'
 gem 'ffaker'
+gem 'omniauth-facebook'
 gem 'pagy'
 gem 'rectify'
 
