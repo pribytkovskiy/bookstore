@@ -36,7 +36,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
 
       t.boolean :check
       t.string :pictures
-      t.datetime :deleted_at
       t.string :role
 
       ## Confirmable

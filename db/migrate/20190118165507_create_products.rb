@@ -9,10 +9,14 @@ class CreateProducts < ActiveRecord::Migration[5.2]
       t.string :dimensions
       t.string :materials
       t.integer :views, default: 0
-      t.references :author, index: true
-      t.belongs_to :category, index: true
+      t.references :category, index: true
 
       t.timestamps
+    end
+
+    create_table :authors_products, id: false do |t|
+      t.references :authors, index: true
+      t.references :products, index: true
     end
   end
 end

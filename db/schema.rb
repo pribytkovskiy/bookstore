@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 2019_01_18_171825) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "authors_products", id: false, force: :cascade do |t|
+    t.bigint "authors_id"
+    t.bigint "products_id"
+    t.index ["authors_id"], name: "index_authors_products_on_authors_id"
+    t.index ["products_id"], name: "index_authors_products_on_products_id"
+  end
+
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,7 +54,7 @@ ActiveRecord::Schema.define(version: 2019_01_18_171825) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "cupons", force: :cascade do |t|
+  create_table "coupons", force: :cascade do |t|
     t.integer "number"
     t.integer "price"
     t.datetime "created_at", null: false
@@ -93,7 +100,7 @@ ActiveRecord::Schema.define(version: 2019_01_18_171825) do
     t.string "shipping_country"
     t.string "shipping_phone"
     t.string "state"
-    t.integer "subtotal"
+    t.decimal "subtotal"
     t.integer "cupon_id"
     t.integer "delivery_id"
     t.bigint "user_id"
@@ -111,11 +118,9 @@ ActiveRecord::Schema.define(version: 2019_01_18_171825) do
     t.string "dimensions"
     t.string "materials"
     t.integer "views", default: 0
-    t.bigint "author_id"
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["author_id"], name: "index_products_on_author_id"
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
@@ -146,7 +151,6 @@ ActiveRecord::Schema.define(version: 2019_01_18_171825) do
     t.string "shipping_phone"
     t.boolean "check"
     t.string "pictures"
-    t.datetime "deleted_at"
     t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

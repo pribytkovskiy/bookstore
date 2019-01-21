@@ -87,3 +87,6 @@ yarn-debug.log*
 .DS_Store
 .rspec_status
 ./vscode
+/vscode
+.vscode
+

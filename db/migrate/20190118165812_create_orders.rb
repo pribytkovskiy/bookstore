@@ -21,7 +21,7 @@ class CreateOrders < ActiveRecord::Migration[5.2]
       t.string :shipping_country
       t.string :shipping_phone
       t.string :state
-      t.integer :subtotal
+      t.decimal :subtotal
       t.integer :cupon_id
       t.integer :delivery_id
       t.references :user, foreign_key: true
