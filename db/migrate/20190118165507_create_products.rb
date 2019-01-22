@@ -2,10 +2,10 @@ class CreateProducts < ActiveRecord::Migration[5.2]
   def change
     create_table :products do |t|
       t.string :title
-      t.string :image_url
+      t.integer :quantity
       t.decimal :price
       t.text :description
-      t.date :date
+      t.date :year
       t.string :dimensions
       t.string :materials
       t.integer :views, default: 0
@@ -14,9 +14,9 @@ class CreateProducts < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :authors_products, id: false do |t|
-      t.references :authors, index: true
-      t.references :products, index: true
+    create_table :author_products, id: false do |t|
+      t.references :author, index: true
+      t.references :product, index: true
     end
   end
 end

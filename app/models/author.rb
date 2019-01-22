@@ -1,5 +1,6 @@
 class Author < ApplicationRecord
-  has_and_belongs_to_many :products
+  has_many :author_products
+  has_many :products, through: :author_products
 
   validates :first_name, :last_name, presence: true
 end

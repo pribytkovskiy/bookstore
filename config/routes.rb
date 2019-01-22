@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         patch 'update_password'
       end
     end
-    resources :home, only: %i[index create]
+    resource :home, only: :show
     resources :books, only: %i[show update]
     resources :orders, only: %i[index create]
     resources :line_items, only: %i[index new create update destroy]

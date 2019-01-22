@@ -1,11 +1,17 @@
 class Product < ApplicationRecord
+  QUANTITY_PRODUCT_TO_SLIDE = 3
+
   has_many :comments, dependent: :destroy
   has_many :line_items
   has_many :orders, through: :line_items
-  has_and_belongs_to_many :authors
+  has_many :author_products
+  has_many :authors, through: :author_products
+  has_many :covers, dependent: :destroy
   belongs_to :category
 
   before_destroy :ensure_not_referenced_by_any_line_item?
+
+  scope :slide, -> { Product.all.last(QUANTITY_PRODUCT_TO_SLIDE) }
 
   private
 
