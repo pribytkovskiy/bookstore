@@ -1,0 +1,11 @@
+%h1.general-title-margin= t('.settings')
+%ul.nav.nav-tabs.mb-20{role: "tablist"}
+  %li.mb-10.active{role: "presentation"}
+    %a{href: "#address", 'aria-controls': "address", role: "tab", 'data-toggle': "tab"}= t('.address')
+  %li.mb-10{role: "presentation"}
+    %a{href: "#privacy", 'aria-controls': "privacy", role: "tab", 'data-toggle': "tab"}= t('.privacy')
+.tab-content
+  #address.tab-pane.fade.in.active.general-main-wrap{role: "tabpanel"}
+    = render 'form'
+  #privacy.tab-pane.fade{role: "tabpanel"}
+    = render 'form_settings'

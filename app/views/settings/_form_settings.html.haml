@@ -1,0 +1,35 @@
+.row.mb-60
+  .col-sm-5
+    %p.in-gold-500.font-18.mb-25= t('.email')
+    .general-text-align
+    = form_for( current_user, :url => settings_update_path, :method => :get, html: { :class => 'general-form-md'} ) do |f|
+      .form-group.mb-35
+        = f.label :email, 'Enter Email', { class: 'control-label font-weight-lights', for: "email" }
+        = f.text_field :email, { class: 'form-control', id: 'email', type: "email", placeholder: "Enter your email" }
+      .general-text-align
+        = f.submit 'Save', {class: 'btn btn-default mb-35'}
+  .col-sm-5.col-sm-offset-1
+    %p.in-gold-500.font-18.mb-25= t('.password')
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "general-form" }) do |f|
+      = devise_error_messages!
+      = f.hidden_field :reset_password_token
+      .form-group.mb-30
+        %label.control-label.font-weight-light{for: "password"}= t('.type_a_new_password')
+        = f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "Type a new Password", id: "password", class: "form-control"
+      .form-group.mb-40
+        %label.control-label.font-weight-light{for: "confirmPassword"}= t('.confirm_password')
+        = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm Password", id: "confirmPassword", class: "form-control"
+      .actions
+        = f.submit "Change", class: "btn btn-default center-block mb-20"
+  .col-sm-12
+    .divider-lg-bottom
+    %p.in-gold-500.font-18.mb-25.pt-20= t('.remove_account')
+    %form
+      .general-settings-btn
+        = button_to 'Please Remove My Account', setting_path(:user), method: "delete", class: "btn mb-20"
+      .form-group.checkbox.general-settings-checkbox
+        %label.font-weight-light.pl-0
+          %input.checkbox-input{type: "checkbox", hidden: "true"}
+          %span.checkbox-icon
+            %i.fa.fa-check
+          %span.checkbox-text= t('.i_understand')

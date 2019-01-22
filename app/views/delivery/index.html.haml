@@ -1,0 +1,76 @@
+- present @cart do |cart|
+  %h1.general-title-margin= t('.checkout')
+  %ul.steps.list-inline
+    %li.step.active
+      %span.step-number
+        %i.fa.fa-check.step-icon
+      %span.step-text.hidden-xs= t('.address')
+    %li.step-divider
+    %li.step.active
+      %span.step-number 2
+      %span.step-text.hidden-xs= t('.delivery')
+    %li.step-divider
+    %li.step
+      %span.step-number 3
+      %span.step-text.hidden-xs= t('.payment')
+    %li.step-divider
+    %li.step
+      %span.step-number 4
+      %span.step-text.hidden-xs= t('.confirm')
+    %li.step-divider
+    %li.step
+      %span.step-number 5
+      %span.step-text.hidden-xs= t('.complete')
+  %h3.general-subtitle= t('.credit_card')
+  .visible-xs
+  .hidden-xs.mb-res-50
+    %table.table.table-hover
+      %thead
+        %tr
+          %th.col-method
+            %span.in-grey-600.ml-40= t('.method')
+          %th
+            %span.in-grey-600= t('.days')
+          %th
+            %span.in-grey-600= t('.price')
+      %tbody
+      = form_for current_user, :url => delivery_index_path, :method => :post do |f|
+        %tr
+          %td
+            .form-group.radio.mt-0.mb-0
+              = f.radio_button :id, '2', { :class => 'radio-icon radio-text text-center radio-input', :style => 'margin-left: 5px;', :checked => true }
+              = f.label :delivery, 'By train', :value => '2', :class => 'font-16 font-weight-light pl-0', :style => 'margin-left: 50px;'
+          %td
+            %span 5 days
+          %td
+            %span.font-16.in-gold-500 €10.00
+        %tr
+          %td
+            .form-group.radio.mt-0.mb-0
+              %label.font-16.font-weight-light.pl-0
+                = f.radio_button :id, '1', { :class => 'radio-icon radio-text text-center radio-input', :style => 'margin-left: 5px;' }
+                = f.label :delivery, 'By air', :value => '1', :class => 'font-16 font-weight-light pl-0', :style => 'margin-left: 50px;'
+          %td
+            %span 2 days
+          %td
+            %span.font-16.in-gold-500 €20.00
+        .general-text-align
+          %table.general-summary-table
+            %tr
+              %td
+                %p.font-16= t('.subtotal')
+              %td
+                %p.font-16= number_to_currency(@cart.total_price)
+            %tr
+              %td
+                %p.font-16= t('.coupon') 
+              %td
+                %p.font-16= number_to_currency(@cart.total_cupon)
+            %tr
+              %td
+                %strong.font-18= t('.order_total')
+              %td
+                %strong.font-18= number_to_currency(cart.total_price)
+        .text-center
+          = f.submit 'Save and Continue', {class: 'btn btn-default mb-200', style: 'margin-bottom: 70px;'}
+           

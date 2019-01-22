@@ -1,0 +1,61 @@
+.hidden-xs.hidden-sm
+  .row
+    .col-md-5
+      %h3.general-subtitle= t('.billing_address')
+    .col-md-5.col-md-offset-1
+      %h3.general-subtitle= t('.shipping_address')
+.row
+  .col-md-5.mb-40
+    .visible-xs.visible-sm
+      %h3.general-subtitle= t('.billing_address')
+    = form_for current_user, :url => settings_update_path, :method => :get do |f|
+      .form-group
+        = f.label :first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "first_name" }
+        = f.text_field :first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
+      .form-group
+        = f.label :last_name, t('.last_name'), { class: 'control-label font-weight-lights', for: "last_name" }
+        = f.text_field :last_name, { class: 'form-control', id: 'lastName', type: "text", placeholder: "Last Name" }
+      .form-group
+        = f.label :address, t('.address'), { class: 'control-label font-weight-lights', for: "address" }
+        = f.text_field :address, { class: 'form-control', id: 'address', type: "text", placeholder: "Address" }
+      .form-group
+        = f.label :city, t('.city'), { class: 'control-label font-weight-lights', for: "city" }
+        = f.text_field :city, { class: 'form-control', id: 'city', type: "text", placeholder: "City" }
+      .form-group
+        = f.label :zip, t('.zip'), { class: 'control-label font-weight-lights', for: "zip" }
+        = f.text_field :zip, { class: 'form-control', id: 'zip', type: "text", placeholder: "Zip" }
+      .form-group
+        = f.label :country, t('.country'), { class: 'control-label font-weight-lights', for: "country" }
+        = f.text_field :country, { class: 'form-control', id: 'country', type: "text", placeholder: "Country" }
+      .form-group
+        = f.label :phone, t('.phone'), { class: 'control-label font-weight-lights', for: "phone" }
+        = f.text_field :phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
+      .text-center
+        = f.submit 'Save', {class: 'btn center-block mb-20'}
+  .col-md-5.col-md-offset-1.mb-60
+    .visible-xs.visible-sm
+      %h3.general-subtitle Shipping Address
+    = form_for current_user, :url => settings_update_path, :method => :get do |f|
+      .form-group
+        = f.label :shipping_first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "shipping_first_name" }
+        = f.text_field :shipping_first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
+      .form-group
+        = f.label :shipping_last_name, t('.last_name'), { class: 'control-label font-weight-lights', for: "shipping_last_name" }
+        = f.text_field :shipping_last_name, { class: 'form-control', id: 'lastName', type: "text", placeholder: "Last Name" }
+      .form-group
+        = f.label :shipping_address, t('.address'), { class: 'control-label font-weight-lights', for: "shipping_address" }
+        = f.text_field :shipping_address, { class: 'form-control', id: 'address', type: "text", placeholder: "Address" }
+      .form-group
+        = f.label :shipping_city, t('.city'), { class: 'control-label font-weight-lights', for: "shipping_city" }
+        = f.text_field :shipping_city, { class: 'form-control', id: 'city', type: "text", placeholder: "City" }
+      .form-group
+        = f.label :shipping_zip, t('.zip'), { class: 'control-label font-weight-lights', for: "shipping_zip" }
+        = f.text_field :shipping_zip, { class: 'form-control', id: 'zip', type: "text", placeholder: "Zip" }
+      .form-group
+        = f.label :shipping_country, t('.country'), { class: 'control-label font-weight-lights', for: "shipping_country" }
+        = f.text_field :shipping_country, { class: 'form-control', id: 'country', type: "text", placeholder: "Country" }
+      .form-group
+        = f.label :shipping_phone, t('.phone'), { class: 'control-label font-weight-lights', for: "shipping_phone" }
+        = f.text_field :shipping_phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
+      .text-center
+        = f.submit 'Save', {class: 'btn center-block mb-20'}

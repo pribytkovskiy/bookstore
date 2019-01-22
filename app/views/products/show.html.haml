@@ -1,0 +1,83 @@
+%h1.general-title-margin= t('.catalog')
+.hidden-xs.clearfix
+  .pull-right
+    .dropdown
+      %a.dropdown-toggle.dropdown-btn.width-240{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+        = @name_sort
+        %i.fa.fa-angle-down.dropdown-icon
+      %ul.dropdown-menu
+        %li
+          = link_to 'Newest first', product_path(:sort => "created_at", :direction => "desc", :name_sort => "Newest first"), method: "get"
+        %li
+          = link_to 'Popular first', product_path(:sort => "views", :direction => "desc", :name_sort => "Popular first"), method: "get"
+        %li
+          = link_to 'Price: Low to high', product_path(:sort => "price", :direction => "asc", :name_sort => "Price: Low to high"), method: "get"
+        %li
+          = link_to 'Price: High to low', product_path(:sort => "price", :direction => "desc", :name_sort => "Price: high to low"), method: "get"
+        %li
+          = link_to 'Title A-Z', product_path(:sort => "title", :direction => "asc", :name_sort => "Title A-Z"), method: "get"
+        %li
+          = link_to 'Title Z-A', product_path(:sort => "title", :direction => "desc", :name_sort => "Title Z-A"), method: "get"
+  %ul.list-inline.pt-10.mb-25.mr-240
+    %li.mr-35
+      %a.filter-link{href: "#{category_path('all')}"}
+        = t('.all')
+        %span.badge.general-badge= Product.all.size
+    - @categories.each do |category|
+      %li.mr-35
+        %a.filter-link{href: "#{category_path(category.id)}"}
+          = category.category
+          %span.badge.general-badge= Product.where(category_id: category.id).size
+.mb-40.visible-xs
+  %p.in-grey-600.small.mb-10= t('.filter_by_category')
+  .dropdown.mb-20
+    %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+      = t('.newest_first')
+      %i.fa.fa-angle-down.dropdown-icon
+    %ul.dropdown-menu
+      %li
+        %a{href: "#"}= t('.newest_first')
+      %li
+        %a{href: "#"}= t('.popular_first')
+      %li
+        %a{href: "#"}= t('.low_to_hight')
+      %li
+        %a{href: "#"}= t('.low_to_hight')
+  %p.in-grey-600.small.mb-10= t('.sort_by')
+  .dropdown
+    %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+      = t('.newest_first')
+      %i.fa.fa-angle-down.dropdown-icon
+    %ul.dropdown-menu
+      %li
+        %a{href: "#"}= t('.newest_first')
+      %li
+        %a{href: "#"}= t('.popular_first')
+      %li
+        %a{href: "#"}= t('.low_to_hight')
+      %li
+        %a{href: "#"}= t('.low_to_hight')
+.mb-120
+  .row
+    - paginate @product
+    - @product.each_slice(4) do |row_product|
+      .row.mb-25
+        - row_product.each do |product|
+          .col-xs-6.col-sm-3
+            .general-thumb-wrap
+              .thumbnail.general-thumbnail
+                %img.img-shadow.general-thumbnail-img{src: product.image_url, alt: "design-book"}
+                .thumb-hover
+                  .general-thumb-link-wrap
+                    %a.thumb-hover-link{href: "#{book_path(id: product)}"}
+                      %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
+                    %a.thumb-hover-link{href: "#{line_items_path(product_id: product)}"}
+                      %i.fa.fa-shopping-cart.thumb-icon
+            .general-thumb-info
+              %p.general-title= product.title
+              %p.font-16.in-gold-500= number_to_currency(product.price)
+              %span.divider-sm
+              %p.in-grey-600.small= "#{product.author.first_name} #{product.author.last_name}"
+  .text-center
+    = link_to_prev_page @product, 'Prev Page', class: 'btn btn-primary'
+    = link_to_next_page @product, 'Next Page', class: 'btn btn-primary'

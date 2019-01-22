@@ -1,0 +1,96 @@
+- present @order do |order|
+  %h1.general-title-margin= t('.checkout')
+  %ul.steps.list-inline
+    %li.step.active
+      %span.step-number
+        %i.fa.fa-check.step-icon
+      %span.step-text.hidden-xs= t('.address')
+    %li.step-divider
+    %li.step.active
+      %span.step-number
+        %i.fa.fa-check.step-icon
+      %span.step-text.hidden-xs= t('.delivery')
+    %li.step-divider
+    %li.step.active
+      %span.step-number
+        %i.fa.fa-check.step-icon
+      %span.step-text.hidden-xs= t('.payment')
+    %li.step-divider
+    %li.step.active
+      %span.step-number
+        %i.fa.fa-check.step-icon
+      %span.step-text.hidden-xs= t('.confirm')
+    %li.step-divider
+    %li.step.active
+      %span.step-number 5
+      %span.step-text.hidden-xs= t('.complete')
+  .text-center.mb-40
+    %h3.general-subtitle= t('.thank')
+    %p.font-weight-light= "An order confirmation has been has been sent to #{order.present('email', current_user)}"
+  .row.mb-20
+    .col-sm-6
+      .visible-xs
+        %p.general-order-number.mb-0= order.number
+        %p.general-address.mb-30= order.time
+      %p.general-address
+        = order.present('name', current_user)
+        %br
+        = current_user.address
+        %br
+        = order.present('city', current_user)
+        %br
+        = current_user.country
+        %br
+        = order.present('phone', current_user)
+    .col-sm-6.hidden-xs.text-right
+      %p.general-order-number.mb-0= order.number
+      %p.general-address.mb-30= order.time
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600= t('.book')
+          %th.col-method
+          %th
+            %span.in-grey-600= t('.price')
+          %th
+            %span.in-grey-600= t('.quantity')
+          %th
+            %span.in-grey-600= t('.total') 
+      - @item.each do |item|
+        %tbody
+          %tr
+            %td
+              .general-img-wrap-table
+                %img.cart-img-shadow.pull-left.width-full{src: item.product.image_url}
+            %td
+              %p.general-title= item.product.title
+              %p.in-grey-600.font-weight-light= item.product.title
+            %td
+              %span.font-16.in-gold-500= "€#{item.product.price}"
+            %td
+              %span.ml-30= item.quantity
+            %td
+              %span.font-16.in-gold-500= number_to_currency(item.total_price)
+  .text-center.general-text-right
+    %p.in-gold-500.font-18= t('.order_summary')
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      %tr
+        %td
+          %p.font-16= t('.subtotal') 
+        %td
+          %p.font-16= number_to_currency(@order.subtotal)
+      %tr
+        %td
+          %p.font-16= t('.coupon') 
+        %td
+          %p.font-16= number_to_currency(@order.total_cupon)
+      %tr
+        %td
+          %strong.font-18= t('.order_total')
+        %td
+          %strong.font-18= number_to_currency(order.price)
+  .text-center
+    = button_to "Back to Store", home_index_path, method: :get, class: 'btn btn-default mb-20'
+ 

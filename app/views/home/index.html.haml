@@ -1,0 +1,50 @@
+#slider.carousel.slide{'data-ride': "carousel"}
+  %ol.carousel-indicators.general-carousel-indicators
+    %li.active{'data-target': "#slider", 'data-slide-to': "0"}
+    %li{'data-target': "#slider", 'data-slide-to': "1"}
+  .carousel-inner{role: "listbox"}
+    - @slide.each_index do |i|
+      .item{class: ("active" if i == 0)}
+        .row
+          .col-sm-5
+            .general-img-wrap 
+              %img.img-shadow.general-thumbnail-img.width-full{src: @slide[i].image, alt: "design-book"}
+          .col-sm-7
+            .mb-60
+              %h1= @slide[i].title
+              %p.lead= @slide[i].description
+              %p.in-grey-600.small= "#{@slide[i].author.first_name} #{@slide[i].author.last_name}"
+              .general-align.pt-20
+                = button_to 'Buy Now', home_index_path(product_id: @slide[i]), method: "post", class: "btn"
+  %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
+    %span.icon-prev{'aria-hidden': "true"}
+    %span.sr-only= t('.previous')
+  %a.right.carousel-control{href: "#slider", role: "button", 'data-slide': "next"}
+    %span.icon-next{'aria-hidden': "true"}
+    %span.sr-only= t('.next')
+.container
+.jumbotron.text-center.mb-0
+  %h2.h1= t('.welcome')
+  .mb-res-50
+    %p.in-grey-600= t('.we_pore')
+  = button_to 'Get Started', product_path, method: "get", class: "btn btn-default"
+.mb-35
+  %h3= t('.best_sellers')
+  .row
+    - @product.each do |product|
+      .col-sm-6.col-md-3
+        .general-thumb-wrap
+          .thumbnail.general-thumbnail
+            %img.img-shadow.general-thumbnail-img{src: product.image, alt: "design-book"}
+            .thumb-hover
+              .general-thumb-link-wrap
+                %a.thumb-hover-link{href: "#{book_path(id: product)}"}
+                  %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
+                %a.thumb-hover-link{href: "#{line_items_path(product_id: product)}"} 
+                  %i.fa.fa-shopping-cart.thumb-icon
+        .mb-35
+          .clearfix
+            %p.pull-right.font-16.in-gold-500= number_to_currency(product.price)
+            %p.general-title.mr-55= product.title
+          %span.divider-sm
+          %p.in-grey-600.small= "#{product.author.first_name} #{product.author.last_name}" 

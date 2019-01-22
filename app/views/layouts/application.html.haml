@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+%html
+  %head
+    %meta{charset: "UTF-8"}
+    %meta{name: "viewport", content: "width=device-width"}
+    %title= t('.title')
+    %link{href: "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600", rel: "stylesheet"}
+    %script{src: "https://use.fontawesome.com/67602d7308.js"}
+    %script{src: "../../javascripts/jquery.js"}
+    %script{src: "../../javascripts/bootstrap.js"}
+    %script{src: "../../javascripts/app.js"}
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag "my.css"
+  %body
+    %header.navbar.navbar-default
+      .container
+        .navbar-header
+          %button.navbar-toggle.pull-left.ml-15{type: "button", 'data-toggle': "collapse", 'data-target': "#navbar"}
+            %span.sr-only
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand= t('.title')
+          %a.shop-link.pull-right.visible-xs{href: "#{cart_path(@cart)}"}
+            %span.shop-icon
+              %span.shop-quantity= @cart.line_items.count
+        %a.shop-link.pull-right.hidden-xs{href: "#{cart_path(@cart)}"}
+          %span.shop-icon
+            %span.shop-quantity= @cart.line_items.count
+        #navbar.navbar-collapse.collapse.pl-30{'aria-expanded': "false"}
+          .visible-xs
+            %button.close{type: "button", 'aria-label': "Close"}
+              %span{'aria-hidden': "true"} &times;
+            %ul.nav.navbar-nav
+              %li
+                %a{href: "#{home_index_path}"}= t('.home')
+                %a{type: "button", 'data-toggle': "collapse", href: "#", 'aria-expanded': "false", 'aria-controls': "menu"}= t('.shop')
+                %ul.dropdown-menu
+                  - @labels.each do |label|
+                    %li
+                      %a.filter-link{href: "#{category_path(label.id)}"}= label.category
+              - if user_signed_in?
+                <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">My account</a>
+                <ul class="dropdown-menu">
+                <li><a class="filter-link" href="/en/view_orders">Orders</a></li>
+                <li><a class="filter-link" href="/settings/index?">Settings</a></li></li>
+                <li class="divider" role="separator"></li><li>
+                <a rel="nofollow" data-method="delete" href="/users/sign_out?">Log out</a></li>
+                </ul>
+              - else
+                <li><a href="/users/sign_in?" role="button">Sign in</a></li>
+                <li><a href="/users/sign_up?" role="button">Sign up</a></li>
+          .hidden-xs
+            %ul.nav.navbar-nav
+              %li
+                %a{href: "#{home_index_path}"}= t('.home')
+              %li.dropdown
+                %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('.shop')
+                %ul.dropdown-menu
+                  - @labels.each do |label|
+                    %li
+                      %a.filter-link{href: "#{category_path(label.id)}"}= label.category
+              - if user_signed_in?
+                <li class="dropdown">
+                <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">My account</a>
+                <ul class="dropdown-menu">
+                <li><a class="filter-link" href="/en/view_orders">Orders</a></li>
+                <li><a class="filter-link" href="/settings/index?">Settings</a></li></li>
+                <li class="divider" role="separator"></li>
+                <li><a class="collapse-link" rel="nofollow" data-method="delete" href="/users/sign_out?">Log out</a></li>
+                </ul>
+                </li>
+              - else
+                <li><a href="/users/sign_in?" role="button">Sign in</a></li>
+                <li><a href="/users/sign_up?" role="button">Sign up</a></li>
+    %main.container
+      = yield
+    %footer.footer.navbar.navbar-inverse.mb-0
+      .container
+        .row
+          .col-sm-9
+            %ul.list-inline.general-align.mb-25
+              %li
+                %a.nav-link{href: "#{home_index_path}"}= t('.home')
+              %li
+                %a.nav-link{href: "#{product_path}"}= t('.shop')
+              - if user_signed_in?
+                <li><a class="nav-link" href="/en/view_orders">Orders</a></li>
+                <li><a class="nav-link" href="/settings/index?">Settings</a></li></li>
+          .col-sm-3
+            %p.general-nav-mail= t('.email')
+            %p.general-nav-number= t('.telephone')
+            %ul.list-inline.general-align
+              %li
+                %a.nav-link{href: "#"}
+                  %i.fa.fa-facebook{'aria-hidden': "true"}
+              %li
+                %a.nav-link{href: "#"}
+                  %i.fa.fa-twitter{'aria-hidden': "true"}
+              %li
+                %a.nav-link{href: "#"}
+                  %i.fa.fa-google-plus{'aria-hidden': "true"}
+              %li
+                %a.nav-link{href: "#"}
+                  %i.fa.fa-instagram{'aria-hidden': "true"}
