@@ -21,6 +21,10 @@ author9 = Author.create!(first_name: 'John', last_name: 'Horton', description: '
 author10 = Author.create!(first_name: 'Helder', last_name: 'Vasconcelos', description: 'Helder Vasconcelos description')
 author11 = Author.create!(first_name: 'Raul', last_name: 'Portales', description: 'Raul Portales description')
 
+def add_covers(book)
+  4.times { book.covers.create!(image_url: 'https://s3.amazonaws.com/yuriy-book-store/uploads/cover/image/9/41AxHjVqzpL.jpg') }
+end
+
 book1 = Product.new(title: 'Real-Life Responsive Web Design10',
                      description: 'The Smashing Book 5: Real-Life Responsive Web Design is Smashing Magazine’s brand new book with smart front-end techniques and design patterns derived from real-life responsive projects. Part 1 features 7 chapters on responsive workflow, SVG, Flexbox, content strategy, and design patterns — just what you need to master all the tricky facets and hurdles of responsive design.',
                      price: 32.90,
@@ -30,7 +34,7 @@ book1 = Product.new(title: 'Real-Life Responsive Web Design10',
                      materials: 'Hardcove, glossy paper')
 book1.authors << author1
 book1.authors << author2
-book1.categories << web_development
+book1.category = web_development
 add_covers(book1)
 book1.save
 
@@ -42,7 +46,7 @@ book2 = Product.create!(title: 'JavaScript & jQuery: Interactive front-end web d
                      dimensions: '6.4 x 0.9 x 5.0',
                      materials: 'Paperback, glossy paper')
 book2.authors << author3
-book2.categories << web_development
+book2.category << web_development
 add_covers(book2)
 
 book3 = Product.create!(title: 'Programming Drupal 7 Entities',
@@ -176,7 +180,3 @@ add_covers(book13)
 
 Deliveries.create!(method: 'Express Delivery', days: '1', price: 20)
 Deliveries.create!(method: 'Regular Delivery', days: '3', price: 10)
-
-def add_covers(book)
-  4.times { book.covers.create!(image_url: 'https://s3.amazonaws.com/yuriy-book-store/uploads/cover/image/9/41AxHjVqzpL.jpg') }
-end
