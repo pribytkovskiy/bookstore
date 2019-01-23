@@ -8,12 +8,12 @@
         .row
           .col-sm-5
             .general-img-wrap 
-              %img.img-shadow.general-thumbnail-img.width-full{src: @slide[i].covers[0], alt: "design-book"}
+              %img.img-shadow.general-thumbnail-img.width-full{src: @slide[i].covers[0].image_url, alt: "design-book"}
           .col-sm-7
             .mb-60
               %h1= @slide[i].title
               %p.lead= @slide[i].description
-              %p.in-grey-600.small= @slide[i].authors.each { |author| "#{author.first_name} #{author.last_name}" }
+              %p.in-grey-600.small= @slide[i].authors.map { |author| "#{author.first_name} #{author.last_name}" }.join(', ')
               .general-align.pt-20
                 = button_to 'Buy Now', line_items_path(product_id: @slide[i], redirect_to: home_path), method: "post", class: "btn"
   %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}

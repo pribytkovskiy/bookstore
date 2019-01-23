@@ -1,4 +1,4 @@
-require_dependency 'app/queries/bestsellers.rb'
+require_dependency './app/queries/bestsellers.rb'
 class HomeController < ApplicationController
   def show
     @slide = Product.slide
