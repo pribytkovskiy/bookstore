@@ -8,14 +8,14 @@
         .row
           .col-sm-5
             .general-img-wrap 
-              %img.img-shadow.general-thumbnail-img.width-full{src: @slide[i].image, alt: "design-book"}
+              %img.img-shadow.general-thumbnail-img.width-full{src: @slide[i].covers[0], alt: "design-book"}
           .col-sm-7
             .mb-60
               %h1= @slide[i].title
               %p.lead= @slide[i].description
-              %p.in-grey-600.small= "#{@slide[i].author.first_name} #{@slide[i].author.last_name}"
+              %p.in-grey-600.small= @slide[i].authors.each { |author| "#{author.first_name} #{author.last_name}" }
               .general-align.pt-20
-                = button_to 'Buy Now', home_index_path(product_id: @slide[i]), method: "post", class: "btn"
+                = button_to 'Buy Now', line_items_path(product_id: @slide[i], redirect_to: home_path), method: "post", class: "btn"
   %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
     %span.icon-prev{'aria-hidden': "true"}
     %span.sr-only= t('.previous')

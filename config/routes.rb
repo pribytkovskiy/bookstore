@@ -25,6 +25,6 @@ Rails.application.routes.draw do
       resources :comments
     end
 
-    root 'home#index', as: 'store', via: :all
+    root 'home#show', as: 'store', via: :all
   end
 end

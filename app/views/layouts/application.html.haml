@@ -6,13 +6,9 @@
     %title= t('.title')
     %link{href: "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600", rel: "stylesheet"}
     %script{src: "https://use.fontawesome.com/67602d7308.js"}
-    %script{src: "../../javascripts/jquery.js"}
-    %script{src: "../../javascripts/bootstrap.js"}
-    %script{src: "../../javascripts/app.js"}
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    = stylesheet_link_tag "my.css"
   %body
     %header.navbar.navbar-default
       .container
@@ -35,7 +31,7 @@
               %span{'aria-hidden': "true"} &times;
             %ul.nav.navbar-nav
               %li
-                %a{href: "#{home_index_path}"}= t('.home')
+                %a{href: "#{home_path}"}= t('.home')
                 %a{type: "button", 'data-toggle': "collapse", href: "#", 'aria-expanded': "false", 'aria-controls': "menu"}= t('.shop')
                 %ul.dropdown-menu
                   - @labels.each do |label|
@@ -55,7 +51,7 @@
           .hidden-xs
             %ul.nav.navbar-nav
               %li
-                %a{href: "#{home_index_path}"}= t('.home')
+                %a{href: "#{home_path}"}= t('.home')
               %li.dropdown
                 %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('.shop')
                 %ul.dropdown-menu
@@ -83,7 +79,7 @@
           .col-sm-9
             %ul.list-inline.general-align.mb-25
               %li
-                %a.nav-link{href: "#{home_index_path}"}= t('.home')
+                %a.nav-link{href: "#{home_path}"}= t('.home')
               %li
                 %a.nav-link{href: "#{product_path}"}= t('.shop')
               - if user_signed_in?
