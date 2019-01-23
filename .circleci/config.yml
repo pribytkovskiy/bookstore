@@ -57,16 +57,13 @@ jobs:
           name: Parallel RSpec
           command: bin/rails test
 
-      # Save artifacts
-      - store_test_results:
-          path: /tmp/test-results
-
       # Undercover
       - run:
         name: Check coverage
         command: |
           gem install undercover
           undercover --compare origin/develop
+          
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
