@@ -88,5 +88,4 @@ yarn-debug.log*
 ./vscode
 /vscode
 .vscode
-*.env
-/config/.env
+/config/app_environment_variables.rb
