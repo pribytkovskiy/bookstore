@@ -19,7 +19,6 @@ config/master.key
 # Only include if you have production secrets in this file, which is no longer a Rails default
 .secret
 /config/secrets.yml
-/config/database.yml
 
 # dotenv
 # TODO Comment out this rule if environment variables can be committed
@@ -89,4 +88,5 @@ yarn-debug.log*
 ./vscode
 /vscode
 .vscode
-
+*.env
+/config/.env
