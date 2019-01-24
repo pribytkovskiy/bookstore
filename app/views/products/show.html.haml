@@ -59,14 +59,13 @@
         %a{href: "#"}= t('.low_to_hight')
 .mb-120
   .row
-    - paginate @product
-    - @product.each_slice(4) do |row_product|
+    - @products.each_slice(4) do |row_product|
       .row.mb-25
         - row_product.each do |product|
           .col-xs-6.col-sm-3
             .general-thumb-wrap
               .thumbnail.general-thumbnail
-                %img.img-shadow.general-thumbnail-img{src: product.image_url, alt: "design-book"}
+                %img.img-shadow.general-thumbnail-img{src: product.covers[0].image_url, alt: "design-book"}
                 .thumb-hover
                   .general-thumb-link-wrap
                     %a.thumb-hover-link{href: "#{book_path(id: product)}"}
@@ -77,7 +76,6 @@
               %p.general-title= product.title
               %p.font-16.in-gold-500= number_to_currency(product.price)
               %span.divider-sm
-              %p.in-grey-600.small= "#{product.author.first_name} #{product.author.last_name}"
+              %p.in-grey-600.small= product.authors.map { |author| "#{author.first_name} #{author.last_name}" }.join(', ')
   .text-center
-    = link_to_prev_page @product, 'Prev Page', class: 'btn btn-primary'
-    = link_to_next_page @product, 'Next Page', class: 'btn btn-primary'
+    = render :partial => './pagy/bootstrap_nav', :locals => { :@pagy => @pagy }
