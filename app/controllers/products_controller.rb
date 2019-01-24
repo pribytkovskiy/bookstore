@@ -1,9 +1,12 @@
 class ProductsController < ApplicationController
   include Pagy::Backend
-  include Pagy::Frontend
+
+  NAME_DEFAULT_PARAM_SORT = 'Newest first'
 
   def show
     @categories = Category.all
-    @pagy, @products = pagy(Product.all)
+    @name_sort = NAME_DEFAULT_PARAM_SORT || params[:name_sort]
+    session[:category] = params[:category_id] || @categories.ids
+    @pagy, @products = pagy(Product.sort_product(params, session))
   end
 end
