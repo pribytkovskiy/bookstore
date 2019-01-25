@@ -3,8 +3,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   scope '(:locale)' do
-    get '/product/category/:id', to: 'products#category', as: 'category'
-
     resources :settings, only: %i[index create update destroy]
     resource :settings, only: [:edit] do
       collection do
@@ -12,6 +10,7 @@ Rails.application.routes.draw do
       end
     end
     resource :home, only: :show
+    resource :catalog, only: :show
     resources :books, only: %i[show update]
     resources :orders, only: %i[index create]
     resources :line_items, only: %i[index new create update destroy]

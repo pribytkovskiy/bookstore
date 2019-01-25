@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ProductsController do
+RSpec.describe CatalogsController do
   TEST_PARAMETER = 'test_parameter'.freeze
 
   describe 'GET #show' do
@@ -9,8 +9,8 @@ RSpec.describe ProductsController do
       get :show
     end
 
-    it 'renders products/show template' do
-      expect(response).to render_template 'products/show'
+    it 'renders catalogs/show template' do
+      expect(response).to render_template 'catalogs/show'
     end
 
     it 'responds successfully with an HTTP 200 status code' do

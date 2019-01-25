@@ -1,12 +1,9 @@
 class ProductsController < ApplicationController
-  include Pagy::Backend
-
-  NAME_DEFAULT_PARAM_SORT = 'Newest first'
+  include ProductHelper
 
   def show
-    @categories = Category.all
-    @name_sort = params[:name_sort] ? params[:name_sort] : NAME_DEFAULT_PARAM_SORT
-    session[:category] = params[:category_id] ? params[:category_id] : session[:category] || @categories.ids
-    @pagy, @products = pagy(Product.sort_product(params, session))
+    @product = Product.find_by_id(params[:id])
+    @reviews = Comment.where(product_id: @product.id, state: 'true')
+    set_views(@product)
   end
 end

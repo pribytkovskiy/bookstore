@@ -32,11 +32,11 @@
             %ul.nav.navbar-nav
               %li
                 %a{href: "#{home_path}"}= t('.home')
-                %a{href: "#{product_path}"}= t('.shop')
+                %a{href: "#{catalog_path(:category_id => @labels.ids)}"}= t('.shop')
                 %ul.dropdown-menu
                   - @labels.each do |label|
                     %li
-                      %a.filter-link{href: "#{category_path(label.id)}"}= label.category
+                      %a.filter-link{href: "#{catalog_path(:category_id => label.id)}"}= label.category
               - if user_signed_in?
                 <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">My account</a>
                 <ul class="dropdown-menu">
@@ -53,11 +53,11 @@
               %li
                 %a{href: "#{home_path}"}= t('.home')
               %li.dropdown
-                %a.dropdown-toggle{href: "#{product_path}"}= t('.shop')
+                %a.dropdown-toggle{href: "#{catalog_path(:category_id => @labels.ids)}"}= t('.shop')
                 %ul.dropdown-menu
                   - @labels.each do |label|
                     %li
-                      %a.filter-link{href: "#{category_path(label.id)}"}= label.category
+                      %a.filter-link{href: "#{catalog_path(:category_id => label.id)}"}= label.category
               - if user_signed_in?
                 <li class="dropdown">
                 <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">My account</a>
@@ -81,7 +81,7 @@
               %li
                 %a.nav-link{href: "#{home_path}"}= t('.home')
               %li
-                %a.nav-link{href: "#{product_path}"}= t('.shop')
+                %a.nav-link{href: "#{catalog_path(:category_id => @labels.ids)}"}= t('.shop')
               - if user_signed_in?
                 <li><a class="nav-link" href="/en/view_orders">Orders</a></li>
                 <li><a class="nav-link" href="/settings/index?">Settings</a></li></li>
