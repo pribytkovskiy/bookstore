@@ -5,8 +5,8 @@ class ProductsController < ApplicationController
 
   def show
     @categories = Category.all
-    @name_sort = NAME_DEFAULT_PARAM_SORT || params[:name_sort]
-    session[:category] = params[:category_id] || @categories.ids
+    @name_sort = params[:name_sort] ? params[:name_sort] : NAME_DEFAULT_PARAM_SORT
+    session[:category] = params[:category_id] ? params[:category_id] : session[:category] || @categories.ids
     @pagy, @products = pagy(Product.sort_product(params, session))
   end
 end

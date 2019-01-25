@@ -2,6 +2,6 @@ require_dependency './app/queries/bestsellers.rb'
 class HomesController < ApplicationController
   def show
     @slide = Product.slide
-    @product = Bestsellers.call
+    @bestsellers = Bestsellers.call
   end
 end

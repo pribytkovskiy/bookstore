@@ -20,7 +20,7 @@
           = link_to 'Title Z-A', product_path(:sort => "title", :direction => "desc", :name_sort => "Title Z-A"), method: "get"
   %ul.list-inline.pt-10.mb-25.mr-240
     %li.mr-35
-      %a.filter-link{href: "#{product_path()}"}
+      %a.filter-link{href: "#{product_path(:category_id => @categories.ids)}"}
         = t('.all')
         %span.badge.general-badge= Product.all.size
     - @categories.each do |category|
