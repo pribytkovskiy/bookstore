@@ -1,19 +1,19 @@
 class ProductPresenter < BasePresenter
   presents :product
 
-  def title 
+  def title
     product.title
   end
 
-  def price 
-    "€#{product.price}0"
+  def price
+    "€#{product.price}"
   end
 
-  def materials 
+  def materials
     product.materials
   end
   
-  def description 
+  def description
     product.description
   end
 
@@ -25,11 +25,11 @@ class ProductPresenter < BasePresenter
     product.dimensions
   end
 
-  def author_name 
+  def author_name
     product.authors.map { |author| "#{author.first_name} #{author.last_name}" }.join(', ')
   end 
 
-  def image 
+  def image
     product.covers[0].image_url
   end
 
@@ -44,4 +44,4 @@ class ProductPresenter < BasePresenter
   def review_date(review)
     review.updated_at.strftime("%B %d, %Y")
   end
-end   
+end

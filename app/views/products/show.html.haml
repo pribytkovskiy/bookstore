@@ -32,12 +32,6 @@
           .hidden
             = button_to "Add to Cart", {type: "submit", class: 'btn btn-default pull-right general-position hidden', onclick: "document.getElementById('1').click()"}
       .card
-        .clearfix
-          %p.general-item-info.pull-right= product.materials
-          %p.break-word= t('.materials')
-        %p.in-grey-600.small.line-height-2
-          = product.materials
-      .card
         %p= t('.description')
         %p.in-grey-600.small.line-height-2
           = product.description
