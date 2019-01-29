@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resource :catalog, only: :show
     resources :books, only: :show
     resources :orders, only: %i[show create]
-    resources :line_items, only: %i[index new create update destroy]
+    resources :line_items, only: %i[create update destroy]
     resources :carts, only: %i[show edit update]
     resources :payment, only: %i[index create]
     resources :confirm, only: [:index]

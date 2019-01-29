@@ -19,7 +19,12 @@ class Cart < ApplicationRecord
 
       current_item.destroy
     end
-    current_item
+    current_item.save
+  end
+
+  def destroy_product(product_id)
+    current_item = line_items.find_by(product_id: product_id)
+    current_item.destroy
   end
 
   def total_price

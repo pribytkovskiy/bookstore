@@ -23,9 +23,9 @@
           %span.font-16.in-gold-500= "€#{item.product.price}"
         %td
           .input-group
-            = link_to '', line_item_path(product_id: item.product.id), method: :patch, class: "input-link fa fa-minus line-height-40"
+            = link_to '', line_item_path(item, product_id: item.product.id, type: LineItemsController::TYPE_UPDATE[:minus], redirect_to: cart_path(@cart)), method: :patch, class: "input-link fa fa-minus line-height-40"
             %input.form-control.quantity-input{:type => "text", :value => item.quantity}
-            = link_to '', line_items_path(product_id: item.product.id), remote: true, method: :post, class: "input-link fa fa-plus line-height-40"
+            = link_to '', line_item_path(item, product_id: item.product.id, type: LineItemsController::TYPE_UPDATE[:plus], redirect_to: cart_path(@cart)), method: :patch, class: "input-link fa fa-plus line-height-40"
         %td
           %span.font-16.in-gold-500= number_to_currency(item.total_price)
         %td
@@ -57,4 +57,4 @@
             %td
               %strong.font-18= number_to_currency(@cart.total_price - (@coupon&.price || 0))
         %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
-= button_to "Checkout", orders_path(coupon_id: @coupon&.id, state: :address), method: :post, class: 'btn btn-default mb-20 hidden-xs center-block' 
+= button_to "Checkout", orders_path(coupon_id: @coupon&.id, state: :address), method: :post, class: 'btn btn-default mb-20 hidden-xs center-block'

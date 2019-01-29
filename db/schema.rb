@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 2019_01_25_160101) do
     t.string "shipping_phone"
     t.string "state"
     t.decimal "subtotal"
-    t.integer "cupon_id"
+    t.integer "coupon_id"
     t.integer "delivery_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false

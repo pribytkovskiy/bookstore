@@ -53,8 +53,10 @@
               %li
                 %a{href: "#{home_path}"}= t('.home')
               %li.dropdown
-                %a.dropdown-toggle{href: "#{catalog_path(:category_id => @labels.ids)}"}= t('.shop')
+                <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">Shop</a>
                 %ul.dropdown-menu
+                  %li
+                    %a{href: "#{catalog_path(:category_id => @labels.ids)}"}= 'All'
                   - @labels.each do |label|
                     %li
                       %a.filter-link{href: "#{catalog_path(:category_id => label.id)}"}= label.category

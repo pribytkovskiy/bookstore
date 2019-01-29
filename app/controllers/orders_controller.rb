@@ -10,14 +10,14 @@ class OrdersController < InheritedResources::Base
   end
 
   def create
-    case params[:state]
-    when ORDER_STATE[:address] then Checkout::CreateOrder.call(state: ORDER_STATE[:address], coupon_id: params[:coupon_id])
+    case params[:state].to_sym
+    when ORDER_STATE[:address] then @order = Checkout::CreateOrder.call(ORDER_STATE[:address], current_user.id, params[:coupon_id])
     when ORDER_STATE[:delivery] then Checkout::AddressOrder.call(address_params)
     when ORDER_STATE[:payment] then Checkout::DeliveryOrder.call(delivery_params)
     when ORDER_STATE[:confirmation] then Checkout::PaymentOrder.call(payment_params)
     when ORDER_STATE[:home] then Checkout::ConfirmationOrder.call(confirmation_params)
     end
-    redirect_to order_path(params[:state])
+    render params[:state].to_sym
   end
 
   private

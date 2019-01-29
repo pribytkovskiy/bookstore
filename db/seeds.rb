@@ -193,4 +193,5 @@ add_covers(book13)
 Delivery.create!(method: 'Express Delivery', days: '1', price: 20)
 Delivery.create!(method: 'Regular Delivery', days: '3', price: 10)
 
+Coupon.create!(number: 0000, price: 0)
 Coupon.create!(number: 1111, price: 10)
