@@ -10,10 +10,17 @@ module Checkout
     end
 
     def call
-      PARAMS.each do |param|
-        eval("@order.#{param} = @current_user.#{param}")
-      end
+      copy_order_params
+      order.state = OrdersController::ORDER_STATE[:delivery]
       order.save
+    end
+
+    private
+
+    def copy_order_params
+      PARAMS.each do |param|
+        eval("order.#{param} = current_user.#{param}")
+      end
     end
   end
 end

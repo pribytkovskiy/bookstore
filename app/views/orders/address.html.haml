@@ -26,7 +26,7 @@
         %p.general-info-text= t('.all_fields_are_required')
       .col-md-5.col-md-offset-1
         %h3.general-subtitle= t('.shipping_address')
-    = form_for current_user, :url => user_path, :method => :patch, :html => {:id => "form1"} do |f|
+    = form_for current_user, :url => orders_path(state: :delivery), :method => :post, :html => {:id => "form1"} do |f|
       .billing_address{class: 'col-md-5 mb-40', id: 'form1', style: "padding-left: 0px; padding-bottom: 10px;"}
         .form-group{class: "#{"has-error" if adress_has_error?(:first_name)}"}
           = f.label :first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "first_name" }

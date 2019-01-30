@@ -9,7 +9,6 @@ Rails.application.routes.draw do
         patch 'update_password'
       end
     end
-    resource :user, only: :update
     resource :home, only: :show
     resource :catalog, only: :show
     resources :books, only: :show
