@@ -2,16 +2,16 @@ module OrdersHelper
   PARAMS = %w(first_name last_name address city zip country phone).freeze
 
   def adress_has_error?(field)
-    @order.errors.include?(field)
+    current_order.errors.include?(field)
   end
 
   def adress_error_message(field)
-    @order.errors.messages[field][0]
+    current_order.errors.messages[field][0]
   end
 
   def copy_params
     PARAMS.each do |param|
-      eval("@order.shipping_#{param} = @order.#{param}")
+      eval("current_order.shipping_#{param} = current_order.#{param}")
     end
   end
 end

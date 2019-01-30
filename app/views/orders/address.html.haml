@@ -26,70 +26,70 @@
         %p.general-info-text= t('.all_fields_are_required')
       .col-md-5.col-md-offset-1
         %h3.general-subtitle= t('.shipping_address')
-    = form_for @order, :url => orders_path, :method => :post, :html => {:id => "form1"} do |f|
+    = form_for current_user, :url => user_path, :method => :patch, :html => {:id => "form1"} do |f|
       .billing_address{class: 'col-md-5 mb-40', id: 'form1', style: "padding-left: 0px; padding-bottom: 10px;"}
         .form-group{class: "#{"has-error" if adress_has_error?(:first_name)}"}
           = f.label :first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "first_name" }
           = f.text_field :first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
-          %span.help-block= adress_error_message(:first_name) if @order.errors.any?
+          %span.help-block= adress_error_message(:first_name) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:last_name)}"}
           = f.label :last_name, t('.last_name'), { class: 'control-label font-weight-lights', for: "last_name" }
           = f.text_field :last_name, { class: 'form-control', id: 'lastName', type: "text", placeholder: "Last Name" }
-          %span.help-block= adress_error_message(:last_name) if @order.errors.any?
+          %span.help-block= adress_error_message(:last_name) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:address)}"}
           = f.label :address, t('.address'), { class: 'control-label font-weight-lights', for: "address" }
           = f.text_field :address, { class: 'form-control', id: 'address', type: "text", placeholder: "Address" }
-          %span.help-block= adress_error_message(:address) if @order.errors.any?
+          %span.help-block= adress_error_message(:address) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:city)}"}
           = f.label :city, t('.city'), { class: 'control-label font-weight-lights', for: "city" }
           = f.text_field :city, { class: 'form-control', id: 'city', type: "text", placeholder: "City" }
-          %span.help-block= adress_error_message(:city) if @order.errors.any?
+          %span.help-block= adress_error_message(:city) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:zip)}"}
           = f.label :zip, t('.zip'), { class: 'control-label font-weight-lights', for: "zip" }
           = f.text_field :zip, { class: 'form-control', id: 'zip', type: "text", placeholder: "Zip" }
-          %span.help-block= adress_error_message(:zip) if @order.errors.any?
+          %span.help-block= adress_error_message(:zip) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:country)}"}
           = f.label :country, t('.country'), { class: 'control-label font-weight-lights', for: "country" }
           = f.text_field :country, { class: 'form-control', id: 'country', type: "text", placeholder: "Country" }
-          %span.help-block= adress_error_message(:country) if @order.errors.any?
+          %span.help-block= adress_error_message(:country) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:phone)}"}
           = f.label :phone, t('.phone'), { class: 'control-label font-weight-lights', for: "phone" }
           = f.text_field :phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
-          %span.help-block= adress_error_message(:phone) if @order.errors.any?
+          %span.help-block= adress_error_message(:phone) if current_user.errors.any?
           = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20 hidden', id: '1'}
-      .shipping_address{class: 'col-md-5 col-md-offset-1', id: 'form2'}
+      .shipping_address{class: 'col-md-5 col-md-offset-1', id: 'form2', style: "#{"display: none;" if current_user.check == true}" }
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_first_name)}"}
           = f.label :shipping_first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "shipping_first_name" }
           = f.text_field :shipping_first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
-          %span.help-block= adress_error_message(:shipping_first_name) if @order.errors.any?
+          %span.help-block= adress_error_message(:shipping_first_name) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_last_name)}"}
           = f.label :shipping_last_name, t('.last_name'), { class: 'control-label font-weight-lights', for: "shipping_last_name" }
           = f.text_field :shipping_last_name, { class: 'form-control', id: 'lastName', type: "text", placeholder: "Last Name" }
-          %span.help-block= adress_error_message(:shipping_last_name) if @order.errors.any?
+          %span.help-block= adress_error_message(:shipping_last_name) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_address)}"}
           = f.label :shipping_address, t('.address'), { class: 'control-label font-weight-lights', for: "shipping_address" }
           = f.text_field :shipping_address, { class: 'form-control', id: 'address', type: "text", placeholder: "Address" }
-          %span.help-block= adress_error_message(:shipping_address) if @order.errors.any?
+          %span.help-block= adress_error_message(:shipping_address) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_city)}"}
           = f.label :shipping_city, t('.city'), { class: 'control-label font-weight-lights', for: "shipping_city" }
           = f.text_field :shipping_city, { class: 'form-control', id: 'city', type: "text", placeholder: "City" }
-          %span.help-block= adress_error_message(:shipping_city) if @order.errors.any?
+          %span.help-block= adress_error_message(:shipping_city) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_zip)}"}
           = f.label :shipping_zip, t('.zip'), { class: 'control-label font-weight-lights', for: "shipping_zip" }
           = f.text_field :shipping_zip, { class: 'form-control', id: 'zip', type: "text", placeholder: "Zip" }
-          %span.help-block= adress_error_message(:shipping_zip) if @order.errors.any?
+          %span.help-block= adress_error_message(:shipping_zip) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_country)}"}
           = f.label :shipping_country, t('.country'), { class: 'control-label font-weight-lights', for: "shipping_country" }
           = f.text_field :shipping_country, { class: 'form-control', id: 'country', type: "text", placeholder: "Country" }
-          %span.help-block= adress_error_message(:shipping_country) if @order.errors.any?
+          %span.help-block= adress_error_message(:shipping_country) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_phone)}"}
           = f.label :shipping_phone, t('.phone'), { class: 'control-label font-weight-lights', for: "shipping_phone" }
           = f.text_field :shipping_phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
-          %span.help-block= adress_error_message(:shipping_phone) if @order.errors.any?
+          %span.help-block= adress_error_message(:shipping_phone) if current_user.errors.any?
           = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20 hidden', id: '1'}
       .form-group.checkbox{class: 'col-md-5 col-md-offset-6'}
         %label.font-weight-light.pl-0
-          = check_box({class: 'checkbox-input', type: "checkbox", hidden: "true", name: 'check', onchange: "document.getElementById('form2').style.display = this.checked ? 'none' : 'block'"}, true)
+          = f.check_box(:check, {class: 'checkbox-input', type: "checkbox", hidden: "true", name: 'check', onchange: "document.getElementById('form2').style.display = this.checked ? 'none' : 'block'"}, true)
           %span.checkbox-icon
             %i.fa.fa-check
           %span.checkbox-textt= t('.use_billing_adress')
@@ -102,10 +102,11 @@
                 %td
                   %p.font-16= t('.item_total')
                 %td
-                  %p.font-16= number_to_currency(@order.total_price)
+                  %p.font-16= number_to_currency(current_order.total_price)
               %tr
                 %td
                   %p.font-16= t('.order_total')
                 %td
-                  %p.font-16= number_to_currency(@order.total_price)
+                  %p.font-16= number_to_currency(current_order.total_price - current_order.coupon.price.to_i)
             = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20', id: '3'}
+  

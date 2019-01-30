@@ -1,7 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+
+  helper_method :current_order
+
   before_action :set_i18n_locale_from_params
   before_action :set_cart, :set_labels
+
+  def current_order
+    Order.find(session[:order_id]) if session[:order_id]
+  end
 
   protected
 

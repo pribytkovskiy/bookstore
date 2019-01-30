@@ -29,6 +29,8 @@ en:
       checkout: 'Checkout'
 
   orders:
+    address:
+      save_and_continue: 'Save and Continue'
     form:
       checkout: 'Checkout'
       address: 'Address'

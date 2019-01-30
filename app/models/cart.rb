@@ -30,4 +30,11 @@ class Cart < ApplicationRecord
   def total_price
     line_items.map { |line_item| line_item.total_price }.sum
   end
+
+  def set_order_id_to_line_items(order_id)
+    line_items.map do |line_item|
+      line_item.order_id = order_id
+      line_item.save
+    end
+  end
 end
