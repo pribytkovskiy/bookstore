@@ -1,6 +1,4 @@
 module OrdersHelper
-  PARAMS = %w(first_name last_name address city zip country phone).freeze
-
   def adress_has_error?(field)
     current_order.errors.include?(field)
   end

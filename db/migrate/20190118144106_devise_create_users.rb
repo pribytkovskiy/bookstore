@@ -19,24 +19,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.inet     :current_sign_in_ip
       t.inet     :last_sign_in_ip
 
-      t.string :first_name
-      t.string :last_name
-      t.string :address
-      t.string :city
-      t.string :zip
-      t.string :country
-      t.string :phone
-      t.string :shipping_first_name
-      t.string :shipping_last_name
-      t.string :shipping_address
-      t.string :shipping_city
-      t.string :shipping_zip
-      t.string :shipping_country
-      t.string :shipping_phone
-
-      t.boolean :check
-      t.string :pictures
-      t.string :role
+      t.string   :pictures
+      t.string   :role
 
       ## Confirmable
       # t.string   :confirmation_token
@@ -48,6 +32,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
+
+      ## Soft delete
+      t.datetime  :deleted_at
 
       t.timestamps null: false
     end

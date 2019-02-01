@@ -60,7 +60,7 @@
       .shipping_address{class: 'col-md-5 col-md-offset-1', id: 'form2', style: "#{"display: none;" if current_user.check == true}" }
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_first_name)}"}
           = f.label :shipping_first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "shipping_first_name" }
-          = f.text_field :shipping_first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
+          = f.text_field :shipping_first_name, { class: 'form-control', type: "text", placeholder: "First Name", onkeyup: "copyValueTo(this, 'firstName')" }
           %span.help-block= adress_error_message(:shipping_first_name) if current_user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_last_name)}"}
           = f.label :shipping_last_name, t('.last_name'), { class: 'control-label font-weight-lights', for: "shipping_last_name" }
@@ -86,7 +86,7 @@
           = f.label :shipping_phone, t('.phone'), { class: 'control-label font-weight-lights', for: "shipping_phone" }
           = f.text_field :shipping_phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
           %span.help-block= adress_error_message(:shipping_phone) if current_user.errors.any?
-          = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20 hidden', id: '1'}
+          = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20 hidden', id: '2'}
       .form-group.checkbox{class: 'col-md-5 col-md-offset-6'}
         %label.font-weight-light.pl-0
           = f.check_box(:check, {class: 'checkbox-input', type: "checkbox", hidden: "true", name: 'check', onchange: "document.getElementById('form2').style.display = this.checked ? 'none' : 'block'"}, true)
@@ -109,4 +109,3 @@
                 %td
                   %p.font-16= number_to_currency(current_order.total_price - current_order.coupon.price.to_i)
             = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20', id: '3'}
-  

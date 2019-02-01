@@ -3,6 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :omniauthable
 
   has_many :orders
+  has_many :addresses
 
   devise :omniauthable, omniauth_providers: [:facebook]
 

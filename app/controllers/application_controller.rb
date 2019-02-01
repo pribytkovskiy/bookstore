@@ -1,14 +1,9 @@
 class ApplicationController < ActionController::Base
+  extend ActiveSupport::Concern
   protect_from_forgery with: :exception
 
-  helper_method :current_order
-
   before_action :set_i18n_locale_from_params
-  before_action :set_cart, :set_labels
-
-  def current_order
-    Order.find(session[:order_id]) if session[:order_id]
-  end
+  before_action :set_order, :set_labels
 
   protected
 
@@ -27,11 +22,11 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_cart
-    @cart = Cart.find(session[:cart_id])
+  def set_order
+    @order = Order.find(session[:order_id])
   rescue ActiveRecord::RecordNotFound
-    @cart = Cart.create
-    session[:cart_id] = @cart.id
+    @order = Order.create
+    session[:order_id] = @order.id
   end
 
   def set_labels

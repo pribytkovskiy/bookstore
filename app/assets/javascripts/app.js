@@ -14,3 +14,13 @@ $(document).on('turbolinks:load', function() {
         return false;
     });
 });
+
+function copyValueTo(fromElem, toElemId) {
+    var elem = document.getElementById(toElemId);
+    elem.value = fromElem.value;
+    alert(fromElem.value);
+};
+
+function showMessage() {
+    alert( 'Привет всем присутствующим!' );
+  }
