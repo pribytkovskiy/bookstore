@@ -9,21 +9,19 @@ Rails.application.routes.draw do
         patch 'update_password'
       end
     end
-    resource :home, only: :show
-    resource :catalog, only: :show
-    resources :books, only: :show
+    resource :pages, only: %i[show]
     resources :orders, only: %i[show create]
     resources :line_items, only: %i[create update destroy]
     resources :carts, only: %i[show edit update]
     resources :payment, only: %i[index create]
-    resources :confirm, only: [:index]
-    resources :complete, only: [:index]
+    resources :confirm, only: %i[index]
+    resources :complete, only: %i[index]
     resources :delivery, only: %i[index create]
-    resources :view_orders, only: [:index]
+    resources :view_orders, only: %i[index]
     resource :product do
       resources :comments
     end
 
-    root 'homes#show', as: 'store', via: :all
+    root 'pages#show', as: 'store', via: :all
   end
 end
