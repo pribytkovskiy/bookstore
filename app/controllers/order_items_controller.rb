@@ -1,19 +1,18 @@
 class OrderItemsController < ApplicationController
-  TYPE_UPDATE = { plus: :plus, minus: :minus }
+  COMMANDS = { add: 'add', delete: 'delete', destroy: 'destroy' }
 
   def create
-    @order.add_product(params[:product_id])
+    SetOrderItem.call(product_id: params[:product_id], command: COMMANDS[:add], quantity: params[:quantity], order: @order)
     redirect_to params[:redirect_to]
   end
 
   def update
-    @order.add_product(params[:product_id]) if params[:type] == TYPE_UPDATE[:plus]
-    @order.del_product(params[:product_id]) if params[:type] == TYPE_UPDATE[:minus]
+    SetOrderItem.call(product_id: params[:product_id], command: params[:type], quantity: params[:quantity], order: @order)
     redirect_to params[:redirect_to]
   end
 
   def destroy
-    @order.destroy_product(params[:product_id])
+    SetOrderItem.call(product_id: params[:product_id], command: COMMANDS[:destroy], order: @order)
     redirect_to cart_path
   end
 end

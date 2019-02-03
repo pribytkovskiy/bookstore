@@ -15,7 +15,7 @@
               %p.lead= @latest_products[i].description
               %p.in-grey-600.small= @latest_products[i].authors.map { |author| "#{author.first_name} #{author.last_name}" }.join(', ')
               .general-align.pt-20
-                = button_to 'Buy Now', order_items_path(product_id: @latest_products[i], redirect_to: home_path), method: "post", class: "btn"
+                = button_to 'Buy Now', order_items_path(product_id: @latest_products[i], redirect_to: home_path, quantity: '1'), method: "post", class: "btn"
   %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
     %span.icon-prev{'aria-hidden': "true"}
     %span.sr-only= t('.previous')
@@ -38,9 +38,9 @@
             %img.img-shadow.general-thumbnail-img{src: product.covers.first.image_url, alt: "design-book"}
             .thumb-hover
               .general-thumb-link-wrap
-                %a.thumb-hover-link{href: "#{book_path(id: product)}"}
+                %a.thumb-hover-link{href: "#{product_path(id: product)}"}
                   %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                %a.thumb-hover-link{href: "#{order_items_path(product_id: product)}"} 
+                %a.thumb-hover-link{href: "#{order_items_path(product_id: product, quantity: '1')}"} 
                   %i.fa.fa-shopping-cart.thumb-icon
         .mb-35
           .clearfix
