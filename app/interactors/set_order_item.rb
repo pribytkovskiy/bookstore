@@ -12,7 +12,7 @@ class SetOrderItem
   private
 
   def add_product
-    set_current_item
+    @current_item = OrderItem.find_by(product_id: context.product_id)
     return @current_item.increment!(:quantity) if @current_item
 
     @current_item = OrderItem.create(product_id: context.product_id, order: context.order)
@@ -33,6 +33,6 @@ class SetOrderItem
   end
 
   def set_current_item
-    @current_item = OrderItem.find_by(product_id: context.product_id)
+    @current_item = OrderItem.find(context.item)
   end
 end

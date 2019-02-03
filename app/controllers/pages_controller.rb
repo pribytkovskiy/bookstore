@@ -17,6 +17,5 @@ class PagesController < ApplicationController
   end
 
   def cart
-    
   end
 end

@@ -23,9 +23,9 @@
           %span.font-16.in-gold-500= "€#{item.product.price}"
         %td
           .input-group
-            = link_to '', order_item_path(item, product_id: item.product.id, type: OrderItemsController::COMMANDS[:delete], redirect_to: cart_path(@order)), method: :patch, class: "input-link fa fa-minus line-height-40"
+            = link_to '', order_item_path(item, type: OrderItemsController::COMMANDS[:delete], redirect_to: cart_path(@order)), method: :put, class: "input-link fa fa-minus line-height-40"
             %input.form-control.quantity-input{:type => "text", :value => item.quantity}
-            = link_to '', order_item_path(item, product_id: item.product.id, type: OrderItemsController::COMMANDS[:add], redirect_to: cart_path(@order)), method: :patch, class: "input-link fa fa-plus line-height-40"
+            = link_to '', order_item_path(item, type: OrderItemsController::COMMANDS[:add], redirect_to: cart_path(@order)), method: :patch, class: "input-link fa fa-plus line-height-40"
         %td
           %span.font-16.in-gold-500= number_to_currency(item.total_price)
         %td

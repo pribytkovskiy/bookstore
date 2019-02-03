@@ -19,10 +19,10 @@
             %span.icon-bar
             %span.icon-bar
           %a.navbar-brand= t('.title')
-          %a.shop-link.pull-right.visible-xs{href: "#{cart_path(@order)}"}
+          %a.shop-link.pull-right.visible-xs{href: "#{cart_path(id: @order.id)}"}
             %span.shop-icon
               %span.shop-quantity= @order.order_items.count
-        %a.shop-link.pull-right.hidden-xs{href: "#{cart_path(@order)}"}
+        %a.shop-link.pull-right.hidden-xs{href: "#{cart_path(id: @order.id)}"}
           %span.shop-icon
             %span.shop-quantity= @order.order_items.count
         #navbar.navbar-collapse.collapse.pl-30{'aria-expanded': "false"}

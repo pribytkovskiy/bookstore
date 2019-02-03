@@ -7,7 +7,7 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-    SetOrderItem.call(product_id: params[:product_id], command: params[:type], quantity: params[:quantity], order: @order)
+    SetOrderItem.call(item: params[:item], command: params[:type], quantity: params[:quantity])
     redirect_to params[:redirect_to]
   end
 
