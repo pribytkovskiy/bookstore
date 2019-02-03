@@ -1,20 +1,19 @@
-- present @product do |product|
-  .mb-80
-    %h3.in-gold-500.mb-25= "Reviews (#{@reviews.count})"
-    %ul.media-list
-      - @reviews.each do |review|
-        - product.review_rate(review)
-        %li.media.card
-          .media-left
-            %img.img-circle.logo-size.media-object{src: "#{product.avatar(review.user_id)}"}
-          .media-body
-            %div
-              %p.general-message-date.hidden-xs= product.review_date(review)
-              %h4.media-heading.max-240.general-message-name
-              .in-gold-500.media-left
-                = review.commenter
-            .mb-15
-              - 5.times.collect do |i|
-                %i.fa.fa-star.rate-star{:class => ('rate-empty' if i >= product.review_rate(review))}
-            %p= review.body
+.mb-80
+  %h3.in-gold-500.mb-25= "Reviews (#{@reviews.count})"
+  %ul.media-list
+    - @reviews.each do |review|
+      - review.rate
+      %li.media.card
+        .media-left
+          %img.img-circle.logo-size.media-object{src: "#{review.comment_date}"}
+        .media-body
+          %div
+            %p.general-message-date.hidden-xs= review.comment_date
+            %h4.media-heading.max-240.general-message-name
+            .in-gold-500.media-left
+              = review.commenter
+          .mb-15
+            - 5.times.collect do |i|
+              %i.fa.fa-star.rate-star{:class => ('rate-empty' if i >= review.rate)}
+          %p= review.body
             

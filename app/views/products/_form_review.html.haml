@@ -10,16 +10,16 @@
       .form-group.mb-20{class: "#{"has-error" if comments_has_error?(:rate)}"}
         %label.control-label.font-weight-light.in-grey-600{for: :rate}= t('.rating')
         = f.number_field :rate, type: "text", required: true, pattern:"[1-6]{1,}", maxlength: "1", class: 'form-control', placeholder: '1-5'
-        %span.help-block= comments_error_message(:rate) if @user.errors.any?
+        %span.help-block= comments_error_message(:rate) if @comment.errors.any?
       .form-group.mb-20{class: "#{"has-error" if comments_has_error?(:commenter)}"}
         %label.control-label.font-weight-light.in-grey-600{for: :commenter}= t('.name')
         = f.text_field :commenter, type: "text", required: true, class: 'form-control', value: commenter_name
-        %span.help-block= comments_error_message(:commenter) if @user.errors.any?
+        %span.help-block= comments_error_message(:commenter) if @comment.errors.any?
       .form-group{class: "#{"has-error" if comments_has_error?(:body)}"}
         %label.control-label.font-weight-light.in-grey-600{for: :body}= t('.review')
         = f.hidden_field :product_id, value: @product.id
-        = f.hidden_field :user_id, value: @user.id
+        = f.hidden_field :user_id, value: current_user.id
         = f.text_area :body, required: true, class: 'form-control'
-        %span.help-block= comments_error_message(:body) if @user.errors.any?
+        %span.help-block= comments_error_message(:body) if @comment.errors.any?
       = f.submit "Post", class: 'btn pull-right'
   

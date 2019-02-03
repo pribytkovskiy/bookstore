@@ -3,7 +3,7 @@
   .pull-right
     .dropdown
       %a.dropdown-toggle.dropdown-btn.width-240{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-        = @name_sort
+        = @sort_products.name_sort
         %i.fa.fa-angle-down.dropdown-icon
       %ul.dropdown-menu
         %li
@@ -22,12 +22,12 @@
     %li.mr-35
       %a.filter-link{href: "#{catalog_path(:category_id => @categories.ids)}"}
         = t('.all')
-        %span.badge.general-badge= Product.all.size
+        %span.badge.general-badge= @sort_products.count_products
     - @categories.each do |category|
       %li.mr-35
         %a.filter-link{href: "#{catalog_path(:category_id => category.id)}"}
           = category.category
-          %span.badge.general-badge= Product.where(category_id: category.id).size
+          %span.badge.general-badge= category.products.count
 .mb-40.visible-xs
   %p.in-grey-600.small.mb-10= t('.filter_by_category')
   .dropdown.mb-20

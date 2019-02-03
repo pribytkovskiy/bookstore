@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$(document).ready(function() {
     $('.minus').click(function () {
         var $input = $(this).parent().find('#quantity');
         var count = parseInt($input.val()) - 1;
@@ -22,5 +22,5 @@ function copyValueTo(fromElem, toElemId) {
 };
 
 function showMessage() {
-    alert( 'Привет всем присутствующим!' );
+    alert( 'Hi!' );
   }

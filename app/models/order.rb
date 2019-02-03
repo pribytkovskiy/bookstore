@@ -35,11 +35,4 @@ class Order < ApplicationRecord
   def total_price
     order_items.sum(&:total_price)
   end
-
-  def set_order_id_to_order_items(order_id)
-    order_items.map do |order_item|
-      order_item.order_id = order_id
-      order_item.save
-    end
-  end
 end
