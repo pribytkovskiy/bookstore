@@ -7,20 +7,20 @@
         %i.fa.fa-angle-down.dropdown-icon
       %ul.dropdown-menu
         %li
-          = link_to 'Newest first', catalog_path(:sort => "created_at", :direction => "desc", :name_sort => "Newest first"), method: "get"
+          = link_to t('.newest_first'), catalog_path(:sort => "created_at", :direction => "desc", :name_sort => t('.newest_first')), method: "get"
         %li
-          = link_to 'Popular first', catalog_path(:sort => "views", :direction => "desc", :name_sort => "Popular first"), method: "get"
+          = link_to t('.popular_first'), catalog_path(:sort => "views", :direction => "desc", :name_sort => t('.popular_first')), method: "get"
         %li
-          = link_to 'Price: Low to high', catalog_path(:sort => "price", :direction => "asc", :name_sort => "Price: Low to high"), method: "get"
+          = link_to t('.low_to_high'), catalog_path(:sort => "price", :direction => "asc", :name_sort => t('.low_to_high')), method: "get"
         %li
-          = link_to 'Price: High to low', catalog_path(:sort => "price", :direction => "desc", :name_sort => "Price: high to low"), method: "get"
+          = link_to t('.high_to_low'), catalog_path(:sort => "price", :direction => "desc", :name_sort => t('.high_to_low')), method: "get"
         %li
-          = link_to 'Title A-Z', catalog_path(:sort => "title", :direction => "asc", :name_sort => "Title A-Z"), method: "get"
+          = link_to t('.title_a_z'), catalog_path(:sort => "title", :direction => "asc", :name_sort => t('.title_a_z')), method: "get"
         %li
-          = link_to 'Title Z-A', catalog_path(:sort => "title", :direction => "desc", :name_sort => "Title Z-A"), method: "get"
+          = link_to t('.title_z_a'), catalog_path(:sort => "title", :direction => "desc", :name_sort => t('.title_z_a')), method: "get"
   %ul.list-inline.pt-10.mb-25.mr-240
     %li.mr-35
-      %a.filter-link{href: "#{catalog_path(:category_id => @labels.ids)}"}
+      %a.filter-link{href: "#{catalog_path(:category_id => @categories.ids)}"}
         = t('.all')
         %span.badge.general-badge= Product.all.size
     - @categories.each do |category|

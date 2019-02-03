@@ -9,7 +9,7 @@ class Product < ApplicationRecord
   belongs_to :category
 
   scope :latest_products, ->(latest_default_quantity) { Product.last(latest_default_quantity) }
-  scope :sort_column, ->(params) { Product.column_names.include?(params[:sort]) ? params[:sort] : 'created_at' }
-  scope :sort_direction, ->(params) { %w(asc desc).include?(params[:direction]) ?  params[:direction] : 'desc' }
-  scope :sort_product, ->(params, session) { order(sort_column(params) + ' ' + sort_direction(params)).where(category_id: session[:category]) }
+  scope :sort_column, ->(context) { Product.column_names.include?(context.params[:sort]) ? context.params[:sort] : 'created_at' }
+  scope :sort_direction, ->(context) { %w(asc desc).include?(context.params[:direction]) ?  context.params[:direction] : 'desc' }
+  scope :sort_product, ->(context) { order(sort_column(context) + ' ' + sort_direction(context)).where(category_id: context.category_id) }
 end
