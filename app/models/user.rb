@@ -1,29 +1,9 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :omniauthable
+         :recoverable, :rememberable, :trackable, :omniauthable, omniauth_providers: [:facebook]
 
   has_many :orders
   has_many :addresses
-
-  devise :omniauthable, omniauth_providers: [:facebook]
-
-  validates :first_name, :last_name, :address, :city, :zip, :country, :phone, presence: true, on: :update
-  validates :first_name, :last_name, :address, :city, :zip, :country, :phone, length: { maximum: 50 }, on: :update
-  validates :first_name, :last_name, :city, :country,
-            format: { with: /\A[а-яА-ЯёЁa-zA-Z]+\z/, message: 'only allows letters' }, on: :update
-  validates :zip, length: { maximum: 10 }, format: { with: /\A[0-9]+\z/, message: 'only allows numbers' }, on: :update
-  validates :phone, length: { maximum: 15 },
-            format: { with: /\A^\+[0-9]+\z/, message: 'should starts with +' }, on: :update
-  validates :shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city,
-            :shipping_zip, :shipping_country, :shipping_phone, presence: true, on: :update
-  validates :shipping_first_name, :shipping_last_name, :shipping_address,
-            :shipping_city, :shipping_zip, :shipping_country, :shipping_phone, length: { maximum: 50 }, on: :update
-  validates :shipping_first_name, :shipping_last_name, :shipping_city, :shipping_country,
-            format: { with: /\A[а-яА-ЯёЁa-zA-Z]+\z/, message: 'only allows letters' }, on: :update
-  validates :shipping_zip, length: { maximum: 10 },
-            format: { with: /\A[0-9]+\z/, message: 'only allows numbers' }, on: :update
-  validates :shipping_phone, length: { maximum: 15 },
-            format: { with: /\A^\+[0-9]+\z/, message: 'should starts with +' }, on: :update
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

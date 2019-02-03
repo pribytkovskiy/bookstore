@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :set_i18n_locale_from_params
-  before_action :set_order, :set_labels
+  before_action :set_order
 
   protected
 
@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
     return I18n.locale = params[:locale] if I18n.available_locales.include?(params[:locale].to_sym)
 
-    flash.now[:notice] = "#{params[:locale]} translation not available"
+    flash.now[:notice] = I18n.t('translation_no', locale: params[:locale])
     logger.error flash.now[:notice]
   end
 
@@ -26,9 +26,5 @@ class ApplicationController < ActionController::Base
   rescue ActiveRecord::RecordNotFound
     @order = Order.create
     session[:order_id] = @order.id
-  end
-
-  def set_labels
-    @labels = Category.all
   end
 end

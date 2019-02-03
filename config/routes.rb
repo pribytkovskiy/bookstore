@@ -9,10 +9,8 @@ Rails.application.routes.draw do
         patch 'update_password'
       end
     end
-    resource :pages, only: %i[show]
     resources :orders, only: %i[show create]
-    resources :line_items, only: %i[create update destroy]
-    resources :carts, only: %i[show edit update]
+    resources :order_items, only: %i[create update destroy]
     resources :payment, only: %i[index create]
     resources :confirm, only: %i[index]
     resources :complete, only: %i[index]
@@ -22,6 +20,10 @@ Rails.application.routes.draw do
       resources :comments
     end
 
-    root 'pages#show', as: 'store', via: :all
+    root 'pages#home', as: 'store', via: :all
+
+    get '/', to: 'pages#home', as: 'home'
+    get '/catalog', to: 'pages#catalog', as: 'catalog'
+    get '/cart', to: 'pages#cart', as: 'cart'
   end
 end

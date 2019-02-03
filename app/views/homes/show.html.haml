@@ -3,19 +3,19 @@
     %li.active{'data-target': "#slider", 'data-slide-to': "0"}
     %li{'data-target': "#slider", 'data-slide-to': "1"}
   .carousel-inner{role: "listbox"}
-    - @slide.each_index do |i|
+    - @latest_products.each_index do |i|
       .item{class: ("active" if i == 0)}
         .row
           .col-sm-5
             .general-img-wrap 
-              %img.img-shadow.general-thumbnail-img.width-full{src: @slide[i].covers[0].image_url, alt: "design-book"}
+              %img.img-shadow.general-thumbnail-img.width-full{src: @latest_products[i].covers.first.image_url, alt: "design-book"}
           .col-sm-7
             .mb-60
-              %h1= @slide[i].title
-              %p.lead= @slide[i].description
-              %p.in-grey-600.small= @slide[i].authors.map { |author| "#{author.first_name} #{author.last_name}" }.join(', ')
+              %h1= @latest_products[i].title
+              %p.lead= @latest_products[i].description
+              %p.in-grey-600.small= @latest_products[i].authors.map { |author| "#{author.first_name} #{author.last_name}" }.join(', ')
               .general-align.pt-20
-                = button_to 'Buy Now', line_items_path(product_id: @slide[i], redirect_to: home_path), method: "post", class: "btn"
+                = button_to 'Buy Now', order_items_path(product_id: @latest_products[i], redirect_to: home_path), method: "post", class: "btn"
   %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
     %span.icon-prev{'aria-hidden': "true"}
     %span.sr-only= t('.previous')
@@ -35,12 +35,12 @@
       .col-sm-6.col-md-3
         .general-thumb-wrap
           .thumbnail.general-thumbnail
-            %img.img-shadow.general-thumbnail-img{src: product.covers[0].image_url, alt: "design-book"}
+            %img.img-shadow.general-thumbnail-img{src: product.covers.first.image_url, alt: "design-book"}
             .thumb-hover
               .general-thumb-link-wrap
                 %a.thumb-hover-link{href: "#{book_path(id: product)}"}
                   %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                %a.thumb-hover-link{href: "#{line_items_path(product_id: product)}"} 
+                %a.thumb-hover-link{href: "#{order_items_path(product_id: product)}"} 
                   %i.fa.fa-shopping-cart.thumb-icon
         .mb-35
           .clearfix

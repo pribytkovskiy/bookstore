@@ -1,7 +1,8 @@
 class Bestsellers
-  def self.call
-    Product.joins('INNER JOIN products ON products.id = O.product_id')
-           .from(LineItem.select('product_id, COUNT(product_id) as count')
-           .group('product_id').order('count DESC').limit(4), :O)
+  def self.call(quantity_bestsellers)
+    Product.joins(:orders)
+           .group('order_items.product_id', 'products.id')
+           .order('SUM(order_items.quantity) desc')
+           .limit(quantity_bestsellers)
   end
 end

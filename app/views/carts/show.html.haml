@@ -12,24 +12,24 @@
       %th.col-total
         %span.in-grey-600= t('.subtotal')
       %th.col-close
-    - @cart.line_items.each do |item|
+    - @order.order_items.each do |item|
       %tr
         %td
           .general-img-wrap-table
-            %img.cart-img-shadow.pull-left.width-full{src: item.product.covers[0].image_url}
+            %img.cart-img-shadow.pull-left.width-full{src: item.product.covers.first.image_url}
         %td
           %p.general-title= item.product.title
         %td
           %span.font-16.in-gold-500= "€#{item.product.price}"
         %td
           .input-group
-            = link_to '', line_item_path(item, product_id: item.product.id, type: LineItemsController::TYPE_UPDATE[:minus], redirect_to: cart_path(@cart)), method: :patch, class: "input-link fa fa-minus line-height-40"
+            = link_to '', order_item_path(item, product_id: item.product.id, type: OrderItemsController::TYPE_UPDATE[:minus], redirect_to: cart_path(@order)), method: :patch, class: "input-link fa fa-minus line-height-40"
             %input.form-control.quantity-input{:type => "text", :value => item.quantity}
-            = link_to '', line_item_path(item, product_id: item.product.id, type: LineItemsController::TYPE_UPDATE[:plus], redirect_to: cart_path(@cart)), method: :patch, class: "input-link fa fa-plus line-height-40"
+            = link_to '', order_item_path(item, product_id: item.product.id, type: OrderItemsController::TYPE_UPDATE[:plus], redirect_to: cart_path(@order)), method: :patch, class: "input-link fa fa-plus line-height-40"
         %td
           %span.font-16.in-gold-500= number_to_currency(item.total_price)
         %td
-          = button_to 'x',  line_item_path(product_id: item.product.id), method: :delete, class: 'close general-cart-close'
+          = button_to 'x',  order_item_path(product_id: item.product.id), method: :delete, class: 'close general-cart-close'
 .general-order-wrap
   .row
     .col-sm-4
@@ -45,7 +45,7 @@
             %td
               %p.font-16= t('.subtotal')
             %td
-              %p.font-16= number_to_currency(@cart.total_price)
+              %p.font-16= number_to_currency(@order.total_price)
           %tr
             %td
               %p.font-16= t('.coupon')
@@ -55,6 +55,6 @@
             %td
               %strong.font-18= t('.order_total')
             %td
-              %strong.font-18= number_to_currency(@cart.total_price - (@coupon&.price || 0))
+              %strong.font-18= number_to_currency(@order.total_price - (@coupon&.price || 0))
         %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
 = button_to "Checkout", orders_path(coupon_id: @coupon&.id, state: :address), method: :post, class: 'btn btn-default mb-20 hidden-xs center-block'

@@ -2,17 +2,17 @@ class OrdersController < InheritedResources::Base
   before_action :authenticate_user!
 
   PARAMS = %w(first_name last_name address city zip country phone).freeze
-  ORDER_STATE = { cart: :cart, address: :address, delivery: :delivery, payment: :payment, confirmation: :confirmation }
+  ORDER_STATE = { address: :address, delivery: :delivery, payment: :payment, confirmation: :confirmation }
 
   def show
-    redirect_to store_url, notice: "Your cart is empty" unless @cart.line_items
+    redirect_to store_url, notice: "Your cart is empty" unless @order.order_items
     # check_state
     render params[:id].to_sym
   end
 
   def create
     case params[:state].to_sym
-    when ORDER_STATE[:address] then session[:order_id] = Checkout::CreateOrder.call(@cart, current_user.id, params[:coupon_id]).id
+    when ORDER_STATE[:address] then session[:order_id] = Checkout::CreateOrder.call(@order, current_user.id, params[:coupon_id]).id
     when ORDER_STATE[:delivery]
       render 'orders/address' and return if !current_user.update_attributes(user_params)
       copy_user_params if current_user.check == true

@@ -1,6 +1,6 @@
-class CreateLineItems < ActiveRecord::Migration[5.2]
+class CreateOrderItems < ActiveRecord::Migration[5.2]
   def change
-    create_table :line_items do |t|
+    create_table :order_items do |t|
       t.references :product, foreign_key: true
       t.references :order, foreign_key: true
       t.integer :quantity, default: 1

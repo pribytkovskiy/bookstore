@@ -102,18 +102,18 @@ ActiveRecord::Schema.define(version: 2019_01_25_160101) do
     t.integer "price"
   end
 
-  create_table "line_items", force: :cascade do |t|
+  create_table "order_items", force: :cascade do |t|
     t.bigint "product_id"
     t.bigint "order_id"
     t.integer "quantity", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_line_items_on_order_id"
-    t.index ["product_id"], name: "index_line_items_on_product_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string "state"
+    t.string "state", default: "cart"
     t.decimal "subtotal"
     t.integer "card_id"
     t.integer "coupon_id"
@@ -161,6 +161,6 @@ ActiveRecord::Schema.define(version: 2019_01_25_160101) do
 
   add_foreign_key "comments", "products"
   add_foreign_key "comments", "users"
-  add_foreign_key "line_items", "orders"
-  add_foreign_key "line_items", "products"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
 end

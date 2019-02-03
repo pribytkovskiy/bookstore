@@ -30,7 +30,7 @@ class ProductPresenter < BasePresenter
   end 
 
   def image
-    product.covers[0].image_url
+    product.covers.first.image_url
   end
 
   def avatar(user_id)

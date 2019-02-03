@@ -53,16 +53,16 @@
       %td
         %p.font-16= t('.subtotal')
       %td
-        %p.font-16= number_to_currency(@cart.total_price + @order.total_delivery)
+        %p.font-16= number_to_currency(@order.total_price + @order.total_delivery)
     %tr
       %td
         %p.font-16= t('.coupon') 
       %td
-        %p.font-16= number_to_currency(@cart.total_cupon)
+        %p.font-16= number_to_currency(@order.total_cupon)
     %tr
       %td
         %strong.font-18= t('.order_total')
       %td
-        %strong.font-18= number_to_currency(@cart.total_price + @order.total_delivery - @cart.total_cupon)
+        %strong.font-18= number_to_currency(@order.total_price + @order.total_delivery - @order.total_cupon)
   .text-center
     = f.submit 'Save and Continue', {class: 'btn btn-default mb-80'}

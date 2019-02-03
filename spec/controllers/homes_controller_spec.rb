@@ -13,8 +13,8 @@ RSpec.describe HomesController do
       expect(response).to have_http_status(200)
     end
 
-    it 'assigns @slide' do
-      expect(assigns(:slide)).not_to be_nil
+    it 'assigns @latest_products' do
+      expect(assigns(:latest_products)).not_to be_nil
     end
 
     it 'assigns @bestsellers' do

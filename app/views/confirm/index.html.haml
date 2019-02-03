@@ -77,7 +77,7 @@
             %span.in-grey-600= t('.quantity')
           %th
             %span.in-grey-600= t('.total') 
-      - @cart.line_items.each do |item|
+      - @order.order_items.each do |item|
         %tbody
           %tr
             %td
@@ -99,7 +99,7 @@
         %td
           %p.font-16= t('.subtotal')
         %td
-          %p.font-16= number_to_currency(@cart.total_price + @order.total_delivery)
+          %p.font-16= number_to_currency(@order.total_price + @order.total_delivery)
       %tr
         %td
           %p.font-16= t('.coupon') 
@@ -109,7 +109,7 @@
         %td
           %strong.font-18= t('.order_total')
         %td
-          %strong.font-18= number_to_currency(@cart.total_price + @order.total_delivery - @order.total_cupon)
+          %strong.font-18= number_to_currency(@order.total_price + @order.total_delivery - @order.total_cupon)
   .text-center
     = button_to "Place Order", complete_index_path, method: :get, class: 'btn btn-default mb-20'
  
