@@ -13,7 +13,7 @@ en:
       email: support@bookstore.com
       telephone: (555)-555-5555
 
-  carts:
+  pages:
     cart:
       cart: 'Cart'
       product: 'Product' 
@@ -84,3 +84,5 @@ en:
       high_to_low: 'Price: High to low'
       title_a_z: Title A-Z
       title_z_a: Title Z-A
+    home:
+      buy_now: Buy Now

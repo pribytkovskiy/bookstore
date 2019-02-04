@@ -15,7 +15,7 @@
               %p.lead= @favorites.latest_products[i].description
               %p.in-grey-600.small= @favorites.latest_products[i].authors.map { |author| "#{author.first_name} #{author.last_name}" }.join(', ')
               .general-align.pt-20
-                = button_to 'Buy Now', order_items_path(product_id: @favorites.latest_products[i], redirect_to: home_path), method: "post", class: "btn"
+                = button_to t('.buy_now'), order_items_path(product_id: @favorites.latest_products[i], redirect_to: home_path, order_id: @order.id), method: :post, class: "btn"
   %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
     %span.icon-prev{'aria-hidden': "true"}
     %span.sr-only= t('.previous')

@@ -2,7 +2,7 @@ class SetOrderItem
   include Interactor
 
   def call
-    case
+    case context.type
     when OrderItemsController::COMMANDS[:add] then add_product
     when OrderItemsController::COMMANDS[:delete] then delete_product
     when OrderItemsController::COMMANDS[:destroy] then destroy_product
@@ -12,12 +12,12 @@ class SetOrderItem
   private
 
   def add_product
-    @current_item = OrderItem.find_by(product_id: context.product_id)
-    return @current_item.increment!(:quantity) if @current_item
+    current_item = Order.find(context.order_id).order_items.find_by(product_id: context.product_id)
+    return current_item.increment!(:quantity) if current_item
 
-    @current_item = OrderItem.create(product_id: context.product_id, order: context.order)
-    @current_item.quantity = context.quantity.to_i
-    @current_item.save
+    current_item = OrderItem.create(product_id: context.product_id, order_id: context.order_id)
+    current_item.quantity = context.quantity.to_i
+    current_item.save
   end
 
   def delete_product
@@ -33,6 +33,6 @@ class SetOrderItem
   end
 
   def set_current_item
-    @current_item = OrderItem.find(context.item)
+    @current_item = OrderItem.find(context.id)
   end
 end

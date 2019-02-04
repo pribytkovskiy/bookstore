@@ -1,18 +1,21 @@
 class OrderItemsController < ApplicationController
-  COMMANDS = { add: 'add', delete: 'delete', destroy: 'destroy' }
+  COMMANDS = { add: 'add', delete: 'delete' }
 
   def create
-    SetOrderItem.call(product_id: params[:product_id], command: COMMANDS[:add], quantity: params[:quantity], order: @order)
+    result = CreateOrderItem.call(params)
+    flash.now[:message] = t(result.message) if result.failure?
     redirect_to params[:redirect_to]
   end
 
   def update
-    SetOrderItem.call(item: params[:item], command: params[:type], quantity: params[:quantity])
+    result = UpdateOrderItem.call(params)
+    flash.now[:message] = t(result.message) if result.failure?
     redirect_to params[:redirect_to]
   end
 
   def destroy
-    SetOrderItem.call(product_id: params[:product_id], command: COMMANDS[:destroy], order: @order)
+    result = DestroyOrderItem.call(params)
+    flash.now[:message] = t(result.message) if result.failure?
     redirect_to cart_path
   end
 end

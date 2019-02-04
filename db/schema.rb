@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2019_01_25_160101) do
     t.string "commenter"
     t.text "body"
     t.string "comments"
-    t.integer "rate"
+    t.integer "rate", default: 0
     t.bigint "user_id"
     t.bigint "product_id"
     t.datetime "created_at", null: false
