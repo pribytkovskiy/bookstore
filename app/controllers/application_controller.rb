@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  protect_from_forgery prepend: true
 
   before_action :set_i18n_locale_from_params
   before_action :set_order, :set_categories

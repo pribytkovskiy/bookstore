@@ -20,16 +20,18 @@
       .col-xs-12.col-md-4
         %p.h1.in-gold-500.mt-10= @product.price
       .col-xs-5.col-md-3
-        = form_tag(product_path, method: "patch")
+        = form_tag(order_items_path, method: "post")
         .input-group.general-position
           %a.input-link.minus.fa.fa-minus.line-height-40.help_fa{href: ""}
           %input.form-control.quantity-input{id: "quantity", type: "text", name: "quantity", min: 1, max: 999, value: 1}
+          %input.form-control.quantity-input.hidden{type: "text", name: "product_id", value: "#{@product.id}"}
+          %input.form-control.quantity-input.hidden{type: "text", name: "order_id", value: "#{@order.id}"}
           %a.input-link.plus.fa.fa-plus.line-height-40.help_fa{href: ""}
           %input.btn.btn-default.pull-right.general-positionid.hidden{id: '1', type: "submit", value: "Add to Cart"}
       .col-xs-7.col-md-5
         %button.btn.btn-default.pull-right.general-position{type: "submit", onclick: "document.getElementById('1').click()"}= t('.add_to_cart')
         .hidden
-          = button_to "Add to Cart", {type: "submit", class: 'btn btn-default pull-right general-position hidden', onclick: "document.getElementById('1').click()"}
+          = button_to t('.add_to_cart'), {type: "submit", class: 'btn btn-default pull-right general-position hidden', onclick: "document.getElementById('1').click()"}
     .card
       %p= t('.description')
       %p.in-grey-600.small.line-height-2

@@ -1,8 +1,8 @@
 class Bestsellers
-  def self.call(quantity_bestsellers)
+  def self.call(bestsellers_default_quantity)
     Product.joins(:orders)
            .group('order_items.product_id', 'products.id')
            .order('SUM(order_items.quantity) desc')
-           .limit(quantity_bestsellers)
+           .limit(bestsellers_default_quantity)
   end
 end

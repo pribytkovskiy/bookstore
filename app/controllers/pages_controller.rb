@@ -6,7 +6,7 @@ class PagesController < ApplicationController
 
   def home
     @favorites = FavoriteProducts.call(
-      latest_default_quantity: LATEST_DEFAULT_QUANTITY, quantity_bestsellers: QUANTITY_BESTSELLERS
+      latest_default_quantity: LATEST_DEFAULT_QUANTITY, bestsellers_default_quantity: QUANTITY_BESTSELLERS
     )
   end
 
@@ -17,5 +17,12 @@ class PagesController < ApplicationController
   end
 
   def cart
+    redirect_to store_url, notice: t('.cart_empty') if check_order_items?
+  end
+
+  private
+
+  def check_order_items?
+    @order.order_items.empty?
   end
 end

@@ -65,6 +65,8 @@ en:
   controllers:
     admin:
       translation_no: '%{locale} translation not available'
+    pages:
+      cart_empty: Your cart is empty
 
   models:
     address:
@@ -86,3 +88,13 @@ en:
       title_z_a: Title Z-A
     home:
       buy_now: Buy Now
+
+  products:
+    show:
+      add_to_cart: Add to cart
+
+  interactors:
+    errors:
+      current_item_failure: Current_item failure
+      create_order_item_failure: Create order_item failure
+      add_current_item_quantity: Add current_item quantity failure
