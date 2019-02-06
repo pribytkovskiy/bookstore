@@ -4,7 +4,7 @@ class OrdersController < InheritedResources::Base
   ORDER_STATE = { address: :address, delivery: :delivery, payment: :payment, confirmation: :confirmation }
 
   def update
-    set_coupon if params[:order][:number]
+    set_coupon if params[:order]
     result = Checkout.call(params)
     flash.now[:message] = t(result.message) if result.failure?
     render params[:redirect_to] if params[:redirect_to]
@@ -13,11 +13,12 @@ class OrdersController < InheritedResources::Base
   private
 
   def set_coupon
-    if coupon = Coupon.find_by(number: coupon_params[:number].to_i)
+    if coupon = Coupon.find_by(number: params[:order][:number].to_i)
       @order.coupon_id = coupon.id
       @order.save
+      redirect_to cart_path
     else
-
+      flash.now[:message] = 'No coupon'
     end
   end
 
@@ -26,6 +27,6 @@ class OrdersController < InheritedResources::Base
   end
 
   def coupon_params
-    params.require(:order).permit(:number)
+    
   end
 end

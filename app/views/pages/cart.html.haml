@@ -53,11 +53,11 @@
             %td
               %p.font-16= t('.coupon')
             %td
-              %p.font-16= number_to_currency(@coupon&.price)
+              %p.font-16= number_to_currency(@order.coupon&.price)
           %tr
             %td
               %strong.font-18= t('.order_total')
             %td
-              %strong.font-18= number_to_currency(@order.total_price - (@coupon&.price || 0))
+              %strong.font-18= number_to_currency(@order.total_price - (@order.coupon&.price || 0))
         %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
 = button_to "Checkout", order_path, method: :patch, class: 'btn btn-default mb-20 hidden-xs center-block'
