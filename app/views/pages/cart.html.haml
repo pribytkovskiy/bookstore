@@ -36,7 +36,7 @@
 .general-order-wrap
   .row
     .col-sm-4
-      = form_for :coupon, url: cart_path, method: :put do |f|
+      = form_for :order, url: order_path, method: :patch do |f|
         = f.label :number, t('.enter_your_coupon_code'), { class: 'font-weight-light', for: "number" }
         = f.text_field :number, { class: 'form-control mb-30', type: "text", placeholder: "Enter Your Coupon Code", value: '' }
         = f.submit 'Update Cart', {class: 'btn btn-primary mb-15 res-block'}
@@ -60,4 +60,4 @@
             %td
               %strong.font-18= number_to_currency(@order.total_price - (@coupon&.price || 0))
         %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
-= button_to "Checkout", orders_path(coupon_id: @coupon&.id, state: :address), method: :post, class: 'btn btn-default mb-20 hidden-xs center-block'
+= button_to "Checkout", order_path, method: :patch, class: 'btn btn-default mb-20 hidden-xs center-block'

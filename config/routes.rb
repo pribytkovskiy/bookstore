@@ -9,7 +9,7 @@ Rails.application.routes.draw do
         patch 'update_password'
       end
     end
-    resources :orders, only: %i[index show create update]
+    resources :orders, only: %i[update]
     resources :order_items, only: %i[create update destroy]
 
     resources :payment, only: %i[index create]
