@@ -1,7 +1,7 @@
 class CatalogsController < ApplicationController
   include Pagy::Backend
 
-  NAME_DEFAULT_PARAM_SORT = 'Newest first'
+  NAME_DEFAULT_PARAM_SORT = t('.newest_first')
 
   def show
     @categories = Category.all

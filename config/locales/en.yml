@@ -67,6 +67,10 @@ en:
       translation_no: '%{locale} translation not available'
     pages:
       cart_empty: Your cart is empty
+    orders:
+      no_coupon: No coupon
+    catalog:
+      newest_first: Newest first
 
   models:
     address:
@@ -98,3 +102,4 @@ en:
       current_item_failure: Current_item failure
       create_order_item_failure: Create order_item failure
       add_current_item_quantity: Add current_item quantity failure
+      address: Address error
