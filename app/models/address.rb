@@ -3,6 +3,9 @@ class Address < ApplicationRecord
   belongs_to :user
   enum type: [ :billing, :shipping ]
 
+  scope :billing, -> { where(type: :billing) }
+  scope :shipping, -> { where(type: :shipping) }
+
   ONLY_LETTERS = /\A[а-яА-ЯёЁa-zA-Z]+\z/
   ONLY_NUMBERS = /\A[0-9]+\z/
   STARTS_WITH_PLUS = /\A^\+[0-9]+\z/

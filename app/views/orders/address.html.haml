@@ -26,7 +26,7 @@
         %p.general-info-text= t('.all_fields_are_required')
       .col-md-5.col-md-offset-1
         %h3.general-subtitle= t('.shipping_address')
-    = form_for @address, :url => order_path(state: :delivery), :method => :post, :html => {:id => "form1"} do |f|
+    = form_for @address_billing, :url => order_path(state: :delivery), :method => :patch, :html => {:id => "form1"} do |f|
       .billing_address{class: 'col-md-5 mb-40', id: 'form1', style: "padding-left: 0px; padding-bottom: 10px;"}
         .form-group{class: "#{"has-error" if adress_has_error?(:first_name)}"}
           = f.label :first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "first_name" }
@@ -57,7 +57,8 @@
           = f.text_field :phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
           %span.help-block= adress_error_message(:phone) if current_user.errors.any?
           = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20 hidden', id: '1'}
-      .shipping_address{class: 'col-md-5 col-md-offset-1', id: 'form2', style: "#{"display: none;" if current_user.check == true}" }
+      .shipping_address{class: 'col-md-5 col-md-offset-1', id: 'form2', style: "#{"display: none;" if session[:check] == true}" }
+      = form_for @address_shipping, :url => order_path(state: :delivery), :method => :patch, :html => {:id => "form1"} do |f|
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_first_name)}"}
           = f.label :shipping_first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "shipping_first_name" }
           = f.text_field :shipping_first_name, { class: 'form-control', type: "text", placeholder: "First Name", onkeyup: "copyValueTo(this, 'firstName')" }
@@ -89,7 +90,7 @@
           = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20 hidden', id: '2'}
       .form-group.checkbox{class: 'col-md-5 col-md-offset-6'}
         %label.font-weight-light.pl-0
-          = f.check_box(:check, {class: 'checkbox-input', type: "checkbox", hidden: "true", name: 'check', onchange: "document.getElementById('form2').style.display = this.checked ? 'none' : 'block'"}, true)
+          = f.check_box(:check, {class: 'checkbox-input', type: "checkbox", hidden: "true", name: 'check', onchange: "document.getElementById('form2').style.display = this.checked ? 'none' : 'block'"}, true, false)
           %span.checkbox-icon
             %i.fa.fa-check
           %span.checkbox-textt= t('.use_billing_adress')
@@ -102,10 +103,10 @@
                 %td
                   %p.font-16= t('.item_total')
                 %td
-                  %p.font-16= number_to_currency(current_order.total_price)
+                  %p.font-16= number_to_currency(@order.total_price)
               %tr
                 %td
                   %p.font-16= t('.order_total')
                 %td
-                  %p.font-16= number_to_currency(current_order.total_price - current_order.coupon.price.to_i)
+                  %p.font-16= number_to_currency(@order.total_price - @order.coupon.price)
             = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20', id: '3'}
