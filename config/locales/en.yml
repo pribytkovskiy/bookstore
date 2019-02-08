@@ -29,7 +29,7 @@ en:
       checkout: 'Checkout'
 
   orders:
-    address:
+    address_form:
       save_and_continue: 'Save and Continue'
     form:
       checkout: 'Checkout'

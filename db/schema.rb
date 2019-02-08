@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2019_01_25_160101) do
     t.string "phone"
     t.string "order_id"
     t.string "user_id"
-    t.string "type"
+    t.string "address_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

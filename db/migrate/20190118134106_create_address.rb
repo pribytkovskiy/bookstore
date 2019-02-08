@@ -10,7 +10,7 @@ class CreateAddress < ActiveRecord::Migration[5.2]
       t.string :phone
       t.string :order_id
       t.string :user_id
-      t.string :type
+      t.string :address_type
 
       t.timestamps
     end

@@ -16,12 +16,8 @@ class OrdersController < InheritedResources::Base
 
   private
 
-  def user_params
-    params.require(:user).permit(:first_name, :last_name, :address, :city, :zip, :country, :phone)
-  end
-
   def set_user_address
-    @address_billing = current_user.addresses.billing.empty? ? Address.new(type: :billing) : current_user.addresses.billing
-    @address_shipping = current_user.addresses.shipping.empty? ? Address.new(type: :shipping) : current_user.addresses.shipping
+    @address_billing = current_user.addresses.billing.empty? ? Address.billing.new : current_user.addresses.search_billing.first
+    @address_shipping = current_user.addresses.shipping.empty? ? Address.shipping.new : current_user.addresses.search_shipping
   end
 end

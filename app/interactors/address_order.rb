@@ -2,8 +2,8 @@ class AddressOrder
   include Interactor
 
   def call
-    Order.find()
-    if order = order.update_attributes(context)
+    @address = AddressForm.new(context.params) # address + order_id
+    if @address.save
       context.render = OrdersController::ORDER_STATE[:delivery]
     else
       context.fail!(message: I18n.t('interactors.errors.address'))
