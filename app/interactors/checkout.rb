@@ -1,5 +1,15 @@
 class Checkout
-  include Interactor::Organizer
+  include Interactor
 
-  organize AddressOrder, DeliveryOrder, PaymentOrder, ConfirmationOrder
+  #organize AddressOrder, DeliveryOrder, PaymentOrder, ConfirmationOrder
+
+  def call
+    order = Order.find(context.id)
+    case order.state.to_sym
+    when OrdersController::ORDER_STATE[:address] then AddressOrder.call(context)
+    when OrdersController::ORDER_STATE[:delivery] then DeliveryOrder.call(context)
+    when OrdersController::ORDER_STATE[:payment] then PaymentOrder.call(context)
+    when OrdersController::ORDER_STATE[:confirmation] then ConfirmationOrder.call(context)
+    end
+  end
 end

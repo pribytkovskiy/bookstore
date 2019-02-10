@@ -11,6 +11,11 @@ class AddressForm
     attribute name, String
     validates name, presence: true
   end
+  
+  attribute :zip, Integer
+  attribute :shipping_zip, Integer
+  validates :zip, :shipping_zip, presence: true
+  attribute :check, Boolean
 
   validates :first_name, :last_name, :address, :city, :zip, :country, :phone, presence: true
   validates :first_name, :last_name, :address, :city, :country, :phone, length: { maximum: 50 }
@@ -21,12 +26,53 @@ class AddressForm
   attr_reader :address
 
   def save
+    copy_params # if check == 'true'
     return false unless valid?
+    
     persist!
     true
   end
 
+  private
+
+  def copy_params
+    shipping_first_name = first_name
+    shipping_last_name = last_name
+    shipping_address = address
+    shipping_phone = phone
+    shipping_city = city
+    shipping_country = country
+    shipping_zip = zip
+  end
+
   def persist!
-    @address = Address.create!(address_params) # address + order_id
+    @address_billing = Address.billing.create!(address_params_billing)
+    return @address_shipping = Address.shipping.create!(address_params_billing) if check == 'true'
+
+    @address_shipping = Address.shipping.create!(address_params_shipping)
+  end
+
+  def address_params_billing
+    {
+      first_name: first_name,
+      last_name: last_name,
+      address: address,
+      phone: phone,
+      city: city,
+      country: country,
+      zip: zip
+    }
+  end
+
+  def address_params_shipping
+    {
+      first_name: shipping_first_name,
+      last_name: shipping_last_name,
+      address: shipping_address,
+      phones: shipping_phones,
+      city: shipping_city,
+      country: shipping_country,
+      zip: shipping_zip
+    }
   end
 end 

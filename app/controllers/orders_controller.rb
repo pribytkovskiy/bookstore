@@ -1,23 +1,19 @@
 class OrdersController < InheritedResources::Base
   before_action :authenticate_user!
 
-  ORDER_STATE = { address: :address, delivery: :delivery, payment: :payment, confirmation: :confirmation }
+  ORDER_STATE = { address: :address, delivery: :delivery_method, payment: :payment, confirmation: :confirmation }
 
   def show
-    set_user_address
-    render ORDER_STATE[:address]
+    @address = SetUserAddressToOrder.call(current_user: current_user, order: @order).address if @order.cart?
+    render @order.state.to_sym
   end
 
-  def update
+  def update # check, copy params?
+    session[:check] = params[:check]
     result = Checkout.call(params)
+    @address = result.address
+    @card = result.card
     flash.now[:message] = t(result.message) if result.failure?
-    render result.render
-  end
-
-  private
-
-  def set_user_address
-    @address_billing = current_user.addresses.billing.empty? ? Address.billing.new : current_user.addresses.search_billing.first
-    @address_shipping = current_user.addresses.shipping.empty? ? Address.shipping.new : current_user.addresses.search_shipping
+    render @order.state.to_sym
   end
 end

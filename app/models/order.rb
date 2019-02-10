@@ -24,7 +24,7 @@ class Order < ApplicationRecord
     end
 
     event :add_delivery_method do
-      transitions from: :cart, to: :delivery_method
+      transitions from: :address, to: :delivery_method
     end
 
     event :add_payment do
@@ -43,7 +43,7 @@ class Order < ApplicationRecord
       transitions from: :in_queued, to: :in_delivering
     end
 
-    event :delivery do
+    event :end_delivery do
       transitions from: :in_delivering, to: :delivering
     end
 
