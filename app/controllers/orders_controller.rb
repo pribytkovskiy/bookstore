@@ -17,4 +17,10 @@ class OrdersController < InheritedResources::Base
     set_order
     render @order.state.to_sym
   end
+
+  def edit
+    @order.state = params[:state]
+    @order.save
+    redirect_to action: 'update'
+  end
 end

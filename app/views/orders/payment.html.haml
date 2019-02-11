@@ -46,6 +46,7 @@
         <a href="#" title="The CVV number (Card Verification Value) on a credit card is a 3-4 digit number on VISA, MasterCard" class="fa fa-question-circle general-form-help font-18" style="text-decoration: none;"></a>
         %span.tooltip
         %span.help-block= card_error_message(:cvv) if @card.errors.any?
+      .form-group.relative
   .general-text-align
   %p.in-gold-500.font-18= t('.order_total')
   %table.general-summary-table
@@ -58,11 +59,11 @@
       %td
         %p.font-16= t('.coupon') 
       %td
-        %p.font-16= number_to_currency(@order&.coupon.price.to_i)
+        %p.font-16= number_to_currency(@order.coupon&.price.to_i)
     %tr
       %td
         %strong.font-18= t('.order_total')
       %td
-        %strong.font-18= number_to_currency(@order.total_price + @order.delivery.price - @order&.coupon.price.to_i)
+        %strong.font-18= number_to_currency(@order.total_price + @order.delivery.price - @order.coupon&.price.to_i)
   .text-center
     = f.submit 'Save and Continue', {class: 'btn btn-default mb-80'}

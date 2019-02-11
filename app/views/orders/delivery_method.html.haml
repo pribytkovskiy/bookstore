@@ -37,9 +37,9 @@
         %td
           .form-group.radio.mt-0.mb-0
             = f.radio_button :delivery_id, '2', { :class => 'radio-icon radio-text text-center radio-input', :style => 'margin-left: 5px;', :checked => true }
-            = f.label :delivery, 'By train', :value => '2', :class => 'font-16 font-weight-light pl-0', :style => 'margin-left: 50px;'
+            = f.label :delivery, 'Regular Delivery', :value => '2', :class => 'font-16 font-weight-light pl-0', :style => 'margin-left: 50px;'
         %td
-          %span 5 days
+          %span 3 days
         %td
           %span.font-16.in-gold-500 €10.00
       %tr
@@ -47,9 +47,9 @@
           .form-group.radio.mt-0.mb-0
             %label.font-16.font-weight-light.pl-0
               = f.radio_button :delivery_id, '1', { :class => 'radio-icon radio-text text-center radio-input', :style => 'margin-left: 5px;' }
-              = f.label :delivery, 'By air', :value => '1', :class => 'font-16 font-weight-light pl-0', :style => 'margin-left: 50px;'
+              = f.label :delivery, 'Express Delivery', :value => '1', :class => 'font-16 font-weight-light pl-0', :style => 'margin-left: 50px;'
         %td
-          %span 2 days
+          %span 1 days
         %td
           %span.font-16.in-gold-500 €20.00
       .general-text-align
@@ -63,11 +63,11 @@
             %td
               %p.font-16= t('.coupon') 
             %td
-              %p.font-16= number_to_currency(@order.coupon.price.to_i)
+              %p.font-16= number_to_currency(@order.coupon&.price.to_i)
           %tr
             %td
               %strong.font-18= t('.order_total')
             %td
-              %strong.font-18= number_to_currency(@order.total_price - @order&.coupon.price.to_i)
+              %strong.font-18= number_to_currency(@order.total_price - @order.coupon&.price.to_i)
       .text-center
         = f.submit 'Save and Continue', {class: 'btn btn-default mb-200', style: 'margin-bottom: 70px;'}

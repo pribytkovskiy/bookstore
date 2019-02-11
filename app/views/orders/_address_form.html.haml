@@ -78,5 +78,5 @@
             %td
               %p.font-16= t('.order_total')
             %td
-              %p.font-16= number_to_currency(@order.total_price - @order&.coupon.price.to_i)
+              %p.font-16= number_to_currency(@order.total_price - @order.coupon&.price.to_i)
         = f.submit t('.save_and_continue'), { class: 'btn center-block mb-20' }

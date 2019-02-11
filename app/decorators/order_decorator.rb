@@ -40,4 +40,16 @@ class OrderDecorator < Draper::Decorator
   def billing_phone
     object.addresses.billing.first.phone
   end
+
+  def safe_card_number
+    '*'*12 + object.card&.card_number.last(4)
+  end
+
+  def number
+    'R#' + object.id.to_s
+  end
+
+  def date
+    object.updated_at.strftime("%B %d, %Y")
+  end
 end

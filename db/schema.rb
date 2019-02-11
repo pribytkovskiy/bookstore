@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2019_01_25_160101) do
     t.string "name_on_card"
     t.string "mm_yy"
     t.string "cvv"
+    t.integer "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

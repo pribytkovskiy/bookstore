@@ -2,6 +2,7 @@ class SetUserAddressToOrder
   include Interactor
 
   def call
+    add_user_to_order
     context.order.add_address!
     if context.current_user.addresses.billing.empty?
       context.address = AddressForm.new
@@ -32,5 +33,10 @@ class SetUserAddressToOrder
       shipping_zip: @address_shipping.zip,
       check: false
     }
+  end
+
+  def add_user_to_order
+    context.order.user_id = context.current_user.id
+    context.order.save
   end
 end

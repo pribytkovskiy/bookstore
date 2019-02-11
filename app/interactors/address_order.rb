@@ -6,7 +6,6 @@ class AddressOrder
     if context.address.save
       context.order = Order.find(context.id)
       context.order.add_delivery_method!
-      context.order.save
     else
       context.fail!(message: I18n.t('interactors.errors.address'))
     end

@@ -8,6 +8,7 @@ class PaymentForm
   attribute :name_on_card, String
   attribute :cvv, Integer
   attribute :mm_yy, String
+  attribute :order_id, Integer
 
   validates :card_number, :name_on_card, :mm_yy, :cvv, presence: true
   validates :card_number, length: { is: 16 }, numericality: { only_integer: true }
@@ -33,7 +34,8 @@ class PaymentForm
       card_number: card_number,
       name_on_card: name_on_card,
       mm_yy: mm_yy,
-      cvv: cvv
+      cvv: cvv,
+      order_id: order_id
     }
   end
 end

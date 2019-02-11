@@ -7,7 +7,7 @@ class DeliveryOrder
     context.order.delivery_id = context.delivery_id
     if context.order.save
       context.order.add_payment!
-      context.order.save
+      context.card_inst = PaymentForm.new
     else
       context.fail!(message: I18n.t('interactors.errors.delivery'))
     end

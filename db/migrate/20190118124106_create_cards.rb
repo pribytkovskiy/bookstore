@@ -5,6 +5,7 @@ class CreateCards < ActiveRecord::Migration[5.2]
       t.string :name_on_card
       t.string :mm_yy
       t.string :cvv
+      t.integer :order_id
 
       t.timestamps
     end
