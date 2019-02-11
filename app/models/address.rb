@@ -1,6 +1,6 @@
 class Address < ApplicationRecord
-  belongs_to :order # dependent: :nulify
-  belongs_to :user # dependent: :nulify
+  belongs_to :addressable, polymorphic: true
+
   enum address_type: [ :billing, :shipping ]
 
   scope :search_billing, -> { where(address_type: :billing) }

@@ -7,7 +7,7 @@ class SetUserAddressToOrder
       context.address = AddressForm.new
     else
       @address_billing = context.current_user.addresses.search_billing.first
-      @address_shipping = context.current_user.addresses.search_shipping
+      @address_shipping = context.current_user.addresses.search_shipping.first
       context.address = AddressForm.new(address_params)
     end
   end
@@ -26,9 +26,9 @@ class SetUserAddressToOrder
       shipping_first_name: @address_shipping.first_name,
       shipping_last_name: @address_shipping.last_name,
       shipping_address: @address_shipping.address,
-      shipping_city: @address_shipping.phone,
-      shipping_country: @address_shipping.city,
-      shipping_phone: @address_shipping.country,
+      shipping_city: @address_shipping.city,
+      shipping_country: @address_shipping.country,
+      shipping_phone: @address_shipping.phone,
       shipping_zip: @address_shipping.zip,
       check: false
     }

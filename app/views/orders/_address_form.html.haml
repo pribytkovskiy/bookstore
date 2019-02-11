@@ -1,4 +1,4 @@
-= form_for @address, :url => order_path(user_id: current_user), :method => :put, :html => {:id => "form1"} do |f|
+= form_for @address, :url => order_path, :method => :put, :html => {:id => "form1"} do |f|
   .billing_address{class: 'col-md-5 mb-40', id: 'form1', style: "padding-left: 0px; padding-bottom: 10px;"}
     .form-group{class: "#{"has-error" if adress_has_error?(:first_name)}"}
       = f.label :first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "first_name" }
@@ -57,9 +57,10 @@
       = f.label :shipping_phone, t('.phone'), { class: 'control-label font-weight-lights', for: "shipping_phone" }
       = f.text_field :shipping_phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
       %span.help-block= adress_error_message(:shipping_phone) if @address.errors.any?
+      = f.text_field :order_id, { id: 'checkbox-input', hidden: "true", value: @order.id }
   .form-group.checkbox{ class: 'col-md-5 col-md-offset-6' }
     %label.font-weight-light.pl-0
-      = f.check_box(:check, { class: 'checkbox-input', type: "checkbox", hidden: "true", name: 'check', checked: check?, onchange: "document.getElementById('form2').style.display = this.checked ? 'none' : 'block'" }, true, false)
+      = f.check_box :check, { id: 'checkbox', class: 'checkbox-input', type: "checkbox", hidden: "true", name: 'check', checked: check?, onchange: "document.getElementById('form2').style.display = this.checked ? 'none' : 'block'" }, true, false
       %span.checkbox-icon
         %i.fa.fa-check
       %span.checkbox-text= t('.use_billing_adress')

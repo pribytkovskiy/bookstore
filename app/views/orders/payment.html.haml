@@ -22,7 +22,7 @@
     %span.step-number 5
     %span.step-text.hidden-xs= t('.complete')
 %h3.general-subtitle= t('.credit_card')
-= form_for @card, :url => order_path, :method => :patch, :html => { :class => 'max-600 mb-80'} do |f|
+= form_for @card, :url => order_path, :method => :put, :html => { :class => 'max-600 mb-80'} do |f|
   .form-group{class: "#{"has-error" if card_has_error?(:card_number)}"}
     = f.label :card_number, 'Card Number', { class: 'control-label font-weight-lights', for: "cardNumber" }
     = f.text_field :card_number, { class: 'form-control', id: 'cardNumber', type: "text", name: "card_number", placeholder: "Card Number" }

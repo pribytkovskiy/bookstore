@@ -8,12 +8,13 @@ class OrdersController < InheritedResources::Base
     render @order.state.to_sym
   end
 
-  def update # check, copy params?
+  def update
     session[:check] = params[:check]
     result = Checkout.call(params)
     @address = result.address
-    @card = result.card
+    @card = result.card_inst
     flash.now[:message] = t(result.message) if result.failure?
+    set_order
     render @order.state.to_sym
   end
 end

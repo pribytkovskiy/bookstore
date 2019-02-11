@@ -1,8 +1,6 @@
 class Checkout
   include Interactor
 
-  #organize AddressOrder, DeliveryOrder, PaymentOrder, ConfirmationOrder
-
   def call
     order = Order.find(context.id)
     case order.state.to_sym

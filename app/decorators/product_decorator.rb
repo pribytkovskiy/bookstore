@@ -24,5 +24,4 @@ class ProductDecorator < Draper::Decorator
   def comment_date
     object.comment.updated_at.strftime("%B %d, %Y")
   end
-
 end

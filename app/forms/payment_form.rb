@@ -25,6 +25,15 @@ class PaymentForm
   private
 
   def persist!
-    @card = Card.create!(context)
+    @card = Card.create!(card_params)
+  end
+
+  def card_params
+    {
+      card_number: card_number,
+      name_on_card: name_on_card,
+      mm_yy: mm_yy,
+      cvv: cvv
+    }
   end
 end

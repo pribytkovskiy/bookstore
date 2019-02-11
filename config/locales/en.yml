@@ -73,12 +73,6 @@ en:
       newest_first: Newest first
 
   models:
-    address:
-      only_letters: only allows letters
-      only_numbers: only allows numbers
-      starts_with_plus: should starts with +
-
-  models:
     card:
       only_letters: only allows letters
 
@@ -103,3 +97,7 @@ en:
       create_order_item_failure: Create order_item failure
       add_current_item_quantity: Add current_item quantity failure
       address: Address error
+  
+  starts_with_plus: should starts with +
+  only_letters: only allows letters
+  only_numbers: only allows numbers

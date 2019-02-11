@@ -12,10 +12,11 @@ class AddressForm
     validates name, presence: true
   end
   
+  attribute :check, String
+  attribute :order_id, Integer
   attribute :zip, Integer
   attribute :shipping_zip, Integer
   validates :zip, :shipping_zip, presence: true
-  attribute :check, Boolean
 
   validates :first_name, :last_name, :address, :city, :zip, :country, :phone, presence: true
   validates :first_name, :last_name, :address, :city, :country, :phone, length: { maximum: 50 }
@@ -23,33 +24,32 @@ class AddressForm
   validates :zip, length: { maximum: 5 }, format: { with: ONLY_NUMBERS, message: I18n.t('only_numbers') }
   validates :phone, length: { maximum: 15 }, format: { with: STARTS_WITH_PLUS, message: I18n.t('starts_with_plus') }
 
+  validates :shipping_first_name, :shipping_last_name, :shipping_address,
+    :shipping_city, :shipping_zip, :shipping_country, :shipping_phone, presence: true
+  validates :shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city,
+    :shipping_country, :shipping_phone, length: { maximum: 50 }
+  validates :shipping_first_name, :shipping_last_name, :shipping_city,
+    :shipping_country, format: { with: ONLY_LETTERS, message: I18n.t('only_letters') }
+  validates :shipping_zip, length: { maximum: 5 }, format: { with: ONLY_NUMBERS, message: I18n.t('only_numbers') }
+  validates :shipping_phone, length: { maximum: 15 }, format: { with: STARTS_WITH_PLUS, message: I18n.t('starts_with_plus') }
+
   attr_reader :address
 
   def save
-    copy_params # if check == 'true'
     return false unless valid?
-    
+
     persist!
     true
   end
 
   private
 
-  def copy_params
-    shipping_first_name = first_name
-    shipping_last_name = last_name
-    shipping_address = address
-    shipping_phone = phone
-    shipping_city = city
-    shipping_country = country
-    shipping_zip = zip
-  end
-
   def persist!
-    @address_billing = Address.billing.create!(address_params_billing)
-    return @address_shipping = Address.shipping.create!(address_params_billing) if check == 'true'
+    order = Order.find(order_id)
+    @address_billing = order.addresses.billing.create!(address_params_billing)
+    return (@address_shipping = order.addresses.shipping.create!(address_params_billing)) if check == 'true'
 
-    @address_shipping = Address.shipping.create!(address_params_shipping)
+    @address_shipping = order.addresses.shipping.create!(address_params_shipping)
   end
 
   def address_params_billing
@@ -69,7 +69,7 @@ class AddressForm
       first_name: shipping_first_name,
       last_name: shipping_last_name,
       address: shipping_address,
-      phones: shipping_phones,
+      phone: shipping_phone,
       city: shipping_city,
       country: shipping_country,
       zip: shipping_zip
