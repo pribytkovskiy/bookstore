@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :category do
-    category 'Web'
+    category { FFaker::Book.genre }
   end
 end

@@ -1,8 +1,7 @@
 FactoryBot.define do
   factory :order_item do
-    id         { FFaker.numerify('#') }
-    product_id { FFaker.numerify('#') }
-    order_id   { FFaker.numerify('#') }
+    association :product
+    association :order
     quantity   { FFaker.numerify('#') }
   end
 end
