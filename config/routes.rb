@@ -12,13 +12,6 @@ Rails.application.routes.draw do
     resources :orders, only: %i[show edit update]
     resources :order_items, only: %i[create update destroy]
     resources :carts, only: %i[show update]
-
-    resources :payment, only: %i[index create]
-    resources :confirm, only: %i[index]
-    resources :complete, only: %i[index]
-    resources :delivery, only: %i[index create]
-    resources :view_orders, only: %i[index]
-
     resource :product, only: %i[show] do
       resources :comments, only: %i[index create]
     end
@@ -27,5 +20,6 @@ Rails.application.routes.draw do
 
     get '/', to: 'pages#home', as: 'home'
     get '/catalog', to: 'pages#catalog', as: 'catalog'
+    get '/:view_user_orders', to: 'pages#view_user_orders', as: 'view_user_orders'
   end
 end

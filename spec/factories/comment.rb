@@ -6,5 +6,3 @@ FactoryBot.define do
     product_id { create(:book).id }
   end
 end
-
-commenter: nil, body: nil, comments: nil, rate: 0, user_id: nil, product_id: nil

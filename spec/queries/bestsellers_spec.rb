@@ -1,25 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Bestsellers do
-  
-  context 'returns 4 books' do
-    it 'sorts' do
-      expect(described_class.call).to eq([])
-    end
-  end
-end
+  let!(:orders) { create(:order, :with_items) }
 
-describe PostService do
-  let(:number_of_comments) { 30 }
-  let!(:comments) { create_list(:comment, number_of_comments) }
-
-  context 'method with N+1 problem' do
-    it 'should have 4 queries' do
-      expect { PostService.new.last_posts_wrong(10) }.to query_limit_eq(4)
+  context 'response query' do
+    it '1 product in query' do
+      expect(Bestsellers.call(1).size.size).to eq(1)
     end
 
-    it 'should have 4 queries' do
-      expect { PostService.new.last_posts_wrong(20) }.to query_limit_eq(4)
+    it '2 product in query' do
+      expect(Bestsellers.call(2).size.size).to eq(2)
     end
   end
 end

@@ -1,8 +1,6 @@
 FactoryBot.define do
   factory :order do
     user
-    state
-    id { FFaker.numerify('#') }
     trait :with_items do
       order_items { create_list(:order_item, 2) }
     end

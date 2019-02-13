@@ -12,12 +12,8 @@ class PagesController < ApplicationController
 
   def catalog
     session[:category_id] = params[:category_id] if params[:category_id]
-    @sort_products = SortProducts.call(params: params, category_id: session[:category_id])
-    @pagy, @products = pagy(@sort_products.products)
-  end
-
-  def cart
-    redirect_to store_url, notice: t('.cart_empty') if check_order_items?
+    sort_products = SortProducts.call(params: params, category_id: session[:category_id])
+    @pagy, @products = pagy(sort_products.products)
   end
 
   private
