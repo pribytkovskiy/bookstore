@@ -4,7 +4,7 @@ class CartsController < ApplicationController
   end
 
   def update
-    if coupon = Coupon.find_by(number: params.dig(:order, :number).to_i)
+    if coupon = Coupon.find_by(number: coupon_params)
       @order.coupon_id = coupon.id
       @order.save
     else
@@ -17,5 +17,9 @@ class CartsController < ApplicationController
 
   def check_order_items?
     @order.order_items.empty?
+  end
+
+  def coupon_params
+    params.require(:order).permit(:number).dig(:number).to_i
   end
 end

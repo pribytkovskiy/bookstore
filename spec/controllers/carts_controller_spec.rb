@@ -3,18 +3,16 @@ require 'rails_helper'
 RSpec.describe CartsController do
 
   describe 'GET #show' do
+    let(:order) { create(:order, :with_items) }
+    let(:order_item) { create_list(:order_item, 2) }
 
     before do 
-      get :show, params: { id: 1 }
-      create(:order, :with_items)
+      allow(order).to receive(:order_items).and_return(order_item)
+      get :show, params: { id: order.id }
     end
 
     it 'renders carts/show template' do
       expect(response).to render_template 'cart/show'
-    end
-
-    it 'renders pages/home template if not order_items' do
-      expect(response).to render_template 'pages/home'
     end
 
     it 'responds successfully with an HTTP 200 status code' do
@@ -24,10 +22,14 @@ RSpec.describe CartsController do
   end
 
   describe 'GET #update' do
-    before { get :update, params: { id: 1 } }
+    let(:coupon) { create(:coupon) }
 
-    it 'renders carts/update template' do
-      expect(response).to render_template 'cart/update'
+    before do
+      get :update, params: { id: coupon.number, order: { nubmer: coupon.number } }
+    end
+
+    it 'renders carts/show template' do
+      expect(response).to render_template 'cart/show'
     end
 
     it 'responds successfully with an HTTP 200 status code' do
@@ -36,3 +38,4 @@ RSpec.describe CartsController do
     end
   end
 end
+  

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Bestsellers do
-  let!(:orders) { create(:order, :with_items) }
+  let!(:order) { create(:order, :with_items) }
 
   context 'response query' do
     it '1 product in query' do
