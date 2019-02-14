@@ -20,15 +20,15 @@ class Order < ApplicationRecord
     state :canceling
 
     event :add_address do
-      transitions from: :cart, to: :address
+      transitions from: %i(cart confirmation), to: :address
     end
 
     event :add_delivery_method do
-      transitions from: :address, to: :delivery_method
+      transitions from: %i(address confirmation), to: :delivery_method
     end
 
     event :add_payment do
-      transitions from: :delivery_method, to: :payment
+      transitions from: %i(delivery_method confirmation), to: :payment
     end
 
     event :add_confirmation do

@@ -13,11 +13,11 @@ FactoryBot.define do
     addressable { create :user }
 
     trait :shipping do
-      kind { :shipping }
+      address_type { :shipping }
     end
 
     trait :billing do
-      kind { :billing }
+      address_type { :billing }
     end
   end
 

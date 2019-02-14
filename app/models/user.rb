@@ -3,7 +3,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :omniauthable, omniauth_providers: [:facebook]
 
   has_many :orders
-  has_many :addresses, as: :addressable
+  has_many :comments, dependent: :destroy
+  has_many :addresses, as: :addressable, dependent: :destroy
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -22,5 +23,9 @@ class User < ApplicationRecord
         user.email = data['email'] if user.email.blank?
       end
     end
+  end
+
+  def admin?
+    role.eql? 'admin'
   end
 end

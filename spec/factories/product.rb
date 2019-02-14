@@ -6,9 +6,6 @@ FactoryBot.define do
     year            { FFaker::Time.date }
     dimensions      { "#{FFaker.numerify('#.#')}\" #{FFaker.numerify('#.#')}\" #{FFaker.numerify('#.#')}\"" }
     materials       { FFaker::Lorem.words.join ', ' }
-    authors { create_list :author, 2 }
-    #association(:cover)
     category
-    #association(:category)
   end
 end

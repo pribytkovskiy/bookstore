@@ -38,4 +38,3 @@ RSpec.describe CartsController do
     end
   end
 end
-  

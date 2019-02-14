@@ -38,9 +38,13 @@ RSpec.describe PagesController do
       expect(response).to be_successful
       expect(response).to have_http_status(200)
     end
-
+    
     it 'assigns @products' do
       expect(assigns(:products)).not_to be_nil
+    end
+
+    it 'assigns @sort_products' do
+      expect(assigns(:sort_products)).not_to be_nil
     end
   end
 end

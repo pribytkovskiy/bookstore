@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :order_items, only: %i[create update destroy]
     resources :carts, only: %i[show update]
     resource :product, only: %i[show] do
-      resources :comments, only: %i[index create]
+    resources :comments, only: %i[index create]
     end
 
     root 'pages#home', as: 'store', via: :all

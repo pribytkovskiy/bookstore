@@ -12,8 +12,8 @@ class PagesController < ApplicationController
 
   def catalog
     session[:category_id] = params[:category_id] if params[:category_id]
-    sort_products = SortProducts.call(params: params, category_id: session[:category_id])
-    @pagy, @products = pagy(sort_products.products)
+    @sort_products = SortProducts.call(params: params, category_id: session[:category_id])
+    @pagy, @products = pagy(@sort_products.products)
   end
 
   private

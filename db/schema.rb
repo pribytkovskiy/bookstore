@@ -63,15 +63,14 @@ ActiveRecord::Schema.define(version: 2019_01_25_160101) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.string "commenter"
     t.text "body"
-    t.string "comments"
+    t.string "titel"
     t.integer "rate", default: 0
     t.bigint "user_id"
     t.bigint "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "approved"
+    t.string "approved", default: "unprocessed"
     t.index ["product_id"], name: "index_comments_on_product_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
