@@ -38,22 +38,26 @@
                     %li
                       %a.filter-link{href: "#{catalog_path(:category_id => category.id)}"}= category.category
               - if user_signed_in?
-                <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">My account</a>
-                <ul class="dropdown-menu">
-                <li><a class="filter-link" href="/en/view_orders">Orders</a></li>
-                <li><a class="filter-link" href="/settings/index?">Settings</a></li></li>
-                <li class="divider" role="separator"></li><li>
-                <a rel="nofollow" data-method="delete" href="/users/sign_out?">Log out</a></li>
-                </ul>
+                %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}= t('.my_account')
+                %ul.dropdown-menu
+                  %li
+                    %a.filter-link{:href => orders_path}= t('.orders')
+                  %li
+                    %a.filter-link{:href => "/settings/index?"}= t('.settings')
+                  %li.divider{:role => "separator"}
+                  %li
+                    %a{"data-method" => "delete", :href => "/users/sign_out?", :rel => "nofollow"}= t('.log_out')
               - else
-                <li><a href="/users/sign_in?" role="button">Sign in</a></li>
-                <li><a href="/users/sign_up?" role="button">Sign up</a></li>
+                %li
+                  %a{:href => "/users/sign_in?", :role => "button"}= t('.sign_in')
+                %li
+                  %a{:href => "/users/sign_up?", :role => "button"}= t('.sign_up')
           .hidden-xs
             %ul.nav.navbar-nav
               %li
                 %a{href: "#{home_path}"}= t('.home')
               %li.dropdown
-                <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">Shop</a>
+                %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}= t('.shop')
                 %ul.dropdown-menu
                   %li
                     %a{href: "#{catalog_path(:category_id => @categories.ids)}"}= 'All'
@@ -61,18 +65,21 @@
                     %li
                       %a.filter-link{href: "#{catalog_path(:category_id => category.id)}"}= category.category
               - if user_signed_in?
-                <li class="dropdown">
-                <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">My account</a>
-                <ul class="dropdown-menu">
-                <li><a class="filter-link" href="/en/view_orders">Orders</a></li>
-                <li><a class="filter-link" href="/settings/index?">Settings</a></li></li>
-                <li class="divider" role="separator"></li>
-                <li><a class="collapse-link" rel="nofollow" data-method="delete" href="/users/sign_out?">Log out</a></li>
-                </ul>
-                </li>
+                %li.dropdown
+                  %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}= t('.my_account')
+                  %ul.dropdown-menu
+                    %li
+                      %a.filter-link{:href => orders_path}= t('.orders')
+                    %li
+                      %a.filter-link{:href => "/settings/index?"}= t('.settings')
+                    %li.divider{:role => "separator"}
+                    %li
+                      %a.collapse-link{"data-method" => "delete", :href => "/users/sign_out?", :rel => "nofollow"}= t('.log_out')
               - else
-                <li><a href="/users/sign_in?" role="button">Sign in</a></li>
-                <li><a href="/users/sign_up?" role="button">Sign up</a></li>
+                %li
+                  %a{:href => "/users/sign_in?", :role => "button"}= t('.sign_in')
+                %li
+                  %a{:href => "/users/sign_up?", :role => "button"}= t('.sign_up')
     %main.container
       = yield
     %footer.footer.navbar.navbar-inverse.mb-0
@@ -85,8 +92,10 @@
               %li
                 %a.nav-link{href: "#{catalog_path(:category_id => @categories.ids)}"}= t('.shop')
               - if user_signed_in?
-                <li><a class="nav-link" href="/en/view_orders">Orders</a></li>
-                <li><a class="nav-link" href="/settings/index?">Settings</a></li></li>
+                %li
+                  %a.nav-link{:href => orders_path}= t('.orders')
+                %li
+                  %a.nav-link{:href => "/settings/index?"}= t('.settings')
           .col-sm-3
             %p.general-nav-mail= t('.email')
             %p.general-nav-number= t('.telephone')

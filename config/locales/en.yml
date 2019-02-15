@@ -12,6 +12,12 @@ en:
       web_design: 'Web design'
       email: support@bookstore.com
       telephone: (555)-555-5555
+      sign_in: Sign in
+      sign_up: Sign up
+      orders: Orders
+      settings: Settings
+      log_out: Log out
+      log_in: Log in
 
   pages:
     cart:
@@ -84,10 +90,18 @@ en:
       high_to_low: 'Price: High to low'
       title_a_z: Title A-Z
       title_z_a: Title Z-A
+      all: All
+      shop: Shop
     home:
       buy_now: Buy Now
+      get_started: Get Started
 
   products:
+    form_review:
+      write_a_review: Write a review
+      rating: Rating
+      review: Review
+      post: Post
     show:
       add_to_cart: Add to cart
 

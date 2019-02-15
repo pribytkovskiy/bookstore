@@ -29,7 +29,7 @@
           %a.input-link.plus.fa.fa-plus.line-height-40.help_fa{href: ""}
           %input.btn.btn-default.pull-right.general-positionid.hidden{id: '1', type: "submit", value: "Add to Cart"}
       .col-xs-7.col-md-5
-        %button.btn.btn-default.pull-right.general-position{type: "submit", onclick: "document.getElementById('1').click()"}= t('.add_to_cart')
+        %button.btn.btn-default.pull-right.general-position{type: "submit", id: 'add-to-cart', onclick: "document.getElementById('1').click()"}= t('.add_to_cart')
         .hidden
           = button_to t('.add_to_cart'), {type: "submit", class: 'btn btn-default pull-right general-position hidden', onclick: "document.getElementById('1').click()"}
     .card

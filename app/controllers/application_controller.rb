@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery prepend: true
 
   before_action :set_i18n_locale_from_params
-  before_action :set_order, :set_categories
+  before_action :set_order, :set_categories, :set_user_for_order
 
   protected
 
@@ -30,5 +30,12 @@ class ApplicationController < ActionController::Base
   rescue ActiveRecord::RecordNotFound
     @order = Order.create
     session[:order_id] = @order.id
+  end
+
+  def set_user_for_order
+    if user_signed_in? && @order.user_id.nil?
+      @order.user_id = current_user.id
+      @order.save
+    end
   end
 end

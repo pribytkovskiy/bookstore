@@ -14,7 +14,7 @@ class ProductDecorator < Draper::Decorator
   end 
 
   def image
-    object.covers.first.image_url
+    object.covers.first&.image_url
   end
 
   def avatar

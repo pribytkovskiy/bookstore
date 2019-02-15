@@ -8,7 +8,7 @@
         .row
           .col-sm-5
             .general-img-wrap 
-              %img.img-shadow.general-thumbnail-img.width-full{src: @favorites.latest_products[i].covers.first.image_url, alt: "design-book"}
+              %img.img-shadow.general-thumbnail-img.width-full{src: @favorites.latest_products[i].covers.first&.image_url, alt: "design-book"}
           .col-sm-7
             .mb-60
               %h1= @favorites.latest_products[i].title
@@ -27,7 +27,7 @@
   %h2.h1= t('.welcome')
   .mb-res-50
     %p.in-grey-600= t('.we_pore')
-  = button_to 'Get Started', catalog_path(:category_id => @categories.ids), method: "get", class: "btn btn-default"
+  = button_to t('.get_started'), catalog_path(:category_id => @categories.ids), method: "get", class: "btn btn-default"
 .mb-35
   %h3= t('.best_sellers')
   .row
@@ -36,7 +36,7 @@
         .col-sm-6.col-md-3
           .general-thumb-wrap
             .thumbnail.general-thumbnail
-              %img.img-shadow.general-thumbnail-img{src: product.covers.first.image_url, alt: "design-book"}
+              %img.img-shadow.general-thumbnail-img{src: product.covers.first&.image_url, alt: "design-book"}
               .thumb-hover
                 .general-thumb-link-wrap
                   %a.thumb-hover-link{href: "#{product_path(id: product)}"}

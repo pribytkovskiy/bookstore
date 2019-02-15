@@ -3,6 +3,10 @@ class OrdersController < InheritedResources::Base
 
   ORDER_STATE = { address: :address, delivery: :delivery_method, payment: :payment, confirmation: :confirmation }
 
+  def index
+    @orders = Order.where(user_id: current_user)
+  end
+
   def show
     @address = SetUserAddressToOrder.call(current_user: current_user, order: @order).address if @order.cart?
     render @order.state.to_sym

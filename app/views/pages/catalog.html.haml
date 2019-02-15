@@ -18,7 +18,7 @@
           = link_to t('.title_a_z'), catalog_path(:sort => "title", :direction => "asc", :name_sort => t('.title_a_z')), method: "get"
         %li
           = link_to t('.title_z_a'), catalog_path(:sort => "title", :direction => "desc", :name_sort => t('.title_z_a')), method: "get"
-  %ul.list-inline.pt-10.mb-25.mr-240
+  %ul.list-inline.categories-list.pt-10.mb-25.mr-240
     %li.mr-35
       %a.filter-link{href: "#{catalog_path(:category_id => @categories.ids)}"}
         = t('.all')
@@ -65,7 +65,7 @@
           .col-xs-6.col-sm-3
             .general-thumb-wrap
               .thumbnail.general-thumbnail
-                %img.img-shadow.general-thumbnail-img{src: product.covers.first.image_url, alt: "design-book"}
+                %img.img-shadow.general-thumbnail-img{src: product.covers.first&.image_url, alt: "design-book"}
                 .thumb-hover
                   .general-thumb-link-wrap
                     %a.thumb-hover-link{href: "#{product_path(id: product)}"}

@@ -6,29 +6,29 @@
     %i.fa.fa-angle-down.dropdown-icon
   %ul.dropdown-menu
     %li
-      = link_to 'All', view_orders_path(:sort_order => "All", :name_sort_order => "All"), method: "get"
+      = link_to 'All', orders_path(:sort_order => "All", :name_sort_order => "All"), method: "get"
     %li
-      = link_to 'In queue', view_orders_path(:sort_order => "in_queued", :name_sort_order => "In queue"), method: "get"
+      = link_to 'In queue', orders_path(:sort_order => "in_queued", :name_sort_order => "In queue"), method: "get"
     %li
-      = link_to 'In delivery', view_orders_path(:sort_order => "in_delivering", :name_sort_order => "In delivery"), method: "get"
+      = link_to 'In delivery', orders_path(:sort_order => "in_delivering", :name_sort_order => "In delivery"), method: "get"
     %li
-      = link_to 'Delivered', view_orders_path(:sort_order => "delivering", :name_sort_order => "Delivere"), method: "get"
+      = link_to 'Delivered', orders_path(:sort_order => "delivering", :name_sort_order => "Delivere"), method: "get"
     %li
-      = link_to 'Canceled', view_orders_path(:sort_order => "canceling", :name_sort_order => "Canceled"), method: "get"
+      = link_to 'Canceled', orders_path(:sort_order => "canceling", :name_sort_order => "Canceled"), method: "get"
 .visible-xs
   .general-cart-item.divider-lg-bottom.pt-0
     %table.table
-      - @order.each do |order|
+      - @orders.each do |order|
         %tr
           %td.col-half
             %span.in-grey-600= t('.number')
           %td.col-half
-            %span.general-order-number= order.number
+            %span.general-order-number= order.decorate.number
         %tr
           %td
             %span.in-grey-600= t('.completed_at')
           %td
-            %span.in-grey-900.font-16.font-weight-light= order.date
+            %span.in-grey-900.font-16.font-weight-light= order.decorate.date
         %tr
           %td
             %span.in-grey-600= t('.status')
@@ -53,12 +53,12 @@
         %th
           %span.in-grey-600= t('.total')
     %tbody
-      - @order.each do |order|
+      - @orders.each do |order|
         %tr
           %td
-            %span.general-order-number= order.number
+            %span.general-order-number= order.decorate.number
           %td
-            %span.in-grey-900.font-16.font-weight-light= order.date
+            %span.in-grey-900.font-16.font-weight-light= order.decorate.date
           %td
             %span.font-16.font-weight-light.text-success= order.state
           %td

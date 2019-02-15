@@ -9,7 +9,7 @@ Rails.application.routes.draw do
         patch 'update_password'
       end
     end
-    resources :orders, only: %i[show edit update]
+    resources :orders, only: %i[index show edit update]
     resources :order_items, only: %i[create update destroy]
     resources :carts, only: %i[show update]
     resource :product, only: %i[show] do
@@ -20,6 +20,5 @@ Rails.application.routes.draw do
 
     get '/', to: 'pages#home', as: 'home'
     get '/catalog', to: 'pages#catalog', as: 'catalog'
-    get '/:view_user_orders', to: 'pages#view_user_orders', as: 'view_user_orders'
   end
 end
