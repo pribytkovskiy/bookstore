@@ -1,4 +1,4 @@
-class AddressOrder
+class Checkout::AddressOrder
   include Interactor
 
   def call

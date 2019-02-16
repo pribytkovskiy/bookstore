@@ -1,4 +1,4 @@
-class PaymentOrder
+class Checkout::PaymentOrder
   include Interactor
 
   def call

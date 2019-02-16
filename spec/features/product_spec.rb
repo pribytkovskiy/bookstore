@@ -42,6 +42,13 @@ feature 'product page' do
       click_button(I18n.t('products.show.add_to_cart'), match: :first)
       expect(order.order_items.first.quantity).to eq(order.order_items.first.quantity)
     end
+
+    scenario 'back link' do
+      visit home_path
+      expect(page).to have_selector('.thumb-hover-link > .fa-shopping-cart', visible: true)
+      first('.thumb-hover-link > .fa-shopping-cart').click
+      expect(page).to have_current_path(home_path)
+    end
   end
 
   context 'reviews content' do

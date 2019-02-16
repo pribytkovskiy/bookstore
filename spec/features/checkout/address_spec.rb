@@ -1,51 +1,56 @@
 require 'rails_helper'
 
-RSpec.feature 'Checkout order address' do
-  let(:user) { create :user_with_addresses }
-  let(:order) { create :order, :with_items, state: 'address' }
+feature 'address step' do
+  before { sign_in create(:user) }
 
-  before do
-    login_as(user, scope: :user)
-    page.set_rack_session(order_id: order.id)
-    visit checkouts_path
-  end
+  context 'when orders exist' do
+    let!(:order) { create(:order, :with_items) }
+    let(:last_name) { FFaker::Name.last_name }
 
-  scenario 'redirect to Log In if user is unauthorized' do
-    logout(:user)
-    visit checkouts_path
-    expect(page).to have_current_path('/users/login')
-  end
+    before { visit order_path(id: order.id) }
 
-  context 'address information content' do
-    scenario 'adress forms filled by present user addresses' do
-      click_button 'Save and Continue'
-      expect(page).to have_content('Shipping Method')
+    it 'have all fields' do
+      expect(page).to have_field(I18n.t('orders.form.first_name'))
+      expect(page).to have_field(I18n.t('orders.form.last_name'))
+      expect(page).to have_field(I18n.t('orders.form.address'))
+      expect(page).to have_field(I18n.t('orders.form.city'))
+      expect(page).to have_field(I18n.t('orders.form.zip'))
+      expect(page).to have_field(I18n.t('orders.form.country'))
+      expect(page).to have_field(I18n.t('orders.form.phone'))
     end
-    scenario 'shipping addres filled by checkbox Use Billing Address' do
-      visit checkouts_path
-      find('.checkbox-icon').click
-      click_button 'Save and Continue'
-      expect(page).to have_content('Shipping Method')
+
+    xit 'show mistakes' do
+      within 'div.billing_address' do
+        fill_in I18n.t('orders.form.first_name'), with: FFaker.numerify('###')
+        fill_in I18n.t('orders.form.city'), with: FFaker.numerify('###')
+        fill_in I18n.t('orders.form.zip'), with: FFaker::Lorem.word
+        fill_in I18n.t('orders.form.phone'), with: FFaker.numerify('############')
+      end
+      click_button(I18n.t('orders.form.save_and_continue'))
+
+      expect(page).to have_content(I18n.t('cant_be_blank'))
+      expect(page).to have_content(I18n.t('starts_with_plus'))
+      expect(page).to have_content(I18n.t('only_numbers'))
+      expect(page).to have_content(I18n.t('only_letters'))
+      expect(page).to have_css('div.has-error')
     end
-    scenario 'billing form not filled' do
-      visit checkouts_path
-      click_button 'Save and Continue'
-      expect(page).to have_content("First name can't be blank")
-      expect(page).to have_content("Last name can't be blank")
-      expect(page).to have_content("Address can't be blank")
-      expect(page).to have_content("City can't be blank")
-      expect(page).to have_content("Zip can't be blank")
-      expect(page).to have_content("Phone can't be blank")
+
+    xit 'saves previos values' do
+      within 'div.billing_address' do
+        fill_in I18n.t('orders.form.last_name'), with: last_name
+      end
+      click_button(I18n.t('orders.form.save_and_continue'))
+
+      expect(page).to have_field(I18n.t('orders.form.last_name'), with: last_name)
+      expect(page).to have_css('div.has-error')
     end
-    scenario 'shipping form not filled' do
-      visit checkouts_path
-      click_button 'Save and Continue'
-      expect(page).to have_content("First name can't be blank")
-      expect(page).to have_content("Last name can't be blank")
-      expect(page).to have_content("Address can't be blank")
-      expect(page).to have_content("City can't be blank")
-      expect(page).to have_content("Zip can't be blank")
-      expect(page).to have_content("Phone can't be blank")
+
+   xit 'click use billing' do
+      first('.checkbox-icon').click
+      expect(page).to have_selector('.shipping_address', visible: false)
+
+      click_button(I18n.t('orders.form.save_and_continue'))
+      expect(page).to have_selector('.shipping_address', visible: false)
     end
   end
 end

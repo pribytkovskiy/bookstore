@@ -1,4 +1,4 @@
-class ConfirmationOrder
+class Checkout::ConfirmationOrder
   include Interactor
 
   def call

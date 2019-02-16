@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe DestroyOrderItem, type: :interactor do
+RSpec.describe Checkout::DeliveryOrder, type: :interactor do
   describe '.call' do
     pending "add some examples to (or delete) #{__FILE__}"
   end

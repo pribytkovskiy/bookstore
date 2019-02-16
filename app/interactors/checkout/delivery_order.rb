@@ -1,7 +1,8 @@
-class DeliveryOrder
+class Checkout::DeliveryOrder
   include Interactor
 
   def call
+    context.order = { delivery_id: nil } unless context.order
     context.delivery_id = context.order[:delivery_id].to_i
     context.order = Order.find(context.id)
     context.order.delivery_id = context.delivery_id

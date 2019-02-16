@@ -1,4 +1,4 @@
-class UpdateOrderItem
+class OrderItem::UpdateOrderItem
   include Interactor
 
   def call

@@ -104,6 +104,7 @@ en:
       post: Post
     show:
       add_to_cart: Add to cart
+      back_to_results: Back to results
 
   interactors:
     errors:
@@ -115,3 +116,4 @@ en:
   starts_with_plus: should starts with +
   only_letters: only allows letters
   only_numbers: only allows numbers
+  cant_be_blank: can't be blank

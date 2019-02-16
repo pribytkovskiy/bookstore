@@ -1,4 +1,4 @@
-class SetUserAddressToOrder
+class Checkout::SetUserAddressToOrder
   include Interactor
 
   def call

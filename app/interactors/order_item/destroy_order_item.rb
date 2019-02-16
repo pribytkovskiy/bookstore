@@ -1,4 +1,4 @@
-class DestroyOrderItem
+class OrderItem::DestroyOrderItem
   include Interactor
 
   def call
