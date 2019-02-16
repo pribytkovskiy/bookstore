@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_order
-    @order = Order.find(session[:order_id]).decorate
+    @order = Order.active_order(session[:order_id]).decorate
   rescue ActiveRecord::RecordNotFound
     @order = Order.create
     session[:order_id] = @order.id

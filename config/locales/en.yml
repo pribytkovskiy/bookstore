@@ -112,8 +112,17 @@ en:
       create_order_item_failure: Create order_item failure
       add_current_item_quantity: Add current_item quantity failure
       address: Address error
-  
+
+  orders:
+    payment:
+      card_number: Card Number
+      name_on_card: Name on Card
+      mm_yy: MM / YY
+      cvv: CVV
+
   starts_with_plus: should starts with +
   only_letters: only allows letters
   only_numbers: only allows numbers
   cant_be_blank: can't be blank
+  16_characters: is the wrong length (should be 16 characters)
+  4_characters: too long (maximum is 4 characters)

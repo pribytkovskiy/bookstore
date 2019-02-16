@@ -24,23 +24,23 @@
 %h3.general-subtitle= t('.credit_card')
 = form_for @card, :url => order_path, :method => :put, :html => { :class => 'max-600 mb-80'} do |f|
   .form-group{class: "#{"has-error" if card_has_error?(:card_number)}"}
-    = f.label :card_number, 'Card Number', { class: 'control-label font-weight-lights', for: "cardNumber" }
+    = f.label :card_number, t('.card_number'), { class: 'control-label font-weight-lights', for: "cardNumber" }
     = f.text_field :card_number, { class: 'form-control', id: 'cardNumber', type: "text", name: "card_number", placeholder: "Card Number" }
     %span.help-block= card_error_message(:card_number) if @card.errors.any?
   .row
     .col-sm-6
       .form-group{class: "#{"has-error" if card_has_error?(:name_on_card)}"}
-        = f.label :name_on_card, 'Name on Card', { class: 'control-label font-weight-lights', for: "cardName" }
+        = f.label :name_on_card, t('.name_on_card'), { class: 'control-label font-weight-lights', for: "cardName" }
         = f.text_field :name_on_card, { class: 'form-control', id: 'cardName', type: "text", name: "name_on_card", placeholder: "Name on Card" }
         %span.help-block= card_error_message(:name_on_card) if @card.errors.any?
     .col-sm-3
       .form-group{class: "#{"has-error" if card_has_error?(:mm_yy)}"}
-        = f.label :mm_yy, 'MM / YY', { class: 'control-label font-weight-lights', for: "firstName" }
+        = f.label :mm_yy, t('.mm_yy'), { class: 'control-label font-weight-lights', for: "firstName" }
         = f.text_field :mm_yy, { class: 'form-control', id: 'firstName', name: "mm_yy", type: "text", placeholder: "MM / YY" }
         %span.help-block= card_error_message(:mm_yy) if @card.errors.any?
     .col-sm-3
       .form-group.relative{class: "#{"has-error" if card_has_error?(:cvv)}"}
-        = f.label :cvv, 'CVV', { class: 'control-label font-weight-lights', for: "cvv" }
+        = f.label :cvv, t('.cvv'), { class: 'control-label font-weight-lights', for: "cvv" }
         = f.text_field :cvv, { class: 'form-control', id: 'cvv', name: "cvv", type: "text", placeholder: "CVV" }
         %i.fa.fa-question-circle.general-form-help.font-18
         <a href="#" title="The CVV number (Card Verification Value) on a credit card is a 3-4 digit number on VISA, MasterCard" class="fa fa-question-circle general-form-help font-18" style="text-decoration: none;"></a>

@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+  include AASM
+
   belongs_to :user, optional: true
   belongs_to :delivery, optional: true
   belongs_to :coupon, optional: true
@@ -6,8 +8,8 @@ class Order < ApplicationRecord
   has_many :addresses, as: :addressable
   has_many :order_items
 
-  include AASM
-
+  scope :active_order, ->(id) { Order.find(id: id) }
+  # state: %i(cart address delivery_method payment confirmation)
   aasm column: 'state' do
     state :cart, initial: true
     state :address

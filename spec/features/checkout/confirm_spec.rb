@@ -1,67 +1,37 @@
 require 'rails_helper'
 
-RSpec.feature 'Checkout order confirm' do
-  let(:user) { create :user_with_addresses }
-  let(:order) { create :full_order, state: 'confirm' }
+feature 'confirm step' do
+  let!(:order) { create(:order, :with_items) }
+  let!(:adress) { create(:users_address, :shipping) }
+  let!(:delivery) { create(:delivery) }
+  let!(:card) { create(:card) }
 
   before do
-    login_as(user, scope: :user)
-    page.set_rack_session(order_id: order.id)
-    visit checkouts_path
+    sign_in create(:user)
+    order.state = :confirmation
+    visit order_path(id: order.id)
   end
 
-  scenario 'redirect to Log In if user is unauthorized' do
-    logout(:user)
-    visit checkouts_path
-    expect(page).to have_current_path('/users/login')
+  it 'show order info' do
+    expect(page).to have_content(address.first_name + ' ' + address.last_name)
+    expect(page).to have_content(address.address)
+    expect(page).to have_content(address.city)
+    expect(page).to have_content(address.phone)
+    expect(page).to have_content(address.country)
+
+    expect(page).to have_content(delivery.method)
+
+    expect(page).to have_content(card.mm_yy)
+    expect(page).to have_content('****' * 3 + card.number[-4..-1])
+
+    expect(page).to have_content(order.total_price)
   end
 
-  context 'order confirm content' do
-    scenario 'must present short billing address' do
-      expect(page).to have_content(order.addresses.billing.first.first_name)
-      expect(page).to have_content(order.addresses.billing.first.last_name)
-      expect(page).to have_content(order.addresses.billing.first.address)
-      expect(page).to have_content(order.addresses.billing.first.city)
-      expect(page).to have_content(order.addresses.billing.first.country.name)
-      expect(page).to have_content(order.addresses.billing.first.zip)
-      expect(page).to have_content(order.addresses.billing.first.phone)
-    end
-    scenario 'must present short shipping address' do
-      expect(page).to have_content(order.addresses.shipping.first.first_name)
-      expect(page).to have_content(order.addresses.shipping.first.last_name)
-      expect(page).to have_content(order.addresses.shipping.first.address)
-      expect(page).to have_content(order.addresses.shipping.first.city)
-      expect(page).to have_content(order.addresses.shipping.first.country.name)
-      expect(page).to have_content(order.addresses.shipping.first.zip)
-      expect(page).to have_content(order.addresses.shipping.first.phone)
-    end
-    scenario 'must present short shipment information' do
-      expect(page).to have_content(order.order_items.only_shippings.first.product.title)
-      expect(page).to have_content(order.order_items.only_shippings.first.product.description)
-    end
-    scenario 'must present short payment information' do
-      expect(page).to have_content(order.payments.first.mm_yy)
-      expect(page).to have_content(order.payments.first.card_number.last(4))
-    end
-    scenario 'must present edit information links' do
-      expect(page).to have_css('.general-edit', count: 4)
-    end
-    scenario 'must present order items' do
-      expect(page).to have_selector('.general-title', count: 2)
-      order.order_items.only_products.each do |order_item|
-        expect(page).to have_content(order_item.product.title)
-      end
-    end
-    scenario 'redirect to comlete page after confirm' do
-      click_button 'Save and Continue'
-      expect(page).to have_content('Thank You for your Order!')
-    end
-    scenario 'send letter after confirm' do
-      clear_emails
-      click_button 'Save and Continue'
-      placed_order = Order.find(order.id)
-      open_email(user.email)
-      expect(current_email).to have_content placed_order.order_number
-    end
+  it 'can edit and redirect back' do
+    click_link('edit', match: :first)
+    expect(current_path).to eq('/checkouts/address')
+
+    click_button(I18n.t('orders.address_form.save_and_continue'))
+    expect(current_path).to eq('/checkouts/confirm')
   end
 end

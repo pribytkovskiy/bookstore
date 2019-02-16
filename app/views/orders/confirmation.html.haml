@@ -27,7 +27,7 @@
     %h3.general-subtitle= t('.shipping_address')
     %p.general-address
       = @order.shipping_name
-      %span.general-edit= link_to "edit", edit_order_path(state: :address), method: :get, class: 'general-edit' 
+      %span.general-edit= link_to t(.'edit'), edit_order_path(state: :address), method: :get, class: 'general-edit' 
       %br
       = @order.shipping_address
       %br
