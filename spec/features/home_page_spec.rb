@@ -7,7 +7,7 @@ feature 'home page' do
 
   context 'guest visit must present elemets' do
     scenario 'home link must present' do
-      expect(page).to have_content I18n.t('layouts.application.home')
+      expect(page).to have_current_path('/en/catalog')
     end
 
     scenario 'must present working shop link' do

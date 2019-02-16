@@ -19,8 +19,8 @@ en:
       log_out: Log out
       log_in: Log in
 
-  pages:
-    cart:
+  carts:
+    show:
       cart: 'Cart'
       product: 'Product' 
       price: 'Price'

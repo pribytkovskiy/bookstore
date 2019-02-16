@@ -72,6 +72,7 @@ end
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'geckodriver-helper'
   gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'rspec'
