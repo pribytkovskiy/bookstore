@@ -70,7 +70,7 @@
                   .general-thumb-link-wrap
                     %a.thumb-hover-link{href: "#{product_path(id: product)}"}
                       %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                    = link_to order_items_path(product_id: product.id, order_id: @order.id), method: :post, class: "thumb-hover-link" do
+                    = link_to order_items_path(product_id: product.id, order_id: @order.id, redirect_to: catalog_path), method: :post, class: "thumb-hover-link" do
                       %i.fa.fa-shopping-cart.thumb-icon
             .general-thumb-info
               %p.general-title= product.title

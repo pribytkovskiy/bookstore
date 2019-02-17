@@ -8,8 +8,8 @@ class Order < ApplicationRecord
   has_many :addresses, as: :addressable
   has_many :order_items
 
-  scope :active_order, ->(id) { Order.find(id: id) }
-  # state: %i(cart address delivery_method payment confirmation)
+  scope :active_order, ->(id) { Order.where(state: %i(cart address delivery_method payment confirmation)).find(id) }
+  
   aasm column: 'state' do
     state :cart, initial: true
     state :address
