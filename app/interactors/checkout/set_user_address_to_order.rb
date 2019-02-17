@@ -2,9 +2,9 @@ class Checkout::SetUserAddressToOrder
   include Interactor
 
   def call
-    add_user_to_order
-    context.order.add_address!
-    if context.current_user.addresses.billing.empty?
+    set_order
+    set_user
+    if context.user.addresses.billing.empty?
       context.address = AddressForm.new
     else
       @address_billing = context.current_user.addresses.search_billing.first
@@ -35,8 +35,11 @@ class Checkout::SetUserAddressToOrder
     }
   end
 
-  def add_user_to_order
-    context.order.user_id = context.current_user.id
-    context.order.save
+  def set_order
+    context.order = Order.find(context.id)
+  end
+
+  def set_user
+    context.user = User.find(context.order.user_id)
   end
 end

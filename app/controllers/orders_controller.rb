@@ -8,22 +8,32 @@ class OrdersController < InheritedResources::Base
   end
 
   def show
-    @address = Checkout::SetUserAddressToOrder.call(current_user: current_user, order: @order).address if @order.cart?
+    set_instance
     render @order.state.to_sym
   end
 
   def update
     session[:check] = params[:check]
-    result = Checkout.call(params)
-    @address = result.address
-    @card = result.card_inst
-    flash.now[:message] = t(result.message) if result.failure?
-    render @order.state.to_sym
+    set_instance
+    if @result.failure?
+      render @order.state.to_sym
+    else
+      redirect_to show
+    end
   end
 
   def edit
     @order.state = params[:state]
     @order.save
     redirect_to action: 'update'
+  end
+
+  private
+
+  def set_instance
+    @result = Checkout.call(params)
+    @address = @result.address
+    @card = @result.card_inst
+    flash.now[:message] = t(@result.message) if @result.failure?
   end
 end
