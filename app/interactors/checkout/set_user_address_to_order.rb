@@ -4,6 +4,7 @@ class Checkout::SetUserAddressToOrder
   def call
     set_order
     set_user
+    context.order.add_address! if context.order.cart?
     if context.user.addresses.billing.empty?
       context.address = AddressForm.new
     else

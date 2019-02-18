@@ -36,7 +36,7 @@ en:
 
   orders:
     address_form:
-      save_and_continue: 'Save and Continue'
+      save_and_continue: Save and Continue
     form:
       checkout: 'Checkout'
       address: 'Address'
@@ -126,3 +126,4 @@ en:
   cant_be_blank: can't be blank
   16_characters: is the wrong length (should be 16 characters)
   4_characters: too long (maximum is 4 characters)
+  save_and_continue: Save and Continue

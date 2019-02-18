@@ -32,11 +32,11 @@
         %th
           %span.in-grey-600= t('.price')
     %tbody
-    = form_for @order, :url => order_path, :patch => :patch do |f|
+    = form_for @delivery, :url => order_path, :method => :put do |f|
       %tr
         %td
           .form-group.radio.mt-0.mb-0
-            = f.radio_button :delivery_id, '2', { :class => 'radio-icon radio-text text-center radio-input', :style => 'margin-left: 5px;', :checked => true }
+            = f.radio_button :id, '2', { :class => 'radio-icon radio-text text-center radio-input', :style => 'margin-left: 5px;', :checked => true }
             = f.label :delivery, 'Regular Delivery', :value => '2', :class => 'font-16 font-weight-light pl-0', :style => 'margin-left: 50px;'
         %td
           %span 3 days
@@ -46,7 +46,7 @@
         %td
           .form-group.radio.mt-0.mb-0
             %label.font-16.font-weight-light.pl-0
-              = f.radio_button :delivery_id, '1', { :class => 'radio-icon radio-text text-center radio-input', :style => 'margin-left: 5px;' }
+              = f.radio_button :id, '1', { :class => 'radio-icon radio-text text-center radio-input', :style => 'margin-left: 5px;' }
               = f.label :delivery, 'Express Delivery', :value => '1', :class => 'font-16 font-weight-light pl-0', :style => 'margin-left: 50px;'
         %td
           %span 1 days
