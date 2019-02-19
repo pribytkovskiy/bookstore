@@ -71,7 +71,7 @@
                     %li
                       %a.filter-link{:href => orders_path}= t('.orders')
                     %li
-                      %a.filter-link{:href => "/settings/index?"}= t('.settings')
+                      %a.filter-link{:href => settings_path(user_id: current_user.id)}= t('.settings')
                     %li.divider{:role => "separator"}
                     %li
                       %a.collapse-link{"data-method" => "delete", :href => "/users/sign_out?", :rel => "nofollow"}= t('.log_out')
@@ -95,7 +95,7 @@
                 %li
                   %a.nav-link{:href => orders_path}= t('.orders')
                 %li
-                  %a.nav-link{:href => "/settings/index?"}= t('.settings')
+                  %a.nav-link{:href => settings_path(user_id: current_user.id)}= t('.settings')
           .col-sm-3
             %p.general-nav-mail= t('.email')
             %p.general-nav-number= t('.telephone')

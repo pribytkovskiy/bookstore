@@ -28,4 +28,8 @@ class User < ApplicationRecord
   def admin?
     role.eql? 'admin'
   end
+
+  def soft_delete  
+    update_attribute(:deleted_at, Time.current)  
+  end  
 end

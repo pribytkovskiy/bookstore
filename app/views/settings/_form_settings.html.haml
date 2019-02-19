@@ -2,7 +2,7 @@
   .col-sm-5
     %p.in-gold-500.font-18.mb-25= t('.email')
     .general-text-align
-    = form_for( current_user, :url => settings_update_path, :method => :get, html: { :class => 'general-form-md'} ) do |f|
+    = form_for( current_user, :url => update_password_settings_path(user_id: current_user.id), :method => :patch, html: { :class => 'general-form-md'} ) do |f|
       .form-group.mb-35
         = f.label :email, 'Enter Email', { class: 'control-label font-weight-lights', for: "email" }
         = f.text_field :email, { class: 'form-control', id: 'email', type: "email", placeholder: "Enter your email" }
@@ -10,8 +10,7 @@
         = f.submit 'Save', {class: 'btn btn-default mb-35'}
   .col-sm-5.col-sm-offset-1
     %p.in-gold-500.font-18.mb-25= t('.password')
-    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "general-form" }) do |f|
-      = devise_error_messages!
+    = form_for(current_user, as: :user, url: update_password_settings_path(user_id: current_user.id), html: { method: :patch, class: "general-form" }) do |f|
       = f.hidden_field :reset_password_token
       .form-group.mb-30
         %label.control-label.font-weight-light{for: "password"}= t('.type_a_new_password')

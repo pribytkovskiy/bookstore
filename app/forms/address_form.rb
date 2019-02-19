@@ -14,6 +14,7 @@ class AddressForm
   
   attribute :check, String
   attribute :order_id, Integer
+  attribute :user_id, Integer
   attribute :zip, Integer
   attribute :shipping_zip, Integer
   validates :zip, :shipping_zip, presence: true
@@ -45,11 +46,25 @@ class AddressForm
   private
 
   def persist!
+    return save_user_address unless order_id
+
+    save_order_address
+  end
+
+  def save_order_address
     order = Order.find(order_id)
     @address_billing = order.addresses.billing.create!(address_params_billing)
     return (@address_shipping = order.addresses.shipping.create!(address_params_billing)) if check == 'true'
 
     @address_shipping = order.addresses.shipping.create!(address_params_shipping)
+  end
+
+  def save_user_address
+    user = User.find(user_id)
+    @address_billing = user.addresses.billing.create!(address_params_billing)
+    return (@address_shipping = user.addresses.shipping.create!(address_params_billing)) if check == 'true'
+
+    @address_shipping = user.addresses.shipping.create!(address_params_shipping)
   end
 
   def address_params_billing

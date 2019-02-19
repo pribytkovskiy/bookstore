@@ -56,7 +56,7 @@
     = f.label :shipping_phone, t('.phone'), { class: 'control-label font-weight-lights', for: "shipping_phone" }
     = f.text_field :shipping_phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
     %span.help-block= adress_error_message(:shipping_phone) if @address.errors.any?
-    = f.text_field :order_id, { id: 'checkbox-input', hidden: "true", value: @order.id }
+    = f.text_field :user_id, { id: 'checkbox-input', hidden: "true", value: current_user.id }
 .form-group.checkbox{ class: 'col-md-5 col-md-offset-6' }
   %label.font-weight-light.pl-0
     = f.check_box :check, { id: 'checkbox', class: 'checkbox-input', type: "checkbox", hidden: "true", name: 'check', checked: check?, onchange: "document.getElementById('form2').style.display = this.checked ? 'none' : 'block'" }, true, false
@@ -66,16 +66,4 @@
 .row
   .col-md-12
     .general-text-align.mb-60
-      %p.in-gold-500.font-18= t('.order_summary')
-      %table.general-summary-table
-        %tr
-          %td
-            %p.font-16= t('.item_total')
-          %td
-            %p.font-16= number_to_currency(@order.total_price)
-        %tr
-          %td
-            %p.font-16= t('.order_total')
-          %td
-            %p.font-16= number_to_currency(@order.total_price - @order.coupon&.price.to_i)
       = f.submit I18n.t('save_and_continue'), { class: 'btn center-block mb-20' }
