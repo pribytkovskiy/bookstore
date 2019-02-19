@@ -8,7 +8,7 @@ class Order < ApplicationRecord
   has_many :addresses, as: :addressable
   has_many :order_items
 
-  scope :active_order, ->(id) { Order.where(state: %i(cart address delivery_method payment confirmation)).find(id) }
+  scope :active_order, ->(id) { Order.where(state: %i(cart address delivery_method payment confirmation complete)).find(id) }
   
   aasm column: 'state' do
     state :cart, initial: true
@@ -16,6 +16,7 @@ class Order < ApplicationRecord
     state :delivery_method
     state :payment
     state :confirmation
+    state :complete
     state :in_queued
     state :in_delivering
     state :delivering
@@ -37,8 +38,12 @@ class Order < ApplicationRecord
       transitions from: :payment, to: :confirmation
     end
 
+    event :add_complete do
+      transitions from: :confirmation, to: :complete
+    end
+
     event :add_in_queued do
-      transitions from: :confirmation, to: :in_queued
+      transitions from: :complete, to: :in_queued
     end
 
     event :in_delivery do

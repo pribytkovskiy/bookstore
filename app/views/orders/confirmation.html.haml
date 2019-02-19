@@ -110,4 +110,4 @@
       %td
         %strong.font-18= number_to_currency(@order.total_price + @order.delivery.price - @order.coupon&.price.to_i)
 .text-center
-  = button_to "Place Order", order_path(in_queued: true), patch: :patch, class: 'btn btn-default mb-20'
+  = button_to "Place Order", order_path(complete: true), method: :patch, class: 'btn btn-default mb-20'

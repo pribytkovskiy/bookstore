@@ -4,12 +4,13 @@ class OrdersController < InheritedResources::Base
   ORDER_STATE = { cart: :cart, address: :address, delivery: :delivery_method, payment: :payment, confirmation: :confirmation }
 
   def index
-    @orders = Order.where(user_id: current_user)
+    @orders = Order.where(user_id: current_user.id).where(state: %i(in_queued in_delivering delivering canceling))
   end
 
   def show
     set_instance
     render @order.state.to_sym
+    set_in_queued
   end
 
   def update
@@ -37,5 +38,9 @@ class OrdersController < InheritedResources::Base
     @card = @result.card_inst
     @delivery = @result.delivery_inst
     flash.now[:message] = t(@result.message) if @result.failure?
+  end
+
+  def set_in_queued
+    @order.add_in_queued! if @order.state == 'complete'
   end
 end
