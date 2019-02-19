@@ -34,29 +34,6 @@ en:
       order_total: 'Order Total'
       checkout: 'Checkout'
 
-    form:
-      checkout: 'Checkout'
-      address: 'Address'
-      delivery: 'Delivery'
-      payment: 'Payment'
-      confirm: 'Confirm'
-      complete: 'Complete'
-      billing_address: 'Billing Address' 
-      all_fields_are_required: 'all fields are required'
-      shipping_address: 'Shipping Address'
-      first_name: 'First Name'
-      last_name: 'Last Name'
-      address: 'Address'
-      city: 'City'
-      zip: 'Zip'
-      country: 'Country'
-      phone: 'Phone'
-      save_and_continue: 'Save and Continue'
-      use_billing_adress: 'Use Billing Adress'
-      order_summary: 'Order Summary'
-      item_total: 'Item Total:'
-      order_total: 'Order Total:'
-
   number:
     currency:
       format:
@@ -111,21 +88,39 @@ en:
       address: Address error
 
   orders:
+    form:
+      checkout: 'Checkout'
+      address: 'Address'
+      delivery: 'Delivery'
+      payment: 'Payment'
+      confirm: 'Confirm'
+      complete: 'Complete'
+      billing_address: 'Billing Address' 
+      all_fields_are_required: 'all fields are required'
+      shipping_address: 'Shipping Address'
+      first_name: 'First Name'
+      last_name: 'Last Name'
+      address: 'Address'
+      city: 'City'
+      zip: 'Zip'
+      country: 'Country'
+      phone: 'Phone'
+      save_and_continue: 'Save and Continue'
+      use_billing_adress: 'Use Billing Adress'
+      order_summary: 'Order Summary'
+      item_total: 'Item Total:'
+      order_total: 'Order Total:'
     payment:
       card_number: Card Number
       name_on_card: Name on Card
       mm_yy: MM / YY
       cvv: CVV
-
-  orders:
     index:
       all: All
       in_queue: In queue
       in_delivery: In delivery
       delivered: Delivered
       canceled: Canceled
-    
-  orders:
     address_form:
       save_and_continue: Save and Continue
 
