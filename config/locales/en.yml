@@ -34,9 +34,6 @@ en:
       order_total: 'Order Total'
       checkout: 'Checkout'
 
-  orders:
-    address_form:
-      save_and_continue: Save and Continue
     form:
       checkout: 'Checkout'
       address: 'Address'
@@ -119,6 +116,18 @@ en:
       name_on_card: Name on Card
       mm_yy: MM / YY
       cvv: CVV
+
+  orders:
+    index:
+      all: All
+      in_queue: In queue
+      in_delivery: In delivery
+      delivered: Delivered
+      canceled: Canceled
+    
+  orders:
+    address_form:
+      save_and_continue: Save and Continue
 
   starts_with_plus: should starts with +
   only_letters: only allows letters

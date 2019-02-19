@@ -4,7 +4,7 @@ class OrdersController < InheritedResources::Base
   ORDER_STATE = { cart: :cart, address: :address, delivery: :delivery_method, payment: :payment, confirmation: :confirmation }
 
   def index
-    @orders = Order.where(user_id: current_user.id).where(state: %i(in_queued in_delivering delivering canceling))
+    @orders = Order.sort_order(current_user.id, params[:sort_order])
   end
 
   def show
