@@ -74,6 +74,7 @@ group :test do
   gem 'database_cleaner'
   gem 'geckodriver-helper'
   gem 'factory_bot_rails'
+  gem 'pry'
   gem 'rails-controller-testing'
   gem 'rspec'
   gem 'rspec-rails'

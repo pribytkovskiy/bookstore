@@ -1,18 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe CartsController do
+  let!(:order) { create(:order, :with_items) }
+  
+  before do 
+    allow(controller).to receive(:check_order_items?).and_return(false)
+  end
 
   describe 'GET #show' do
-    let(:order) { create(:order, :with_items) }
-    let(:order_item) { create_list(:order_item, 2) }
-
     before do 
-      allow(order).to receive(:order_items).and_return(order_item)
       get :show, params: { id: order.id }
     end
 
     it 'renders carts/show template' do
-      expect(response).to render_template 'cart/show'
+      expect(response).to render_template 'carts/show'
     end
 
     it 'responds successfully with an HTTP 200 status code' do
@@ -25,16 +26,11 @@ RSpec.describe CartsController do
     let(:coupon) { create(:coupon) }
 
     before do
-      get :update, params: { id: coupon.number, order: { nubmer: coupon.number } }
-    end
-
-    it 'renders carts/show template' do
-      expect(response).to render_template 'cart/show'
+      patch :update, params: { id: order.id, order: { number: coupon.number } }
     end
 
     it 'responds successfully with an HTTP 200 status code' do
-      expect(response).to be_successful
-      expect(response).to have_http_status(200)
+      expect(response).to redirect_to cart_path
     end
   end
 end
