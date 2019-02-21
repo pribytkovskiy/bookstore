@@ -8,8 +8,8 @@ class Checkout::SetUserAddressToOrder
     if context.user.addresses.billing.empty?
       context.address = AddressForm.new
     else
-      @address_billing = context.current_user.addresses.search_billing.first
-      @address_shipping = context.current_user.addresses.search_shipping.first
+      @address_billing = context.user.addresses.search_billing.first
+      @address_shipping = context.user.addresses.search_shipping.first
       context.address = AddressForm.new(address_params)
     end
   end

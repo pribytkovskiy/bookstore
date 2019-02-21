@@ -11,11 +11,11 @@ class AddressUser
   private
 
   def set_user_address
-    if context.current_user.addresses.empty?
+    if context.user.addresses.empty?
       context.address = AddressForm.new
     else
-      @address_billing = context.current_user.addresses.search_billing.first
-      @address_shipping = context.current_user.addresses.search_shipping.first
+      @address_billing = context.user.addresses.search_billing.last
+      @address_shipping = context.user.addresses.search_shipping.last
       context.address = AddressForm.new(address_params)
     end
   end
@@ -46,6 +46,6 @@ class AddressUser
   end
 
   def set_user
-    context.current_user = User.find(context.user_id)
+    context.user = User.find(context.user_id)
   end
 end

@@ -123,6 +123,11 @@ en:
       canceled: Canceled
     address_form:
       save_and_continue: Save and Continue
+  
+  settings:
+    form_settings:
+      remove_account: Remove account
+      sure: Sure?
 
   starts_with_plus: should starts with +
   only_letters: only allows letters
@@ -131,3 +136,4 @@ en:
   16_characters: is the wrong length (should be 16 characters)
   4_characters: too long (maximum is 4 characters)
   save_and_continue: Save and Continue
+  mm_yy: the expiration date must be MM/YY
