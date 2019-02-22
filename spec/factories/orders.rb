@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :order do
     user
-    state :canceling
+    state { :canceling }
 
     trait :with_items do
       order_items { create_list(:order_item, 2) }
@@ -17,6 +17,6 @@ FactoryBot.define do
   end
 
   factory :order_address, parent: :order do
-    state :address
+    state { :address }
   end
 end
