@@ -7,6 +7,7 @@ SimpleCov.start do
   minimum_coverage 90
 end
 
+require 'rack_session_access/capybara'
 require 'undercover'
 
 RSpec.configure do |config|

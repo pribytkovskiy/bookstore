@@ -1,13 +1,21 @@
 require 'rails_helper'
 
 feature 'address step' do
-  before { sign_in create(:user) }
+  let(:user) { create(:user, :with_orders_address) }
+  let(:order) { user.orders.first }
+
+  before do 
+    sign_in user
+  end
 
   context 'when orders exist' do
-    let!(:order) { create(:order, :with_items) }
     let(:last_name) { FFaker::Name.last_name }
 
-    before { visit order_path(id: order.id) }
+    before do
+      page.set_rack_session(order_id: order.id)
+      allow_any_instance_of(OrdersController).to receive(:set_order).and_return(order)
+      visit order_path(id: order.id)
+    end
 
     it 'have all fields' do
       expect(page).to have_field(I18n.t('orders.form.first_name'))

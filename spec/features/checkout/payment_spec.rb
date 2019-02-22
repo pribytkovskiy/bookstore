@@ -32,7 +32,7 @@ feature 'payment step' do
   end
 
   it "saves previos values"do
-    fill_in (I18n.t('orders.payment.card_number'), with: card.number
+    fill_in I18n.t('orders.payment.card_number'), with: card.number
 
     click_button(I18n.t('orders.address_form.save_and_continue'))
 

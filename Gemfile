@@ -76,6 +76,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'pry'
   gem 'rails-controller-testing'
+  gem 'rack_session_access'
   gem 'rspec'
   gem 'rspec-rails'
   gem 'simplecov'

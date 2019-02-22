@@ -41,9 +41,9 @@ feature 'home page' do
     expect(page).to have_current_path('/en/catalog')
   end
 
-  it 'create order for favorites' do
+  context 'create order for favorites' do
     let!(:order) { create(:order, :with_items) }
-
+    
     it 'can add book to cart', js: true do
       visit home_path
       click_button(I18n.t('pages.home.buy_now'))
