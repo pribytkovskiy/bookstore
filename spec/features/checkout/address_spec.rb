@@ -9,11 +9,14 @@ feature 'address step' do
   end
 
   context 'when orders exist' do
-    let(:last_name) { FFaker::Name.last_name }
+    let(:bad_first_name) { FFaker.numerify('###') }
+    let(:bad_city) { FFaker.numerify('###') }
+    let(:bad_zip) { FFaker::Lorem.word}
+    let(:bad_phone) { FFaker.numerify('############') }
+    let(:last_name) { FFaker.numerify('############') }
 
     before do
       page.set_rack_session(order_id: order.id)
-      allow_any_instance_of(OrdersController).to receive(:set_order).and_return(order)
       visit order_path(id: order.id)
     end
 
@@ -27,12 +30,12 @@ feature 'address step' do
       expect(page).to have_field(I18n.t('orders.form.phone'))
     end
 
-    xit 'show mistakes' do
+    it 'show mistakes' do
       within 'div.billing_address' do
-        fill_in I18n.t('orders.form.first_name'), with: FFaker.numerify('###')
-        fill_in I18n.t('orders.form.city'), with: FFaker.numerify('###')
-        fill_in I18n.t('orders.form.zip'), with: FFaker::Lorem.word
-        fill_in I18n.t('orders.form.phone'), with: FFaker.numerify('############')
+        fill_in I18n.t('orders.form.first_name'), with: bad_first_name
+        fill_in I18n.t('orders.form.city'), with: bad_city
+        fill_in I18n.t('orders.form.zip'), with: bad_zip
+        fill_in I18n.t('orders.form.phone'), with: bad_phone
       end
       click_button(I18n.t('orders.form.save_and_continue'))
 
@@ -43,7 +46,7 @@ feature 'address step' do
       expect(page).to have_css('div.has-error')
     end
 
-    xit 'saves previos values' do
+    it 'saves previos values' do
       within 'div.billing_address' do
         fill_in I18n.t('orders.form.last_name'), with: last_name
       end
@@ -53,7 +56,7 @@ feature 'address step' do
       expect(page).to have_css('div.has-error')
     end
 
-   xit 'click use billing' do
+   it 'click use billing' do
       first('.checkbox-icon').click
       expect(page).to have_selector('.shipping_address', visible: false)
 
