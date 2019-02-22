@@ -15,4 +15,8 @@ FactoryBot.define do
       card
     end
   end
+
+  factory :order_address, parent: :order do
+    state :address
+  end
 end

@@ -8,5 +8,9 @@ FactoryBot.define do
     trait :with_orders do
       orders { create_list(:order, 3) }
     end
+
+    trait :with_orders_address do
+      orders { create_list(:order_address, 1) }
+    end
   end
 end
