@@ -123,6 +123,7 @@ en:
       canceled: Canceled
     address_form:
       save_and_continue: Save and Continue
+      regular_delivery: Regular Delivery
   
   settings:
     form_settings:
