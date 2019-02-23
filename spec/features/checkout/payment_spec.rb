@@ -1,12 +1,19 @@
 require 'rails_helper'
 
 feature 'payment step' do
-  let!(:order) { create(:order, :with_items) }
-  let!(:card) { create(:card) }
+  let(:user) { create(:user, :with_orders_address) }
+  let(:order) { user.orders.first }
+  let(:card) { create(:card) }
+  let(:bad_card_number) { FFaker.numerify('###') }
+  let(:bad_name_on_card) { FFaker.numerify('###') }
+  let(:bad_mm_yy) { FFaker.numerify('###') }
+  let(:bad_cvv) { FFaker::Lorem.words.join }
 
   before do
-    sign_in create(:user)
+    sign_in user
     order.state = :payment
+    order.save
+    page.set_rack_session(order_id: order.id)
     visit order_path(id: order.id)
   end
 
@@ -17,37 +24,25 @@ feature 'payment step' do
     expect(page).to have_field(I18n.t('orders.payment.cvv'))
   end
 
-  it "show mistakes" do
-    fill_in I18n.t('orders.payment.card_number'), FFaker.numerify('###')
-    fill_in I18n.t('orders.payment.name_on_card'), FFaker.numerify('###')
-    fill_in I18n.t('orders.payment.mm_yy'), with: FFaker.numerify('###')
-    fill_in I18n.t('orders.payment.cvv'), with: FFaker::Lorem.words.join
+  it 'show mistakes' do
+    fill_in I18n.t('orders.payment.card_number'), with: bad_card_number
+    fill_in I18n.t('orders.payment.name_on_card'), with: bad_name_on_card
+    fill_in I18n.t('orders.payment.mm_yy'), with: bad_mm_yy
+    fill_in I18n.t('orders.payment.cvv'), with: bad_cvv
     click_button(I18n.t('orders.address_form.save_and_continue'))
 
     expect(page).to have_content(I18n.t('only_letters'))
     expect(page).to have_content(I18n.t('16_characters'))
     expect(page).to have_content(I18n.t('4_characters'))
-    expect(page).to have_content("only allows digits")
     expect(page).to have_css('div.has-error')
   end
 
-  it "saves previos values"do
-    fill_in I18n.t('orders.payment.card_number'), with: card.number
+  it 'saves previos values' do
+    fill_in I18n.t('orders.payment.card_number'), with: card.card_number
 
     click_button(I18n.t('orders.address_form.save_and_continue'))
 
-    expect(page).to have_field(I18n.t('orders.payment.card_number'), with: card.number)
+    expect(page).to have_field(I18n.t('orders.payment.card_number'), with: card.card_number)
     expect(page).to have_css('div.has-error')
-  end
-
-  it "saves valid data" do
-    fill_in "Card Number", with: card.number
-    fill_in "Name on Card", with: card.name
-    fill_in "MM / YY", with: card.mm_yy
-    fill_in "CVV", with: card.cvv
-
-    expect { 
-      click_button(I18n.t('orders.address_form.save_and_continue'))
-    }.to change(Card, :count).by(1)
   end
 end
