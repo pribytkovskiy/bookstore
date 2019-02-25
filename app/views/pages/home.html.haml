@@ -12,7 +12,17 @@
           .col-sm-7
             .mb-60
               %h1= @favorites.latest_products[i].title
-              %p.lead= @favorites.latest_products[i].description
+              %p.lead
+                - if @favorites.latest_products[i].description.length >= 250
+                  = truncate(@favorites.latest_products[i].description, length: 250)
+                  = link_to t('.read_more'), '', class: 'in-gold-500 ml-10 read-more'
+                  :javascript
+                    $('.read-more').on('click', function(e) {
+                      e.preventDefault();
+                      $(this).parent().html("#{@favorites.latest_products[i].description}")
+                    })
+                - else
+                  = @favorites.latest_products[i].description
               %p.in-grey-600.small= @favorites.latest_products[i].authors.map { |author| "#{author.first_name} #{author.last_name}" }.join(', ')
               .general-align.pt-20
                 = button_to t('.buy_now'), order_items_path(product_id: @favorites.latest_products[i], redirect_to: home_path, order_id: @order.id), method: :post, class: "btn"

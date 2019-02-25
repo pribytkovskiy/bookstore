@@ -34,8 +34,17 @@
           = button_to t('.add_to_cart'), {type: "submit", class: 'btn btn-default pull-right general-position hidden', onclick: "document.getElementById('1').click()"}
     .card
       %p= t('.description')
-      %p.in-grey-600.small.line-height-2
-        = @product.description
+      %p.lead.small.line-height-2
+        - if @product.description.length >= 250
+          = truncate(@product.description, length: 250)
+          = link_to t('.read_more'), '', class: 'in-gold-500 ml-10 read-more'
+          :javascript
+            $('.read-more').on('click', function(e) {
+              e.preventDefault();
+              $(this).parent().html("#{@product.description}")
+            })
+        - else
+          = @product.description
     .card
       .clearfix
         %p.general-item-info.pull-right= @product.date
