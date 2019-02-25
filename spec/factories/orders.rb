@@ -6,17 +6,15 @@ FactoryBot.define do
     trait :with_items do
       order_items { create_list(:order_item, 2) }
     end
-
-    trait :checkout_page do
-      order_items { create_list(:order_item, 2) }
-      addresses { create :address, kind: 'shipping' }
-      addresses { create :address, kind: 'billing' }
-      delivery
-      card
-    end
   end
 
   factory :order_address, parent: :order do
     state { :address }
+  end
+
+  factory :order_checkout_page, parent: :order do
+    delivery { create :delivery }
+    card { create :card }
+    state { :confirmation }
   end
 end

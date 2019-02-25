@@ -12,5 +12,9 @@ FactoryBot.define do
     trait :with_orders_address do
       orders { create_list(:order_address, 1) }
     end
+
+    trait :for_checkout_page do
+      orders { create_list(:order_checkout_page, 1) }
+    end
   end
 end

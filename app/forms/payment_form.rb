@@ -14,7 +14,7 @@ class PaymentForm
   validates :card_number, :name_on_card, :mm_yy, :cvv, presence: true
   validates :card_number, length: { is: 16 }, numericality: { only_integer: true }
   validates :name_on_card, length: { maximum: 50 }, format: { with: ONLY_LETTERS, message: I18n.t('only_letters') }
-  validates :mm_yy, format: { with: ONLY_LETTERS, message: I18n.t('mm_yy') }
+  validates :mm_yy, format: { with: EXPESSION_MONTH_YEAR, message: I18n.t('mm_yy') }
   validates :cvv, length: { in: 3..4 }
 
   def save
