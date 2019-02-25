@@ -23,6 +23,12 @@ class OrdersController < InheritedResources::Base
     end
   end
 
+  def edit
+    @order.state = params[:state]
+    @order.save
+    redirect_to order_path
+  end
+
   private
 
   def set_instance

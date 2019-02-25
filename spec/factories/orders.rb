@@ -16,5 +16,10 @@ FactoryBot.define do
     delivery { create :delivery }
     card { create :card }
     state { :confirmation }
+
+    after(:create) do |order| 
+      order.addresses << FactoryBot.create(:users_address, :shipping)
+      order.addresses << FactoryBot.create(:users_address, :billing)
+    end
   end
 end

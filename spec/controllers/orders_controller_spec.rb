@@ -19,7 +19,7 @@ RSpec.describe OrdersController, type: :controller do
     end
   end
 
-  describe 'GET #update' do
+  describe 'PATCH #update' do
     before do
       patch :update, params: { id: user.orders.first.id }
     end
@@ -30,6 +30,20 @@ RSpec.describe OrdersController, type: :controller do
 
     it 'product should be decorated' do
       expect(assigns(:order)).to be_decorated
+    end
+
+    it 'renders the :show template' do
+      expect(response).to redirect_to order_path
+    end
+  end
+
+  describe 'GET #edit' do
+    before do
+      get :edit, params: { id: user.orders.first.id, state: :address }
+    end
+
+    it 'assigns the requested order to @order' do
+      expect(assigns(:order)).to eq Order.last
     end
 
     it 'renders the :show template' do

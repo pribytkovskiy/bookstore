@@ -124,6 +124,8 @@ en:
     address_form:
       save_and_continue: Save and Continue
       regular_delivery: Regular Delivery
+    confirmation:
+      edit: edit
   
   settings:
     form_settings:
