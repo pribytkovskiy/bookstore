@@ -2,7 +2,7 @@ class AddressForm
   include ActiveModel::Model
   include Virtus.model
 
-  STRING_ATTRS = %i[first_name last_name address phone city country shipping_first_name shipping_last_name shipping_address shipping_city shipping_country shipping_phone].freeze
+  STRING_ATTRS = %i(first_name last_name address phone city country shipping_first_name shipping_last_name shipping_address shipping_city shipping_country shipping_phone).freeze
   ONLY_LETTERS = /\A[а-яА-ЯёЁa-zA-Z]+\z/
   ONLY_NUMBERS = /\A[0-9]+\z/
   STARTS_WITH_PLUS = /\A^\+[0-9]+\z/
