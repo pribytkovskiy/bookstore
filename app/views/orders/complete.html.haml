@@ -25,7 +25,7 @@
     %span.step-text.hidden-xs= t('.complete')
 .text-center.mb-40
   %h3.general-subtitle= t('.thank')
-  %p.font-weight-light= "An order confirmation has been has been sent to #{current_user.email}"
+  %p.font-weight-light= t('.an_order, email: current_user.email')
 .row.mb-20
   .col-sm-6
     .visible-xs
@@ -91,4 +91,4 @@
       %td
         %strong.font-18= number_to_currency(@order.total_price + @order.delivery.price - @order.coupon&.price.to_i)
 .text-center
-  = button_to "Back to Store", home_path, method: :get, class: 'btn btn-default mb-20'
+  = button_to t('.back_to_store'), home_path, method: :get, class: 'btn btn-default mb-20'

@@ -126,6 +126,10 @@ en:
       regular_delivery: Regular Delivery
     confirmation:
       edit: edit
+    complete:
+      thank: Thank
+      an_order: "An order confirmation has been sent to %{email}"
+      back_to_store: Back to Store
   
   settings:
     form_settings:
