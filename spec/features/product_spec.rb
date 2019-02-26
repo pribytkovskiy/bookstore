@@ -13,10 +13,6 @@ feature 'product page' do
       expect(page).to have_content(product.title)
     end
 
-    scenario 'present short description' do
-      expect(page).to have_content(product.description)
-    end
-
     scenario 'present authors' do
       expect(page).to have_content(product.author_name)
     end

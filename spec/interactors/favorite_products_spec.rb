@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe FavoriteProducts do
+describe FavoriteProducts, type: :interactor do
   subject { FavoriteProducts.call }
   let(:latest_products) { Product.latest_products(context.latest_default_quantity) }
   let(:bestsellers) { Bestsellers.call(context.bestsellers_default_quantity) }

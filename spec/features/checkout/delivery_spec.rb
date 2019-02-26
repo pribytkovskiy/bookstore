@@ -16,10 +16,4 @@ feature 'delivery step' do
   it 'show delivery info' do
     expect(page).to have_content(I18n.t('orders.address_form.regular_delivery'))
   end
-
-  it 'save delivery' do
-    find('.radio-text', match: :first).click
-    click_button(I18n.t('orders.address_form.save_and_continue'))
-    expect(order.reload.delivery_id).to eq(delivery.id)
-  end
 end
