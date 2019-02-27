@@ -5,7 +5,7 @@ RSpec.describe AddressUser, type: :interactor do
 
   describe '.call' do
     context 'when given valid credentials' do
-      subject(:context) { AddressUser.call(user_id: user.id) }
+      subject(:context) { AddressUser.call(user_id: user.id, address_form: true) }
 
       it 'succeeds' do
         expect(context).to be_a_success

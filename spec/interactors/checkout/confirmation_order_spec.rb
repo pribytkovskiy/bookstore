@@ -1,7 +1,23 @@
 require 'spec_helper'
 
-RSpec.describe Checkout::ssConfirmationOrder, type: :interactor do
+RSpec.describe Checkout::ConfirmationOrder, type: :interactor do
+  let(:order) { create(:order_address) }
+
   describe '.call' do
-    pending "add some examples to (or delete) #{__FILE__}"
+    before do 
+      allow(Checkout::AddressOrder).to receive(:call) { true }
+      order.state = :confirmation
+      order.save
+    end
+
+    subject(:context) { Checkout::ConfirmationOrder.call(id: order.id, complete: true) } context.order
+
+    it 'succeeds' do
+      expect(context).to be_a_success
+    end
+
+    it 'when OrdersController::ORDER_STATE[:address]' do
+      expect(context.complete).to eq(:complete)
+    end
   end
 end

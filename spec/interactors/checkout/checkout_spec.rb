@@ -1,7 +1,18 @@
 require 'spec_helper'
 
-RSpec.describe Checkout, type: :interactor do
+RSpec.describe Checkout::Checkout, type: :interactor do
+  let(:order) { create(:order_address) }
+
   describe '.call' do
-    pending "add some examples to (or delete) #{__FILE__}"
+    before { allow(Checkout::AddressOrder).to receive(:call) { true } }
+    subject(:context) { Checkout::Checkout.call(order_id: order.id) }
+
+    it 'succeeds' do
+      expect(context).to be_a_success
+    end
+
+    it 'when OrdersController::ORDER_STATE[:address]' do
+      expect { Checkout::Checkout.call(order_id: order.id) }.to eq(true)
+    end
   end
 end
