@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2019_01_25_160101) do
 
   create_table "comments", force: :cascade do |t|
     t.text "body"
-    t.string "titel"
+    t.string "title"
     t.integer "rate", default: 1
     t.bigint "user_id"
     t.bigint "product_id"

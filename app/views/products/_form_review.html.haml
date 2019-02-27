@@ -1,4 +1,4 @@
-= form_for([@product, @product.comments.build]) do |f|
+= form_for(@product.comments.build, url: product_comments_path, :method => :post) do |f|
   .hidden-xs.hidden-sm
     .row
       .col-md-8
@@ -10,14 +10,14 @@
       .form-group.mb-20{class: "#{"has-error" if comments_has_error?(:rate)}"}
         %label.control-label.font-weight-light.in-grey-600{for: :rate}= t('.rating')
         = f.number_field :rate, type: "text", required: true, pattern:"[1-5]{1,}", maxlength: "1", class: 'form-control', placeholder: '1-5'
-        %span.help-block= comments_error_message(:rate) #if @commen.errors.any?
+        %span.help-block= comments_error_message(:rate) #if @product.comment.errors.any?
       .form-group{class: "#{"has-error" if comments_has_error?(:body)}"}
         %label.control-label.font-weight-light.in-grey-600{for: :body}= t('.review')
         = f.hidden_field :product_id, value: @product.id
         = f.hidden_field :user_id, value: current_user.id
-        = f.text_field :titel, required: true, class: 'form-control', placeholder: 'titel'
-        %span.help-block= comments_error_message(:titel) #if @comment.errors.any?
-        = f.text_area :body, required: true, class: 'form-control', placeholder: 'body'
-        %span.help-block= comments_error_message(:body) #if @comment.errors.any?
+        = f.text_field :title, required: true, class: 'form-control', placeholder: 'title', maxlength: 80
+        %span.help-block= comments_error_message(:title) #if @product.comment.errors.any?
+        = f.text_area :body, required: true, class: 'form-control', placeholder: 'body', maxlength: 500
+        %span.help-block= comments_error_message(:body) #if @product.comment.errors.any?
       = f.submit "Post", class: 'btn pull-right'
   
