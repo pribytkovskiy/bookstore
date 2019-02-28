@@ -10,7 +10,7 @@ RSpec.describe Checkout::ConfirmationOrder, type: :interactor do
       order.save
     end
 
-    subject(:context) { Checkout::ConfirmationOrder.call(id: order.id, complete: true) } context.order
+    subject(:context) { Checkout::ConfirmationOrder.call(id: order.id, complete: true) }
 
     it 'succeeds' do
       expect(context).to be_a_success
