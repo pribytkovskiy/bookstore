@@ -7,17 +7,17 @@
     .col-md-8.mb-40
       .visible-xs.visible-sm
         %h3.general-subtitle.mt-0= t('.write_a_review')
-      .form-group.mb-20{class: "#{"has-error" if comments_has_error?(:rate)}"}
+      .form-group.mb-20
         %label.control-label.font-weight-light.in-grey-600{for: :rate}= t('.rating')
         = f.number_field :rate, type: "text", required: true, pattern:"[1-5]{1,}", maxlength: "1", class: 'form-control', placeholder: '1-5'
-        %span.help-block= comments_error_message(:rate) #if @product.comment.errors.any?
-      .form-group{class: "#{"has-error" if comments_has_error?(:body)}"}
+        %span.help-block
+      .form-group
         %label.control-label.font-weight-light.in-grey-600{for: :body}= t('.review')
         = f.hidden_field :product_id, value: @product.id
         = f.hidden_field :user_id, value: current_user.id
         = f.text_field :title, required: true, class: 'form-control', placeholder: 'title', maxlength: 80
-        %span.help-block= comments_error_message(:title) #if @product.comment.errors.any?
+        %span.help-block
         = f.text_area :body, required: true, class: 'form-control', placeholder: 'body', maxlength: 500
-        %span.help-block= comments_error_message(:body) #if @product.comment.errors.any?
+        %span.help-block
       = f.submit "Post", class: 'btn pull-right'
   
