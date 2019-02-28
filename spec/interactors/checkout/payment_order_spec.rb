@@ -6,7 +6,7 @@ RSpec.describe Checkout::PaymentOrder, type: :interactor do
 
   describe '.call' do
     context 'when given valid credentials' do
-      subject(:context) { Checkout::PaymentOrder.call(order_id: order.id) }
+      subject(:context) { Checkout::PaymentOrder.call(id: order.id) }
 
       before do
         order.state = :delivery_method
@@ -23,7 +23,7 @@ RSpec.describe Checkout::PaymentOrder, type: :interactor do
     end
 
     context 'when given invalid credentials' do
-      subject(:context) { Checkout::PaymentOrder.call(order_id: order.id, card_number: card.card_number) }
+      subject(:context) { Checkout::PaymentOrder.call(id: order.id, card_number: card.card_number) }
 
       it 'fails' do
         expect(context).to be_a_failure

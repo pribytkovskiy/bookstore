@@ -2,10 +2,15 @@ require 'spec_helper'
 
 RSpec.describe AddressUser, type: :interactor do
   let(:user) { create(:user) }
+  let(:address_form) { instance_double('AddressForm') }
+
+  before do
+    allow(address_form).to receive(:permit!).and_return(true)
+  end
 
   describe '.call' do
     context 'when given valid credentials' do
-      subject(:context) { AddressUser.call(user_id: user.id, address_form: true) }
+      subject(:context) { AddressUser.call(user_id: user.id) }
 
       it 'succeeds' do
         expect(context).to be_a_success
@@ -17,7 +22,7 @@ RSpec.describe AddressUser, type: :interactor do
     end
 
     context 'when given invalid credentials' do
-      subject(:context) { AddressUser.call(user_id: user.id, address_form: nil) }
+      subject(:context) { AddressUser.call(user_id: user.id, address_form: address_form) }
 
       it 'fails' do
         expect(context).to be_a_failure

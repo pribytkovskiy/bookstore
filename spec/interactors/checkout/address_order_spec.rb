@@ -3,15 +3,17 @@ require 'spec_helper'
 RSpec.describe Checkout::AddressOrder, type: :interactor do
   let(:user) { create(:user) }
   let(:order) { create(:order_address) }
+  let(:address_form) { instance_double('AddressForm') }
 
   before do
+    allow(address_form).to receive(:permit!).and_return(true)
     order.user = user
     order.save
   end
 
   describe '.call' do
     context 'when given valid credentials' do
-      subject(:context) { Checkout::AddressOrder.call(order_id: order.id, address_form: nil) }
+      subject(:context) { Checkout::AddressOrder.call(id: order.id) }
 
       it 'succeeds' do
         expect(context).to be_a_success
@@ -23,7 +25,7 @@ RSpec.describe Checkout::AddressOrder, type: :interactor do
     end
 
     context 'when given invalid credentials' do
-      subject(:context) { Checkout::AddressOrder.call(order_id: order.id, address_form: true) }
+      subject(:context) { Checkout::AddressOrder.call(id: order.id, address_form: address_form) }
 
       it 'fails' do
         expect(context).to be_a_failure

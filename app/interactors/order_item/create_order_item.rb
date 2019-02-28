@@ -2,7 +2,7 @@ class OrderItem::CreateOrderItem
   include Interactor
 
   def call
-    if current_item = Order.find(context.order_id).order_items.find_by(product_id: context.product_id)
+    if current_item = Order.find_by(id: context.order_id).order_items.find_by(product_id: context.product_id)
       add_current_item_quantity(current_item)
       current_item.increment!(:quantity) unless context.quantity
     else

@@ -20,6 +20,6 @@ class OrderItem::UpdateOrderItem
   end
 
   def set_current_item
-    context.fail!(message: I18n.t('interactors.errors.current_item_failure')) unless @current_item = OrderItem.find(context.id)
+    context.fail!(message: I18n.t('interactors.errors.current_item_failure')) unless @current_item = OrderItem.find_by(id: context.id)
   end
 end

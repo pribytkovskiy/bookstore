@@ -13,7 +13,7 @@ RSpec.describe OrderItem::CreateOrderItem, type: :interactor do
       end
 
       it 'create order item' do
-        expect(order.order_items.third.product_id).to eq(product.id)
+        expect(OrderItem.last.product_id).to eq(product.id)
       end
     end
 
@@ -30,3 +30,4 @@ RSpec.describe OrderItem::CreateOrderItem, type: :interactor do
     end
   end
 end
+ 

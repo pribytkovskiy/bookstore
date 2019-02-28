@@ -13,7 +13,7 @@ RSpec.describe Checkout::SetUserAddressToOrder, type: :interactor do
       end
 
       it 'user address exist' do
-        expect(context.address).to exist 
+        expect(context.address).not_to eq(nil)
       end
     end
   end
