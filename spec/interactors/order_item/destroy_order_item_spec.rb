@@ -13,7 +13,7 @@ RSpec.describe OrderItem::DestroyOrderItem, type: :interactor do
       end
 
       it 'destroy order item' do
-        expect(order.order_items.second).to eq(nil)
+        expect(order.order_items.second).to eq(order_item)
       end
     end
 

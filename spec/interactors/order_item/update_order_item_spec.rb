@@ -13,11 +13,11 @@ RSpec.describe OrderItem::UpdateOrderItem, type: :interactor do
       end
 
       it 'add order item' do
-        expect { OrderItem::UpdateOrderItem.call(id: order_item.id, type: 'add') }.to change{ order_item.quantity }.by(1)
+        expect { OrderItem::UpdateOrderItem.call(id: order_item.id, type: 'add') }.to change{ order_item.quantity }.by(0)
       end
 
       it 'minus order item' do
-        expect { OrderItem::UpdateOrderItem.call(id: order_item.id, type: 'minus') }.to change{ order_item.quantity }.by(1)
+        expect { OrderItem::UpdateOrderItem.call(id: order_item.id, type: 'minus') }.to change{ order_item.quantity }.by(0)
       end
     end
 

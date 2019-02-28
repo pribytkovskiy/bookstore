@@ -18,7 +18,7 @@ RSpec.describe Checkout::PaymentOrder, type: :interactor do
       end
 
       it 'user address exist' do
-        expect(context.card_inst).to exist 
+        expect(context.card_inst).not_to eq(nil)
       end
     end
 

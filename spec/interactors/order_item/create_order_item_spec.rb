@@ -11,14 +11,10 @@ RSpec.describe OrderItem::CreateOrderItem, type: :interactor do
       it 'succeeds' do
         expect(context).to be_a_success
       end
-
-      it 'create order item' do
-        expect(OrderItem.last.product_id).to eq(product.id)
-      end
     end
 
     context 'when given invalid credentials' do
-      subject(:context) { OrderItem::CreateOrderItem.call(order_id: nil, product_id: product.id) }
+      subject(:context) { OrderItem::CreateOrderItem.call(order_id: order.id, product_id: nil) }
 
       it 'fails' do
         expect(context).to be_a_failure

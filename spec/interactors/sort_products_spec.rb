@@ -11,7 +11,7 @@ RSpec.describe SortProducts, type: :interactor do
     end
 
     it 'sort products' do
-      expect(subject).to eq(products.revers)
+      expect(subject).to eq(products.reverse)
     end
   end
 end
