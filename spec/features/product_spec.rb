@@ -4,7 +4,10 @@ feature 'product page' do
   let(:order) { create(:order, :with_items) }
   let(:product) { order.order_items.first.product.decorate }
 
-  before { visit product_path(locale: 'en', id: product.id) }
+  before do
+    sign_in create(:user)
+    visit product_path(locale: 'en', id: product.id)
+  end
 
   context 'product content' do
     let(:product_quantity) { 2 }
@@ -48,22 +51,16 @@ feature 'product page' do
   end
 
   context 'reviews content' do
-    let(:rate) { 5 }
-    let(:titel) { 'Test titel' }
-    let(:body) { 'Test body' }
-
-    scenario 'must present review' do
-      expect(page).to have_content(I18n.t('products.form_review.review'))
-    end
+    let(:comment) { create(:comment) }
 
     scenario 'must present count of reviews' do
       expect(page).to have_content(product.comments.approved.count.to_s)
     end
   
-    xscenario 'create new review' do
-      fill_in 'comment[rate]', with: rate
-      fill_in 'comment[titel]', with: titel
-      fill_in 'comment[body]', with: body
+    scenario 'create new review' do
+      fill_in 'comment[rate]', with: comment.rate
+      fill_in 'comment[title]', with: comment.title
+      fill_in 'comment[body]', with: comment.body
       expect { click_button I18n.t('products.form_review.post') }.to change{ product.comments.count }.by(1)
     end
   end
