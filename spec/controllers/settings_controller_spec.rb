@@ -49,7 +49,7 @@ RSpec.describe SettingsController, type: :controller do
             shipping_country:             users_address_shipping.country,
             shipping_phone:               users_address_shipping.phone
           }, user_id: users_address_shipping.addressable_id, id: users_address_shipping.addressable_id }
-        }.to change(Address, :count).by(4)
+        }.to change(Address, :count).by(2)
       end
 
       it 'redirect to the edit' do
