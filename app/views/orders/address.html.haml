@@ -26,5 +26,5 @@
         %p.general-info-text= t('.all_fields_are_required')
       .col-md-5.col-md-offset-1
         %h3.general-subtitle= t('.shipping_address')
-    = form_for @address, :url => order_path, :method => :put, :html => {:id => "form1"} do |f|
+    = form_for @address, :url => order_path(user_id: current_user), :method => :put, :html => {:id => "form1"} do |f|
       = render 'address_form', f: f

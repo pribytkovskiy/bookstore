@@ -21,7 +21,7 @@ class Checkout::AddressOrder
   end
 
   def set_order_address_from_form
-    context.address = AddressForm.new(context.address_form.permit!)
+    context.address = AddressForm.new(context.address_form)
     save_address
   end
 
