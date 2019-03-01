@@ -30,31 +30,6 @@ feature 'address step' do
       expect(page).to have_field(I18n.t('orders.form.phone'))
     end
 
-    it 'show mistakes' do
-      within 'div.billing_address' do
-        fill_in I18n.t('orders.form.first_name'), with: bad_first_name
-        fill_in I18n.t('orders.form.city'), with: bad_city
-        fill_in I18n.t('orders.form.zip'), with: bad_zip
-        fill_in I18n.t('orders.form.phone'), with: bad_phone
-      end
-      click_button(I18n.t('orders.form.save_and_continue'))
-
-      expect(page).to have_content(I18n.t('cant_be_blank'))
-      expect(page).to have_content(I18n.t('starts_with_plus'))
-      expect(page).to have_content(I18n.t('only_letters'))
-      expect(page).to have_css('div.has-error')
-    end
-
-    it 'saves previos values' do
-      within 'div.billing_address' do
-        fill_in I18n.t('orders.form.last_name'), with: last_name
-      end
-      click_button(I18n.t('orders.form.save_and_continue'))
-
-      expect(page).to have_field(I18n.t('orders.form.last_name'), with: last_name)
-      expect(page).to have_css('div.has-error')
-    end
-
    it 'click use billing' do
       first('.checkbox-icon').click
       expect(page).to have_selector('.shipping_address', visible: false)
