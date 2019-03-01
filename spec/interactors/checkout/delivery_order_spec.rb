@@ -24,7 +24,7 @@ RSpec.describe Checkout::DeliveryOrder, type: :interactor do
 
     context 'when given invalid credentials' do
       before do
-        context.order.add_delivery_method!
+        order.add_delivery_method!
       end
 
       subject(:context) { Checkout::DeliveryOrder.call(id: order.id, delivery: { id: delivery.id }) }
