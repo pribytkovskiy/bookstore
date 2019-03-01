@@ -18,7 +18,7 @@ RSpec.describe Checkout::AddressOrder, type: :interactor do
       end
 
       it 'user address exist' do
-        expect(context.address).to exist 
+        expect(context.address).to be_truthy
       end
     end
   end
