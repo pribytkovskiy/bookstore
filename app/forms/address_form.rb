@@ -53,18 +53,18 @@ class AddressForm
 
   def save_order_address
     order = Order.find(order_id)
-    @address_billing = order.addresses.billing.create!(address_params_billing)
-    return (@address_shipping = order.addresses.shipping.create!(address_params_billing)) if check == 'true'
+    @address_billing = order.addresses.billing.create(address_params_billing)
+    return (@address_shipping = order.addresses.shipping.create(address_params_billing)) if check == 'true'
 
-    @address_shipping = order.addresses.shipping.create!(address_params_shipping)
+    @address_shipping = order.addresses.shipping.create(address_params_shipping)
   end
 
   def save_user_address
     user = User.find(user_id)
-    @address_billing = user.addresses.billing.create!(address_params_billing)
-    return (@address_shipping = user.addresses.shipping.create!(address_params_billing)) if check == 'true'
+    @address_billing = user.addresses.billing.create(address_params_billing)
+    return (@address_shipping = user.addresses.shipping.create(address_params_billing)) if check == 'true'
 
-    @address_shipping = user.addresses.shipping.create!(address_params_shipping)
+    @address_shipping = user.addresses.shipping.create(address_params_shipping)
   end
 
   def address_params_billing

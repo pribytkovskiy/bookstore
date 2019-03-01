@@ -21,7 +21,7 @@ class AddressUser
   end
 
   def create_user_address
-    context.address = AddressForm.new(context.address_form.permit!)
+    context.address = AddressForm.new(context.address_form)
     context.fail!(message: I18n.t('interactors.errors.address')) unless context.address.save
   end
 
