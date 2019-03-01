@@ -41,7 +41,6 @@ feature 'address step' do
 
       expect(page).to have_content(I18n.t('cant_be_blank'))
       expect(page).to have_content(I18n.t('starts_with_plus'))
-      expect(page).to have_content(I18n.t('only_numbers'))
       expect(page).to have_content(I18n.t('only_letters'))
       expect(page).to have_css('div.has-error')
     end

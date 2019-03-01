@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe AddressUser, type: :interactor do
   let(:user) { create(:user) }
-  let(:address_form) { instance_double('AddressForm', permit!: true) }
+  let(:address_form) { AddressForm.new }
 
   before do
     allow(address_form).to receive(:permit!).and_return(true)

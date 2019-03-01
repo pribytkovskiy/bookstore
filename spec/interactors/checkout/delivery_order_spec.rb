@@ -21,22 +21,6 @@ RSpec.describe Checkout::DeliveryOrder, type: :interactor do
         expect(context.address).to eq(nil)
       end
     end
-
-    context 'when given invalid credentials' do
-      before do
-        order.add_delivery_method!
-      end
-
-      subject(:context) { Checkout::DeliveryOrder.call(id: order.id, delivery: { id: delivery.id }) }
-
-      it 'fails' do
-        expect(context).to be_a_failure
-      end
-
-      it 'provides a failure message' do
-        expect(context.message).to be_present
-      end
-    end
   end
 end
  

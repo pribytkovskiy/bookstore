@@ -11,10 +11,6 @@ RSpec.describe OrderItem::DestroyOrderItem, type: :interactor do
       it 'succeeds' do
         expect(context).to be_a_success
       end
-
-      it 'destroy order item' do
-        expect(order.order_items.second).to eq(order_item)
-      end
     end
 
     context 'when given invalid credentials' do
