@@ -5,7 +5,8 @@ RSpec.describe AddressUser, type: :interactor do
   let(:address_form) { AddressForm.new }
 
   before do
-    allow(address_form).to receive(:permit!).and_return(true)
+    #allow(address_form).to receive(:permit!).and_return(true)
+    allow_any_instance_of(AddressForm).to receive(:permit!).and_return(true)
   end
 
   describe '.call' do

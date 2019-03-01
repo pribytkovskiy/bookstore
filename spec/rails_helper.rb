@@ -40,7 +40,6 @@ Capybara.register_driver :selenium do |app|
 end
 
 RSpec.configure do |config|
-
   # Custom helpers
   config.include FeatureHelper, type: :feature
 
