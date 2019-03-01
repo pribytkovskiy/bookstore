@@ -5,7 +5,7 @@ RSpec.describe AddressUser, type: :interactor do
   let(:address_form) { instance_double('AddressForm') }
 
   before do
-    allow_any_instance_of(address_form).to receive(:permit!).and_return(true)
+    allow(address_form).to receive(:permit!).and_return(true)
   end
 
   describe '.call' do
@@ -17,7 +17,7 @@ RSpec.describe AddressUser, type: :interactor do
       end
 
       it 'user address exist' do
-        expect(context.address).to exist 
+        expect(context.address).not_to (nil)
       end
     end
 

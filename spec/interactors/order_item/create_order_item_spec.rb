@@ -14,7 +14,7 @@ RSpec.describe OrderItem::CreateOrderItem, type: :interactor do
     end
 
     context 'when given invalid credentials' do
-      subject(:context) { OrderItem::CreateOrderItem.call(order_id: order.id, product_id: nil) }
+      subject(:context) { OrderItem::CreateOrderItem.call(order_id: order.id) }
 
       it 'fails' do
         expect(context).to be_a_failure
