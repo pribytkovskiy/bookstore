@@ -18,12 +18,17 @@ RSpec.describe Checkout::DeliveryOrder, type: :interactor do
       end
 
       it 'user address exist' do
-        expect(context.address).to exist 
+        expect(context.address).not_to eq(nil)
       end
     end
 
     context 'when given invalid credentials' do
       subject(:context) { Checkout::DeliveryOrder.call(id: order.id, delivery: { id: delivery.id }) }
+
+      before do
+        context.order.state = :delivery_method
+        context.order.save
+      end
 
       it 'fails' do
         expect(context).to be_a_failure
@@ -35,3 +40,4 @@ RSpec.describe Checkout::DeliveryOrder, type: :interactor do
     end
   end
 end
+ 

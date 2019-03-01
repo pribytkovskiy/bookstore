@@ -17,7 +17,7 @@ RSpec.describe Checkout::ConfirmationOrder, type: :interactor do
     end
 
     it 'when OrdersController::ORDER_STATE[:address]' do
-      expect(context.complete).to eq(:complete)
+      expect(context.complete).to eq(true)
     end
   end
 end
