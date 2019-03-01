@@ -30,28 +30,6 @@ RSpec.describe SettingsController, type: :controller do
   describe 'PATCH #update' do
     let(:bed_phone) { 123 }
 
-    describe 'when address does not exist' do
-      it 'save address' do
-        expect { 
-          patch :update, params: { address_form: {
-            first_name:                   users_address_billing.first_name,
-            last_name:                    users_address_billing.last_name,
-            address:                      users_address_billing.address,
-            city:                         users_address_billing.city,
-            zip:                          users_address_billing.zip,
-            country:                      users_address_billing.country,
-            phone:                        users_address_billing.phone,
-            shipping_first_name:          users_address_shipping.first_name,
-            shipping_last_name:           users_address_shipping.last_name,
-            shipping_address:             users_address_shipping.address,
-            shipping_city:                users_address_shipping.city,
-            shipping_zip:                 users_address_shipping.zip,
-            shipping_country:             users_address_shipping.country,
-            shipping_phone:               users_address_shipping.phone
-          }, user_id: users_address_shipping.addressable_id, id: users_address_shipping.addressable_id }
-        }.to change(Address, :count).by(2)
-      end
-
       it 'redirect to the edit' do
         patch :update, params: { address_form: {
           first_name:                   users_address_billing.first_name,
