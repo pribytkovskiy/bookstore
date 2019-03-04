@@ -19,10 +19,18 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }
   end
 
+  def authenticate_admin!
+    if current_user   
+      redirect_to new_user_session_path unless current_user.role?(:admin)
+    else
+      redirect_to new_user_session_path
+    end
+  end
+
   private
 
   def set_categories
-    @categories ||= Category.all
+    @labels ||= Category.all
   end
 
   def set_order

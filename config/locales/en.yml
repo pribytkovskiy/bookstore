@@ -136,6 +136,18 @@ en:
       remove_account: Remove account
       sure: Sure?
 
+  active_admin:
+    dashboard: Dashboard
+    recent_orders: Recent orders
+    state: State
+    customer: Customer_id
+    total: Total
+    email: email
+    id: id
+    create_product: Create Product
+
+
+
   starts_with_plus: should starts with +
   only_letters: only allows letters
   only_numbers: only allows numbers

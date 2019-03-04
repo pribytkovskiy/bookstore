@@ -10,8 +10,8 @@ describe ApplicationController, type: :controller do
   describe 'before_action' do
     before { get :index }
 
-    it 'assigns @categories' do
-      expect(assigns(:categories)).not_to be_nil
+    it 'assigns @labels' do
+      expect(assigns(:labels)).not_to be_nil
     end
 
     it 'assigns @order' do

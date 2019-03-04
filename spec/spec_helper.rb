@@ -4,7 +4,7 @@ SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
 SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
 SimpleCov.start do
   add_filter 'spec'
-  minimum_coverage 90
+  minimum_coverage 80
 end
 
 require 'rack_session_access/capybara'

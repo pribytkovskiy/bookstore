@@ -32,9 +32,9 @@
             %ul.nav.navbar-nav
               %li
                 %a{href: "#{home_path}"}= t('.home')
-                %a{href: "#{catalog_path(:category_id => @categories.ids)}"}= t('.shop')
+                %a{href: "#{catalog_path(:category_id => @labels.ids)}"}= t('.shop')
                 %ul.dropdown-menu
-                  - @categories.each do |category|
+                  - @labels.each do |category|
                     %li
                       %a.filter-link{href: "#{catalog_path(:category_id => category.id)}"}= category.category
               - if user_signed_in?
@@ -60,8 +60,8 @@
                 %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}= t('.shop')
                 %ul.dropdown-menu
                   %li
-                    %a{href: "#{catalog_path(:category_id => @categories.ids)}"}= 'All'
-                  - @categories.each do |category|
+                    %a{href: "#{catalog_path(:category_id => @labels.ids)}"}= 'All'
+                  - @labels.each do |category|
                     %li
                       %a.filter-link{href: "#{catalog_path(:category_id => category.id)}"}= category.category
               - if user_signed_in?
@@ -90,7 +90,7 @@
               %li
                 %a.nav-link{href: "#{home_path}"}= t('.home')
               %li
-                %a.nav-link{href: "#{catalog_path(:category_id => @categories.ids)}"}= t('.shop')
+                %a.nav-link{href: "#{catalog_path(:category_id => @labels.ids)}"}= t('.shop')
               - if user_signed_in?
                 %li
                   %a.nav-link{:href => orders_path}= t('.orders')

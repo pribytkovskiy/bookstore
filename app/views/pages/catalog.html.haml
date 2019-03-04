@@ -20,10 +20,10 @@
           = link_to t('.title_z_a'), catalog_path(:sort => "title", :direction => "desc", :name_sort => t('.title_z_a')), method: "get"
   %ul.list-inline.categories-list.pt-10.mb-25.mr-240
     %li.mr-35
-      %a.filter-link{href: "#{catalog_path(:category_id => @categories.ids)}"}
+      %a.filter-link{href: "#{catalog_path(:category_id => @labels.ids)}"}
         = t('.all')
         %span.badge.general-badge= @sort_products.count_products
-    - @categories.each do |category|
+    - @labels.each do |category|
       %li.mr-35
         %a.filter-link{href: "#{catalog_path(:category_id => category.id)}"}
           = category.category

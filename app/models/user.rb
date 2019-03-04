@@ -25,8 +25,8 @@ class User < ApplicationRecord
     end
   end
 
-  def admin?
-    role.eql? 'admin'
+  def role?(r)
+    role ? (role.include? r.to_s) : false
   end
 
   def soft_delete  

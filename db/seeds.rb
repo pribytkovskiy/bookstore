@@ -195,3 +195,4 @@ Delivery.create!(method: 'Regular Delivery', days: '3', price: 10)
 
 Coupon.create!(number: 0000, price: 0)
 Coupon.create!(number: 1111, price: 10)
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
