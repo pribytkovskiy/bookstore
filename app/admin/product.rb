@@ -35,4 +35,15 @@ ActiveAdmin.register Product do
     end
     f.actions
   end
+
+  controller do
+    def update
+      @product = Product.new(params)
+      if @product.save
+        redirect_back(fallback_location: root_path)
+      else
+        render :edit
+      end
+    end
+  end
 end

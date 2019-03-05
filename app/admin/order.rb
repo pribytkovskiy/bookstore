@@ -1,5 +1,5 @@
 ActiveAdmin.register Order do
-  permit_params :id, :card_id, :state, :subtotal, :coupon_id, :delivery_id
+  permit_params :active_admin_requested_event, :state
 
   index do
     column :id
@@ -26,11 +26,9 @@ ActiveAdmin.register Order do
     end
   end
 
-  #form do |f|
-  #  f.input :state, input_html: { disabled: true }, label: 'Current state'
+  form do |f|
+    f.input :state, input_html: { disabled: true }, label: 'Current state'
   #  f.input :active_admin_requested_event, label: 'Change state', as: :select, collection: f.object.aasm.events(permitted: true).map(&:name)
-  #  f.actions
-  #end
-
-  permit_params :active_admin_requested_event, :subtotal, :state, :id, :update_at
+    f.actions
+  end
 end
