@@ -10,11 +10,12 @@ RSpec.describe User, type: :model do
   describe "role" do
     it 'admin' do
       user = create(:user)
-      expect(user.admin?).to be_truthy
+      expect(user.role?(:admin)).to be_truthy
     end
 
     it 'not admin' do
-      expect(subject.admin?).to be_falsey
+      expect(subject.role?(:admin)).to be_falsey
     end
   end
 end
+

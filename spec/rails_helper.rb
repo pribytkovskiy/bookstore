@@ -6,7 +6,7 @@ require File.expand_path('../../config/environment', __FILE__)
 Dir[Rails.root.join('spec/helpers/**/*.rb')].each { |f| require f }
 
 abort('The Rails environment is running in production mode!') if Rails.env.production?
-require 'interactor'
+# require 'interactor'
 require 'spec_helper'
 require 'rspec/rails'
 require 'devise'
