@@ -145,6 +145,10 @@ en:
     email: email
     id: id
     create_product: Create Product
+    сurrent_state: Current state
+    forbidden_event: "Forbidden event %{event} requested on instance %{order.id}"
+    сhange_state: Change state
+    euro: €
 
 
 

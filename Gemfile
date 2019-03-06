@@ -36,6 +36,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 gem 'aasm'
 gem 'activeadmin'
+gem 'activeadmin_addons'
 gem 'bootstrap-sass', '~> 3.4.0'
 gem 'devise'
 gem 'draper'

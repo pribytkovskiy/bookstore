@@ -1,6 +1,8 @@
 class Order < ApplicationRecord
   include AASM
 
+  attr_accessor :active_admin_requested_event
+
   belongs_to :user, optional: true
   belongs_to :delivery, optional: true
   belongs_to :coupon, optional: true

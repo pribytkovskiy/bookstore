@@ -1,5 +1,5 @@
 ActiveAdmin.register Product do
-  permit_params :title, :author_ids, :category_id, :price, :description, :year, :dimensions, :materials, :image_url
+  permit_params :id, :title, :category_id, :price, :description, :year, :dimensions, :materials, covers: [], author_ids: []
 
   index do
     column :title
@@ -15,6 +15,9 @@ ActiveAdmin.register Product do
     end
     column :dimensions
     column :materials
+    column :covers, style: :thumb do |product|
+      image_tag(product.covers.first.image_url, width: '50')
+    end
     column :price do |product|
       number_to_currency product.price, unit: '€'
     end
@@ -31,6 +34,7 @@ ActiveAdmin.register Product do
       f.input :year
       f.input :dimensions
       f.input :materials
+      f.inputs :covers
       f.input :price
     end
     f.actions
@@ -38,9 +42,9 @@ ActiveAdmin.register Product do
 
   controller do
     def update
-      @product = Product.new(params)
+      @product = Product.update(permitted_params[:id], permitted_params[:product])
       if @product.save
-        redirect_back(fallback_location: root_path)
+        render :index
       else
         render :edit
       end
