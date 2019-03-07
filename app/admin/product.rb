@@ -15,8 +15,8 @@ ActiveAdmin.register Product do
     end
     column :dimensions
     column :materials
-    column :covers, style: :thumb do |product|
-      image_tag(product.covers.first.image_url, width: '50')
+    column :covers do |product|
+      image_tag(product.covers.first.image_url.try(:url), width: '50')
     end
     column :price do |product|
       number_to_currency product.price, unit: '€'

@@ -90,3 +90,4 @@ yarn-debug.log*
 .vscode
 /config/app_environment_variables.rb
 .rake_tasks~
+/public/uploads

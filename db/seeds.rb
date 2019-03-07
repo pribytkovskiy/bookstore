@@ -22,7 +22,7 @@ author10 = Author.create!(first_name: 'Helder', last_name: 'Vasconcelos', descri
 author11 = Author.create!(first_name: 'Raul', last_name: 'Portales', description: 'Raul Portales description')
 
 def add_covers(book)
-  4.times { book.covers.create!(image_url: 'https://s3.amazonaws.com/yuriy-book-store/uploads/cover/image/9/41AxHjVqzpL.jpg') }
+  4.times { book.covers.create!(image_url: 'http://res.cloudinary.com/dkixe8cv6/image/upload/v1551946976/s0ervnznh4brszke2vpc.jpg') }
 end
 
 book1 = Product.new(title: 'Real-Life Responsive Web Design10',
@@ -188,11 +188,11 @@ book13 = Product.new(title: 'Learning Material Design5',
 book13.authors << author7
 book13.category = web_design
 book13.save
-add_covers(book13)
+4.times { book13.covers.create!(image_url: 'http://res.cloudinary.com/dkixe8cv6/image/upload/v1551946998/q1qumb5s4hpqcffmbtkl.jpg') }
 
 Delivery.create!(method: 'Express Delivery', days: '1', price: 20)
 Delivery.create!(method: 'Regular Delivery', days: '3', price: 10)
 
 Coupon.create!(number: 0000, price: 0)
 Coupon.create!(number: 1111, price: 10)
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password', role: :admin) if Rails.env.development?
