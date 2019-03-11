@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  load_and_authorize_resource
+  
   def create
     @comment = Comment.create(comment_params)
     redirect_to product_path(locale: I18n.locale, id: params[:comment][:product_id])

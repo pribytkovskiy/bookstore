@@ -1,4 +1,5 @@
 class OrdersController < InheritedResources::Base
+  load_and_authorize_resource
   before_action :authenticate_user!
 
   ORDER_STATE = { cart: :cart, address: :address, delivery: :delivery_method, payment: :payment, confirmation: :confirmation }
