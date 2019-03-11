@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe CartsController do
-  let!(:order) { create(:order, :with_items) }
+  let(:user) { create(:user, :with_orders_address) }
+  let!(:order) { user.orders.first }
   
   before do 
     allow(controller).to receive(:check_order_items?).and_return(false)
@@ -26,6 +27,7 @@ RSpec.describe CartsController do
     let(:coupon) { create(:coupon) }
 
     before do
+      sign_in user
       patch :update, params: { id: order.id, order: { number: coupon.number } }
     end
 

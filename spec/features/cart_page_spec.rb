@@ -7,10 +7,12 @@ feature 'cart' do
   end
 
   context "when user have current order" do
+    let(:user) { create(:user, :with_orders_address) }
     let!(:product) { create(:product) }
     let(:coupon) { create(:coupon) }
 
     before do
+      sign_in user
       visit store_path
       click_button(I18n.t('pages.home.buy_now'))
       visit cart_path(id: 1)

@@ -1,5 +1,5 @@
 class SettingsController < ApplicationController
-  load_and_authorize_resource
+  authorize_resource :class => false
   before_action :authenticate_user!
 
   def index

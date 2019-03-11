@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe OrderItemsController, type: :controller do
+  let(:user) { create(:user, :with_orders_address) }
   let(:order) { create(:order, :with_items) }
   let(:product) { create(:product) }
+
+  before { sign_in user }
 
   describe 'POST #create' do
     it 'create order item' do
