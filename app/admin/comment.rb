@@ -1,7 +1,7 @@
 ActiveAdmin.register Comment do
   permit_params :product_id, :created_at, :title, :approved, :rate, :body, :user_id
 
-  filter :approved, as: :select, collection: %w(unprocessed approved rejected)
+  filter :approved, as: :select, collection: %w[unprocessed approved rejected]
   filter :created_at
   filter :product_id
   filter :rate

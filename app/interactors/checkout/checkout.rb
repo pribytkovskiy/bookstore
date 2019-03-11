@@ -13,6 +13,7 @@ class Checkout::Checkout
   end
 
   private
+  
     def address_params
       if context.address_form
         { address_form: {

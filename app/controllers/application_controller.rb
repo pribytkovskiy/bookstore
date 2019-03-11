@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin!
-    if current_user   
+    if current_user
       redirect_to new_user_session_path unless current_user.role?(:admin)
     else
       redirect_to new_user_session_path
@@ -41,9 +41,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_user_for_order
-    if user_signed_in? && @order.user_id.nil?
-      @order.user_id = current_user.id
-      @order.save
-    end
+    return unless user_signed_in? && @order.user_id.nil?
+    
+    @order.user_id = current_user.id
+    @order.save
   end
 end

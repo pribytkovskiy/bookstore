@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'delivery step' do
+describe 'delivery step' do
   let(:user) { create(:user, :with_orders_address) }
   let(:order) { user.orders.first }
   let!(:delivery) { create(:delivery) }

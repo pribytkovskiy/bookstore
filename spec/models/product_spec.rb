@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   describe "associations" do
-    it { should have_many(:comments).dependent(:destroy) }
-    it { should have_many(:authors) }
-    it { should have_many(:covers).dependent(:destroy) }
+    it { expect have_many(:comments).dependent(:destroy) }
+    it { expect have_many(:authors) }
+    it { expect have_many(:covers).dependent(:destroy) }
     it { expect belong_to :category }
     it { expect have_many :order_items }
     it { expect have_many(:orders).through :order_items }

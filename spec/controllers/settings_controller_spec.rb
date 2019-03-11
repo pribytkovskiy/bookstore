@@ -51,7 +51,7 @@ RSpec.describe SettingsController, type: :controller do
     end
 
     describe 'when address exist' do
-      before do 
+      before do
         users_address_shipping.addressable_id = user.id
         users_address_billing.addressable_id = user.id
         get :index, params: { user_id: users_address_shipping.addressable_id, id: user.id }

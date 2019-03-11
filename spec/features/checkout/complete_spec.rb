@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'checkout order complete' do
+RSpec.describe 'checkout order complete' do
   let(:user) { create(:user, :for_checkout_page) }
   let(:order) { user.orders.first }
   let(:shipping_address) { order.addresses.shipping.first }
@@ -23,7 +23,7 @@ RSpec.feature 'checkout order complete' do
     expect(page).to have_content(shipping_address.phone)
     expect(page).to have_content(shipping_address.country)
 
-    expect(page).to have_content(order.updated_at.strftime("%B %d, %Y"))
+    expect(page).to have_content(order.updated_at.strftime('%B %d, %Y'))
     expect(page).to have_content("R##{order.id}")
   end
 

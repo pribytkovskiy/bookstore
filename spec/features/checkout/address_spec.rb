@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-feature 'address step' do
+describe 'address step' do
   let(:user) { create(:user, :with_orders_address) }
   let(:order) { user.orders.first }
 
-  before do 
+  before do
     sign_in user
   end
 
   context 'when orders exist' do
     let(:bad_first_name) { FFaker.numerify('###') }
     let(:bad_city) { FFaker.numerify('###') }
-    let(:bad_zip) { FFaker::Lorem.word}
+    let(:bad_zip) { FFaker::Lorem.word }
     let(:bad_phone) { FFaker.numerify('############') }
     let(:last_name) { FFaker.numerify('############') }
 
@@ -30,7 +30,7 @@ feature 'address step' do
       expect(page).to have_field(I18n.t('orders.form.phone'))
     end
 
-   it 'click use billing' do
+    it 'click use billing' do
       first('.checkbox-icon').click
       expect(page).to have_selector('.shipping_address', visible: false)
 

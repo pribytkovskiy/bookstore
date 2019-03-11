@@ -3,6 +3,6 @@ class OrderItem < ApplicationRecord
   belongs_to :product
 
   def total_price
-    self.product.price * self.quantity
+    product.price * quantity
   end
 end

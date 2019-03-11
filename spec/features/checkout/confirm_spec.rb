@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'confirm step' do
+describe 'confirm step' do
   let(:user) { create(:user, :for_checkout_page) }
   let(:order) { user.orders.first }
   let(:shipping_address) { order.addresses.shipping.first }
@@ -24,7 +24,6 @@ feature 'confirm step' do
     expect(page).to have_content(billing_address.city)
     expect(page).to have_content(billing_address.phone)
     expect(page).to have_content(billing_address.country)
-
 
     expect(page).to have_content(order.delivery.method)
 

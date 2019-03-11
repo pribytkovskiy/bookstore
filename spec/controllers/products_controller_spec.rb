@@ -8,7 +8,7 @@ RSpec.describe ProductsController, type: :controller do
       session[:return_to] = 'home_page'
       get :show, params: { id: product }
     end
-    
+
     it 'assigns the requested product to @product' do
       expect(assigns(:product)).to eq product
     end

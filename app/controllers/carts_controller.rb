@@ -1,12 +1,13 @@
 class CartsController < ApplicationController
-  authorize_resource :class => false
-  
+  authorize_resource class: false
+
   def show
     redirect_to store_url, notice: t('.cart_empty') if check_order_items?
   end
 
   def update
-    if coupon = Coupon.find_by(number: coupon_params)
+    coupon = Coupon.find_by(number: coupon_params)
+    if coupon
       @order.coupon_id = coupon.id
       @order.save
     else

@@ -11,7 +11,7 @@ class OrderDecorator < Draper::Decorator
 
   def shipping_city
     "#{object.addresses.shipping.first.city} #{object.addresses.shipping.first.zip}"
-  end 
+  end
 
   def shipping_country
     object.addresses.shipping.first.country
@@ -31,7 +31,7 @@ class OrderDecorator < Draper::Decorator
 
   def billing_city
     "#{object.addresses.billing.first.city} #{object.addresses.billing.first.zip}"
-  end 
+  end
 
   def billing_country
     object.addresses.billing.first.country
@@ -42,7 +42,7 @@ class OrderDecorator < Draper::Decorator
   end
 
   def safe_card_number
-    '*'*12 + object.card&.card_number.last(4)
+    '*' * 12 + object.card&.card_number.last(4)
   end
 
   def number
@@ -50,6 +50,6 @@ class OrderDecorator < Draper::Decorator
   end
 
   def date
-    object.updated_at.strftime("%B %d, %Y")
+    object.updated_at.strftime('%B %d, %Y')
   end
 end

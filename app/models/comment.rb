@@ -25,7 +25,7 @@ class Comment < ApplicationRecord
     end
 
     event :unprocess do
-      transitions from: %i(rejected approved), to: :unprocessed
+      transitions from: %i[rejected approved], to: :unprocessed
     end
   end
 end

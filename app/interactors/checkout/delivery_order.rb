@@ -11,7 +11,8 @@ class Checkout::DeliveryOrder
   private
 
   def set_delivery_method
-    return context.delivery_inst = Delivery.find(context.order.delivery_id) if context.order.delivery_id && !context.delivery
+    context.delivery_inst = Delivery.find_by(id: context.order.delivery_id)
+    return context.delivery_inst if context.order.delivery_id && !context.delivery
 
     context.delivery_inst = context.delivery[:id]
     context.order.delivery_id = context.delivery_inst

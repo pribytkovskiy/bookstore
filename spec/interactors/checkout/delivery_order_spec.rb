@@ -23,4 +23,3 @@ RSpec.describe Checkout::DeliveryOrder, type: :interactor do
     end
   end
 end
- 

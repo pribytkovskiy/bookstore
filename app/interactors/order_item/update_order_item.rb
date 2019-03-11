@@ -12,14 +12,13 @@ class OrderItem::UpdateOrderItem
   private
 
   def decrement_current_item
-    if @current_item
-      return @current_item.decrement!(:quantity) if @current_item.quantity > 1
-      
-      @current_item.destroy
-    end
+    return @current_item.decrement!(:quantity) if @current_item.quantity > 1 && @current_item
+
+    @current_item.destroy if @current_item
   end
 
   def set_current_item
-    context.fail!(message: I18n.t('interactors.errors.current_item_failure')) unless @current_item = OrderItem.find_by(id: context.id)
+    @current_item = OrderItem.find_by(id: context.id)
+    context.fail!(message: I18n.t('interactors.errors.current_item_failure')) unless @current_item
   end
 end

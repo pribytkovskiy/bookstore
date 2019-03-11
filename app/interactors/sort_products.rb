@@ -1,6 +1,6 @@
 class SortProducts
   include Interactor
-  NAME_DEFAULT_PARAM_SORT = 'Newest first'
+  NAME_DEFAULT_PARAM_SORT = 'Newest first'.freeze
 
   def call
     context.count_products = Product.count

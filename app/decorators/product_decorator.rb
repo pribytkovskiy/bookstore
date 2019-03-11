@@ -6,12 +6,12 @@ class ProductDecorator < Draper::Decorator
   end
 
   def date
-    object.year.strftime("%Y")
+    object.year.strftime('%Y')
   end
 
   def author_name
     object.authors.map { |author| "#{author.first_name} #{author.last_name}" }.join(', ')
-  end 
+  end
 
   def image
     object.covers.first&.image_url
@@ -22,6 +22,6 @@ class ProductDecorator < Draper::Decorator
   end
 
   def comment_date
-    object.comment.updated_at.strftime("%B %d, %Y")
+    object.comment.updated_at.strftime('%B %d, %Y')
   end
 end

@@ -19,17 +19,17 @@ class User < ApplicationRecord
 
   def self.new_with_session(params, session)
     super.tap do |user|
-      if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
-        user.email = data['email'] if user.email.blank?
-      end
+      return unless data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
+      
+      user.email = data['email'] if user.email.blank?
     end
   end
 
-  def role?(r)
-    role ? (role.include? r.to_s) : false
+  def role?(rol)
+    role ? (role.include? rol.to_s) : false
   end
 
-  def soft_delete  
-    update_attribute(:deleted_at, Time.current)  
-  end  
+  def soft_delete
+    update_attribute(:deleted_at, Time.current)
+  end
 end

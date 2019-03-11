@@ -6,7 +6,7 @@ class Checkout::AddressOrder
       set_order_address_from_form
     else
       context.addresses = Order.find(context.id).addresses
-      return set_order_address_from_order if !context.addresses.empty?
+      return set_order_address_from_order unless context.addresses.empty?
 
       context.address = Checkout::SetUserAddressToOrder.call(id: context.id).address
     end

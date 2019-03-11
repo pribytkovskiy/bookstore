@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe "associations" do
-    it { should have_many(:comments).dependent(:destroy) }
-    it { should have_many(:addresses).dependent(:destroy) }
-    it { should have_many(:orders) }
+    it { expect have_many(:comments).dependent(:destroy) }
+    it { expect have_many(:addresses).dependent(:destroy) }
+    it { expect have_many(:orders) }
   end
 
   describe "role" do

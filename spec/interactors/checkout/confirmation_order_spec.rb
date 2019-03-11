@@ -4,8 +4,8 @@ RSpec.describe Checkout::ConfirmationOrder, type: :interactor do
   let(:order) { create(:order_address) }
 
   describe '.call' do
-    before do 
-      allow(Checkout::AddressOrder).to receive(:call) { true }
+    before do
+      allow(Checkout::AddressOrder).to receive(:call).and_return(true)
       order.state = :confirmation
       order.save
     end

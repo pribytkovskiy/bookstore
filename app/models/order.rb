@@ -10,15 +10,15 @@ class Order < ApplicationRecord
   has_many :addresses, as: :addressable
   has_many :order_items
 
-  scope :active_order, ->(order_id) { 
-    where(state: %i(cart address delivery_method payment confirmation complete)).find(order_id) 
+  scope :active_order, ->(order_id) {
+    where(state: %i[cart address delivery_method payment confirmation complete]).find(order_id)
   }
   scope :sort_order, ->(user_id, sort_order = nil) {
     where(user_id: user_id)
-    .where(state: sort_order || %i(in_queued in_delivering delivering canceling))
+    .where(state: sort_order || %i[in_queued in_delivering delivering canceling])
     .order(id: :desc)
   }
-  
+
   aasm column: 'state' do
     state :cart, initial: true
     state :address
@@ -32,15 +32,15 @@ class Order < ApplicationRecord
     state :canceling
 
     event :add_address do
-      transitions from: %i(cart confirmation), to: :address
+      transitions from: %i[cart confirmation], to: :address
     end
 
     event :add_delivery_method do
-      transitions from: %i(address confirmation), to: :delivery_method
+      transitions from: %i[address confirmation], to: :delivery_method
     end
 
     event :add_payment do
-      transitions from: %i(delivery_method confirmation), to: :payment
+      transitions from: %i[delivery_method confirmation], to: :payment
     end
 
     event :add_confirmation do
@@ -64,7 +64,7 @@ class Order < ApplicationRecord
     end
 
     event :cancel do
-      transitions from: %i(in_queued in_delivering delivering), to: :canceling
+      transitions from: %i[in_queued in_delivering delivering], to: :canceling
     end
   end
 

@@ -1,4 +1,9 @@
 require: rubocop-rspec
+AllCops:
+  Excludes:
+    - db/*
+    - db/migrate/*
+    - bin/*
 
 RSpec/MessageChain:
   Enabled: false
