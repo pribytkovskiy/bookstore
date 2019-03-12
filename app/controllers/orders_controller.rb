@@ -37,7 +37,7 @@ class OrdersController < InheritedResources::Base
   private
 
   def set_instance
-    @result = Checkout::Checkout.call(params)
+    @result = Checkout::StateOrder.call(params)
     set_order
     @address = @result.address
     @card = @result.card_inst

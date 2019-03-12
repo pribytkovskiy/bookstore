@@ -1,4 +1,4 @@
-class Checkout::Checkout
+class Checkout::StateOrder
   include Interactor
 
   def call
