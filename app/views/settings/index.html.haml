@@ -6,7 +6,7 @@
     %a{href: "#privacy", 'aria-controls': "privacy", role: "tab", 'data-toggle': "tab"}= t('.privacy')
 .tab-content
   #address.tab-pane.fade.in.active.general-main-wrap{role: "tabpanel"}
-    = form_for @address, :url => setting_path(user_id: current_user.id, id: current_user.id), :method => :patch, :html => {:id => "form1"} do |f|
+    = form_for @address, :url => settings_path(user_id: current_user.id, id: current_user.id), :method => :post, :html => {:id => "form1"} do |f|
       = render 'address_form', f: f
   #privacy.tab-pane.fade{role: "tabpanel"}
     = render 'form_settings'

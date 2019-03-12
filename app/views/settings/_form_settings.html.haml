@@ -25,10 +25,6 @@
     %p.in-gold-500.font-18.mb-25.pt-20= t('.remove_account')
     %form
       .general-settings-btn
-        = link_to t('.remove_account'), setting_path(current_user), class: 'btn btn-default remove-btn mb-20', method: :delete, id: "removeBtn", disabled: "disabled"
+        = link_to t('.remove_account'), setting_path(current_user), class: 'btn btn-default remove-btn mb-20', method: :delete, id: "removeBtn"
       .form-group.checkbox.general-settings-checkbox
         %label.font-weight-light.pl-0
-          %input.checkbox-input{type: "checkbox", hidden: "true", onchange: "document.getElementById('removeBtn').disabled = !this.checked;"}
-          %span.checkbox-icon
-            %i.fa.fa-check
-          %span.checkbox-text= t('.i_understand')

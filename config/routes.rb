@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     resource :product, only: %i[show] do
       resources :comments, only: %i[index create]
     end
-    resources :settings, only: %i[index update destroy]
-    resource :settings, only: %i[edit] do
+    resources :settings, only: %i[index create destroy]
+    resource :settings, only: %i[update] do
       collection do
         patch 'update_password'
       end

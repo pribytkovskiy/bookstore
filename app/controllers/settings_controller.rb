@@ -7,7 +7,7 @@ class SettingsController < ApplicationController
     @address = @result.address
   end
 
-  def update
+  def create
     @result = AddressUser.call(address_params)
     @address = @result.address
     if @result.failure?
@@ -35,7 +35,7 @@ class SettingsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:password, :password_confirmation, :reset_password_token)
+    params.require(:user).permit(:email, :password, :password_confirmation, :reset_password_token)
   end
 
   def address_params

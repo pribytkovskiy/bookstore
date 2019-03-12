@@ -27,11 +27,11 @@ RSpec.describe SettingsController, type: :controller do
     end
   end
 
-  describe 'PATCH #update' do
+  describe 'POST #create' do
     let(:bed_phone) { 123 }
 
     it 'redirect to the edit' do
-      patch :update, params: { address_form: {
+      post :create, params: { address_form: {
         first_name:                   users_address_billing.first_name,
         last_name:                    users_address_billing.last_name,
         address:                      users_address_billing.address,
