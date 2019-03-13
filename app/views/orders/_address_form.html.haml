@@ -26,3 +26,5 @@
   = f.label :phone, t('.phone'), { class: 'control-label font-weight-lights', for: "phone" }
   = f.text_field :phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
   %span.help-block= adress_error_message(:phone) if @address.errors.any?
+  = f.text_field :order_id, { id: 'checkbox-input', hidden: "true", value: @order.id }
+  = f.text_field :user_id, { id: 'checkbox-input', hidden: "true", value: current_user.id }

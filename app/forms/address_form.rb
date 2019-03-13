@@ -2,92 +2,82 @@ class AddressForm
   include ActiveModel::Model
   include Virtus.model
 
-  STRING_ATTRS = %i(first_name last_name address phone city country shipping_first_name shipping_last_name shipping_address shipping_city shipping_country shipping_phone).freeze
   ONLY_LETTERS = /\A[а-яА-ЯёЁa-zA-Z]+\z/
   ONLY_NUMBERS = /\A[0-9]+\z/
   STARTS_WITH_PLUS = /\A^\+[0-9]+\z/
-
-  STRING_ATTRS.each do |name|
-    attribute name, String
-    validates name, presence: true
-  end
   
+  attribute :first_name, String
+  attribute :last_name, String
+  attribute :address, String
+  attribute :phone, String
+  attribute :city, String
+  attribute :country, String
   attribute :check, String
   attribute :order_id, Integer
   attribute :user_id, Integer
   attribute :zip, Integer
-  attribute :shipping_zip, Integer
-  validates :zip, :shipping_zip, presence: true
 
-  validates :first_name, :last_name, :address, :city, :zip, :country, :phone, presence: true
-  validates :first_name, :last_name, :address, :city, :country, :phone, length: { maximum: 50 }
+  validates :first_name, :last_name, :address, :city, :zip, :country, :phone, :zip, presence: true
+  validates :first_name, :last_name, :address, :city, :country, length: { maximum: 50 }
   validates :first_name, :last_name, :city, :country, format: { with: ONLY_LETTERS, message: I18n.t('only_letters') }
   validates :zip, length: { maximum: 5 }, format: { with: ONLY_NUMBERS, message: I18n.t('only_numbers') }
   validates :phone, length: { maximum: 15 }, format: { with: STARTS_WITH_PLUS, message: I18n.t('starts_with_plus') }
 
-  validates :shipping_first_name, :shipping_last_name, :shipping_address,
-    :shipping_city, :shipping_zip, :shipping_country, :shipping_phone, presence: true
-  validates :shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city,
-    :shipping_country, :shipping_phone, length: { maximum: 50 }
-  validates :shipping_first_name, :shipping_last_name, :shipping_city,
-    :shipping_country, format: { with: ONLY_LETTERS, message: I18n.t('only_letters') }
-  validates :shipping_zip, length: { maximum: 5 }, format: { with: ONLY_NUMBERS, message: I18n.t('only_numbers') }
-  validates :shipping_phone, length: { maximum: 15 }, format: { with: STARTS_WITH_PLUS, message: I18n.t('starts_with_plus') }
-
   attr_reader :address
 
   def save
+    set_order
     return false unless valid?
 
     persist!
     true
   end
 
+  def shipping_address
+    if @order
+      @order.addresses.shipping || @order.user.addresses.shipping || @order.addresses.shipping.new
+    end
+  end
+
+  def billing_address
+    if @order
+      @order.addresses.billing || @order.user.addresses.billing || @order.addresses.billing.new
+    end
+  end
+
   private
 
+  def set_order
+    @order = Order.find_by(id: order_id)
+  end
+
   def persist!
-    return save_user_address unless order_id
-
-    save_order_address
+    save_billing & save_shipping
   end
 
-  def save_order_address
-    order = Order.find(order_id)
-    @address_billing = order.addresses.billing.create(address_params_billing)
-    return (@address_shipping = order.addresses.shipping.create(address_params_billing)) if check == 'true'
-
-    @address_shipping = order.addresses.shipping.create(address_params_shipping)
+  def save_shipping
+    if @order.addresses.shipping.exists?
+      @order.addresses.shipping.first.update(address_params(set_address_params_type_for_shipping_address))
+    else
+      @order.addresses.shipping.create(address_params(set_address_params_type_for_shipping_address))
+    end
   end
 
-  def save_user_address
-    user = User.find(user_id)
-    @address_billing = user.addresses.billing.create(address_params_billing)
-    return (@address_shipping = user.addresses.shipping.create(address_params_billing)) if check == 'true'
-
-    @address_shipping = user.addresses.shipping.create(address_params_shipping)
+  def save_billing
+    if @order.addresses.billing.exists?
+      @order.addresses.billing.first.update(address_params(:billing))
+    else
+      @order.addresses.billing.create(address_params(:billing))
+    end
   end
 
-  def address_params_billing
-    {
-      first_name: first_name,
-      last_name: last_name,
-      address: address,
-      phone: phone,
-      city: city,
-      country: country,
-      zip: zip
-    }
+  def set_address_params_type_for_shipping_address
+    return :billing if check == 'true'
+
+    :shipping
   end
 
-  def address_params_shipping
-    {
-      first_name: shipping_first_name,
-      last_name: shipping_last_name,
-      address: shipping_address,
-      phone: shipping_phone,
-      city: shipping_city,
-      country: shipping_country,
-      zip: shipping_zip
-    }
+  def address_params(type)
+    params.require(type).permit(:firstname, :lastname, :address, :city, :zip, :country, :phone)
   end
 end 
