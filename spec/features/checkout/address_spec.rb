@@ -17,7 +17,7 @@ describe 'address step' do
 
     before do
       page.set_rack_session(order_id: order.id)
-      visit order_path(id: order.id)
+      visit checkout_path(id: order.id)
     end
 
     it 'have all fields' do

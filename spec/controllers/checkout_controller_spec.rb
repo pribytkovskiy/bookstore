@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe OrdersController, type: :controller do
+RSpec.describe CheckoutController, type: :controller do
   let(:user) { create(:user, :with_orders_address) }
   before { sign_in user } 
 
@@ -33,7 +33,7 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     it 'renders the :show template' do
-      expect(response).to redirect_to order_path
+      expect(response).to redirect_to checkout_path
     end
   end
 
@@ -47,7 +47,7 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     it 'renders the :show template' do
-      expect(response).to redirect_to order_path
+      expect(response).to redirect_to checkout_path
     end
   end
 end

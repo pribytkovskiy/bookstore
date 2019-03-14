@@ -23,33 +23,22 @@ class AddressForm
   validates :zip, length: { maximum: 5 }, format: { with: ONLY_NUMBERS, message: I18n.t('only_numbers') }
   validates :phone, length: { maximum: 15 }, format: { with: STARTS_WITH_PLUS, message: I18n.t('starts_with_plus') }
 
-  attr_reader :address
+  attr_reader :billing_address, :shipping_address
+
+  def initialize(context)
+    @order = Order.find_by(id: context.id)
+    @shipping_address = @order.addresses.shipping.last || @order.user.addresses.shipping.last || @order.addresses.shipping.new
+    @billing_address = @order.addresses.billing.last || @order.user.addresses.billing.last || @order.addresses.billing.new
+  end
 
   def save
-    set_order
     return false unless valid?
 
     persist!
     true
   end
 
-  def shipping_address
-    if @order
-      @order.addresses.shipping || @order.user.addresses.shipping || @order.addresses.shipping.new
-    end
-  end
-
-  def billing_address
-    if @order
-      @order.addresses.billing || @order.user.addresses.billing || @order.addresses.billing.new
-    end
-  end
-
   private
-
-  def set_order
-    @order = Order.find_by(id: order_id)
-  end
 
   def persist!
     save_billing & save_shipping
@@ -57,7 +46,7 @@ class AddressForm
 
   def save_shipping
     if @order.addresses.shipping.exists?
-      @order.addresses.shipping.first.update(address_params(set_address_params_type_for_shipping_address))
+      @order.addresses.shipping.last.update(address_params(set_address_params_type_for_shipping_address))
     else
       @order.addresses.shipping.create(address_params(set_address_params_type_for_shipping_address))
     end
@@ -65,7 +54,7 @@ class AddressForm
 
   def save_billing
     if @order.addresses.billing.exists?
-      @order.addresses.billing.first.update(address_params(:billing))
+      @order.addresses.billing.last.update(address_params(:billing))
     else
       @order.addresses.billing.create(address_params(:billing))
     end

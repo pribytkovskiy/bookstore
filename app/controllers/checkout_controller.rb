@@ -1,4 +1,4 @@
-class OrdersController < InheritedResources::Base
+class CheckoutController < ApplicationController
   before_action :authenticate_user!
 
   ORDER_STATE = { cart: :cart,
@@ -12,36 +12,31 @@ class OrdersController < InheritedResources::Base
   end
 
   def show
+    @result = Checkout::ShowOrder.call(order_id: @order.id)
     set_instance
-    render @order.state.to_sym
-    set_in_queued
+
+    render params[:next_render].to_sym
+    #set_in_queued
   end
 
   def update
     session[:check] = params[:check]
+    @result = Checkout::UpdateOrder.call(params)
     set_instance
-    if @result.failure?
-      render @order.state.to_sym
-    else
-      redirect_to order_path
-    end
-  end
 
-  def edit
-    @order.state = params[:state]
-    @order.save
-    redirect_to order_path
+    if @result.failure?
+      render @result.render.to_sym
+    else
+      redirect_to checkout_path(next_render: params[:next_render].to_sym)
+    end
   end
 
   private
 
   def set_instance
-    @result = Checkout::StateOrder.call(params)
-    set_order
     @address = @result.address
-    @card = @result.card_inst
-    @delivery = @result.delivery_inst
-    flash.now[:message] = t(@result.message) if @result.failure?
+    @delivery = @result.delivery
+    @card = @result.card
   end
 
   def set_in_queued

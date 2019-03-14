@@ -11,7 +11,7 @@ RSpec.describe 'checkout order complete' do
     order.save
     sign_in user
     page.set_rack_session(order_id: order.id)
-    visit order_path(id: order.id)
+    visit checkout_path(id: order.id)
   end
 
   it 'show complete order info' do

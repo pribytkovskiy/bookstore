@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   scope '(:locale)' do
-    resources :orders, only: %i[index show edit update]
+    resources :checkout, only: %i[index show edit update]
     resources :order_items, only: %i[create update destroy]
     resources :carts, only: %i[show update]
     resource :product, only: %i[show] do

@@ -14,7 +14,7 @@ describe 'payment step' do
     order.state = :payment
     order.save
     page.set_rack_session(order_id: order.id)
-    visit order_path(id: order.id)
+    visit checkout_path(id: order.id)
   end
 
   it 'show all fields' do

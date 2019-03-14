@@ -60,4 +60,4 @@
             %td
               %strong.font-18= number_to_currency(@order.total_price - (@order.coupon&.price || 0))
         %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
-= button_to t('.checkout'), order_path(@order.id), method: :get, class: 'btn btn-default mb-20 hidden-xs center-block'
+= button_to t('.checkout'), checkout_path, method: :get, class: 'btn btn-default mb-20 hidden-xs center-block', params: { next_render: :address, step: :address }

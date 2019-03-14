@@ -1,6 +1,4 @@
 class OrderItemsController < ApplicationController
-  load_and_authorize_resource
-
   COMMANDS = { add: 'add', delete: 'delete' }.freeze
 
   def create
