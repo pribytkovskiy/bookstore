@@ -19,7 +19,7 @@
   %li.step
     %span.step-number 5
     %span.step-text.hidden-xs= t('.complete')
-= form_for @address, :url => checkout_path(user_id: current_user, step: :address, next_render: :delivery), :method => :put, :html => {:id => "form1"} do |f|
+= form_for @billing_address, :url => checkout_path(user_id: current_user, step: :address, next_render: :delivery), :method => :put, :html => {:id => "form1"} do |f|
   .hidden-xs.hidden-sm
     .row
       .col-md-5 
@@ -30,9 +30,9 @@
         %p.general-info-text= t('address.all_fields_required')
   .row
     .col-md-5.mb-40
-      = render 'address_form', f: @address.billing_address, address: @address.billing_address, address_type: :billing_address
+      = render 'address_form', f: @billing_address, address: @billing_address, address_type: :billing_address
     .col-md-5.col-md-offset-1.mb-60
-      = render 'address_form', f: @address.shipping_address, address: @address.shipping_address, address_type: :shipping_address do
+      = render 'address_form', f: @shipping_address, address: @shipping_address, address_type: :shipping_address do
         .form-group.checkbox
           %label.checkbox-label
             = check_box_tag "check", "true", false, class: "checkbox-input", checked: check?, onchange: "document.getElementById('form2').style.display = this.checked ? 'none' : 'block'"

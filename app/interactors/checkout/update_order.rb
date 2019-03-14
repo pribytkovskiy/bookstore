@@ -14,7 +14,6 @@ class Checkout::UpdateOrder
 
   def address
     set_order
-    context.address = AddressForm.new(context)
     if context.address.save
       @order.add_delivery_method!
     else

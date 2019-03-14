@@ -27,8 +27,6 @@ class AddressForm
 
   def initialize(context)
     @order = Order.find_by(id: context.id)
-    @shipping_address = @order.addresses.shipping.last || @order.user.addresses.shipping.last || @order.addresses.shipping.new
-    @billing_address = @order.addresses.billing.last || @order.user.addresses.billing.last || @order.addresses.billing.new
   end
 
   def save

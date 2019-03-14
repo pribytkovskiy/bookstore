@@ -34,7 +34,8 @@ class CheckoutController < ApplicationController
   private
 
   def set_instance
-    @address = @result.address
+    @billing_address = @result.billing_address
+    @shipping_address = @result.shipping_address
     @delivery = @result.delivery
     @card = @result.card
   end
