@@ -14,7 +14,11 @@ class Checkout::UpdateOrder
 
   def address
     set_order
-    if context.address.save
+
+    context.billing_address = AddressForm.new(context.billing_address.permit!)
+    context.shipping_address = AddressForm.new(context.shipping_address.permit!)
+
+    if context.billing_address.save(:billing) & context.shipping_address.save(:shipping)
       @order.add_delivery_method!
     else
       context.fail!(message: I18n.t('interactors.errors.address'), render: :address)
@@ -47,6 +51,6 @@ class Checkout::UpdateOrder
   end
 
   def set_order
-    @order = Order.find_by(id: context.order_id)
+    @order = Order.find_by(id: context.id)
   end
 end

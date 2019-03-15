@@ -1,30 +1,31 @@
-.form-group{class: "#{"has-error" if adress_has_error?(:first_name)}"}
-  = f.label :first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "first_name" }
-  = f.text_field :first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
-  %span.help-block= adress_error_message(:first_name) if @address.errors.any?
-.form-group{class: "#{"has-error" if adress_has_error?(:last_name)}"}
-  = f.label :last_name, t('.last_name'), { class: 'control-label font-weight-lights', for: "last_name" }
-  = f.text_field :last_name, { class: 'form-control', id: 'lastName', type: "text", placeholder: "Last Name" }
-  %span.help-block= adress_error_message(:last_name) if @address.errors.any?
-.form-group{class: "#{"has-error" if adress_has_error?(:address)}"}
-  = f.label :address, t('.address'), { class: 'control-label font-weight-lights', for: "address" }
-  = f.text_field :address, { class: 'form-control', id: 'address', type: "text", placeholder: "Address" }
-  %span.help-block= adress_error_message(:address) if @address.errors.any?
-.form-group{class: "#{"has-error" if adress_has_error?(:city)}"}
-  = f.label :city, t('.city'), { class: 'control-label font-weight-lights', for: "city" }
-  = f.text_field :city, { class: 'form-control', id: 'city', type: "text", placeholder: "City" }
-  %span.help-block= adress_error_message(:city) if @address.errors.any?
-.form-group{class: "#{"has-error" if adress_has_error?(:zip)}"}
-  = f.label :zip, t('.zip'), { class: 'control-label font-weight-lights', for: "zip" }
-  = f.text_field :zip, { class: 'form-control', id: 'zip', type: "text", placeholder: "Zip" }
-  %span.help-block= adress_error_message(:zip) if @address.errors.any?
-.form-group{class: "#{"has-error" if adress_has_error?(:country)}"}
-  = f.label :country, t('.country'), { class: 'control-label font-weight-lights', for: "country" }
-  = f.text_field :country, { class: 'form-control', id: 'country', type: "text", placeholder: "Country" }
-  %span.help-block= adress_error_message(:country) if @address.errors.any?
-.form-group{class: "#{"has-error" if adress_has_error?(:phone)}"}
-  = f.label :phone, t('.phone'), { class: 'control-label font-weight-lights', for: "phone" }
-  = f.text_field :phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
-  %span.help-block= adress_error_message(:phone) if @address.errors.any?
-  = f.text_field :order_id, { id: 'checkbox-input', hidden: "true", value: @order.id }
-  = f.text_field :user_id, { id: 'checkbox-input', hidden: "true", value: current_user.id }
+= fields_for address_type, address do |f|
+  .form-group{class: "#{"has-error" if adress_has_error?(address, :first_name)}"}
+    = f.label :first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "first_name" }
+    = f.text_field :first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
+    %span.help-block= adress_error_message(address, :first_name) if address.errors.any?
+  .form-group{class: "#{"has-error" if adress_has_error?(address, :last_name)}"}
+    = f.label :last_name, t('.last_name'), { class: 'control-label font-weight-lights', for: "last_name" }
+    = f.text_field :last_name, { class: 'form-control', id: 'lastName', type: "text", placeholder: "Last Name" }
+    %span.help-block= adress_error_message(address, :last_name) if address.errors.any?
+  .form-group{class: "#{"has-error" if adress_has_error?(address, :address)}"}
+    = f.label :address, t('.address'), { class: 'control-label font-weight-lights', for: "address" }
+    = f.text_field :address, { class: 'form-control', id: 'address', type: "text", placeholder: "Address" }
+    %span.help-block= adress_error_message(address, :address) if address.errors.any?
+  .form-group{class: "#{"has-error" if adress_has_error?(address, :city)}"}
+    = f.label :city, t('.city'), { class: 'control-label font-weight-lights', for: "city" }
+    = f.text_field :city, { class: 'form-control', id: 'city', type: "text", placeholder: "City" }
+    %span.help-block= adress_error_message(address, :city) if address.errors.any?
+  .form-group{class: "#{"has-error" if adress_has_error?(address, :zip)}"}
+    = f.label :zip, t('.zip'), { class: 'control-label font-weight-lights', for: "zip" }
+    = f.text_field :zip, { class: 'form-control', id: 'zip', type: "text", placeholder: "Zip" }
+    %span.help-block= adress_error_message(address, :zip) if address.errors.any?
+  .form-group{class: "#{"has-error" if adress_has_error?(address, :country)}"}
+    = f.label :country, t('.country'), { class: 'control-label font-weight-lights', for: "country" }
+    = f.text_field :country, { class: 'form-control', id: 'country', type: "text", placeholder: "Country" }
+    %span.help-block= adress_error_message(address, :country) if address.errors.any?
+  .form-group{class: "#{"has-error" if adress_has_error?(address, :phone)}"}
+    = f.label :phone, t('.phone'), { class: 'control-label font-weight-lights', for: "phone" }
+    = f.text_field :phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
+    %span.help-block= adress_error_message(address, :phone) if address.errors.any?
+    = f.text_field :order_id, { id: 'checkbox-input', hidden: "true", value: @order.id }
+    = f.text_field :user_id, { id: 'checkbox-input', hidden: "true", value: current_user.id }

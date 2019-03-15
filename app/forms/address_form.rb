@@ -23,48 +23,50 @@ class AddressForm
   validates :zip, length: { maximum: 5 }, format: { with: ONLY_NUMBERS, message: I18n.t('only_numbers') }
   validates :phone, length: { maximum: 15 }, format: { with: STARTS_WITH_PLUS, message: I18n.t('starts_with_plus') }
 
-  attr_reader :billing_address, :shipping_address
-
-  def initialize(context)
-    @order = Order.find_by(id: context.id)
-  end
-
-  def save
+  def save(address_type)
+    set_order
     return false unless valid?
 
-    persist!
+    persist!(address_type)
     true
   end
 
   private
 
-  def persist!
-    save_billing & save_shipping
+  def set_order
+    @order = Order.find_by(id: order_id)
   end
 
-  def save_shipping
-    if @order.addresses.shipping.exists?
-      @order.addresses.shipping.last.update(address_params(set_address_params_type_for_shipping_address))
-    else
-      @order.addresses.shipping.create(address_params(set_address_params_type_for_shipping_address))
-    end
+  def persist!(address_type)
+    save_address_billing if address_type = :billing
+    save_address_shipping if address_type = :shipping
   end
 
-  def save_billing
+  def save_address_billing
     if @order.addresses.billing.exists?
-      @order.addresses.billing.last.update(address_params(:billing))
+      @order.addresses.billing.last.update(address_params)
     else
-      @order.addresses.billing.create(address_params(:billing))
+      @order.addresses.billing.create(address_params)
     end
   end
 
-  def set_address_params_type_for_shipping_address
-    return :billing if check == 'true'
-
-    :shipping
+  def save_address_shipping
+    if @order.addresses.shipping.exists?
+      @order.addresses.shipping.last.update(address_params)
+    else
+      @order.addresses.shipping.create(address_params)
+    end
   end
 
-  def address_params(type)
-    params.require(type).permit(:firstname, :lastname, :address, :city, :zip, :country, :phone)
+  def address_params
+    { 
+      first_name: first_name,
+      last_name: last_name,
+      address: address,
+      city: city,
+      zip: zip,
+      country: country,
+      phone: phone
+    }
   end
 end 

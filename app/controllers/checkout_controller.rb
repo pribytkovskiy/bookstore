@@ -12,7 +12,7 @@ class CheckoutController < ApplicationController
   end
 
   def show
-    @result = Checkout::ShowOrder.call(order_id: @order.id)
+    @result = Checkout::ShowOrder.call(params)
     set_instance
 
     render params[:next_render].to_sym

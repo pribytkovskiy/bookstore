@@ -1,10 +1,10 @@
 module OrdersHelper
-  def adress_has_error?(field)
-    @address.errors.include?(field)
+  def adress_has_error?(address, field)
+    address.errors.include?(field)
   end
 
-  def adress_error_message(field)
-    @address.errors.messages[field].first
+  def adress_error_message(address, field)
+    address.errors.messages[field].first
   end
 
   def card_has_error?(field)

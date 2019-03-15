@@ -3,8 +3,8 @@ class Checkout::ShowOrder
 
   def call
     set_order
-    context.shipping_address = AddressForm.new(@order.addresses.shipping.last) || AddressForm.new(@order.user.addresses.shipping.last) || AddressForm.new
-    context.billing_address = AddressForm.new(@order.addresses.billing.last) || AddressForm.new(@order.user.addresses.billing.last) || AddressForm.new
+    context.billing_address = @order.addresses.billing.last || @order.user.addresses.billing.last || @order.addresses.billing.new
+    context.shipping_address = @order.addresses.shipping.last || @order.user.addresses.shipping.last || @order.addresses.shipping.new
 
     context.delivery = @order.delivery_id || Delivery.new
 
@@ -14,7 +14,6 @@ class Checkout::ShowOrder
   private
 
   def set_order
-    @order = Order.find_by(id: context.order_id)
-    context.id = @order.id
+    @order = Order.find_by(id: context.id)
   end
 end
