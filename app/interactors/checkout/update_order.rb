@@ -4,7 +4,7 @@ class Checkout::UpdateOrder
   def call
     case context.step.to_sym
     when CheckoutController::ORDER_STATE[:address] then address
-    when CheckoutController::ORDER_STATE[:delivery_method] then delivery
+    when CheckoutController::ORDER_STATE[:delivery] then delivery
     when CheckoutController::ORDER_STATE[:payment] then payment
     when CheckoutController::ORDER_STATE[:confirmation] then confirmation
     end
@@ -15,42 +15,54 @@ class Checkout::UpdateOrder
   def address
     set_order
 
-    context.billing_address = AddressForm.new(context.billing_address.permit!)
-    context.shipping_address = AddressForm.new(context.shipping_address.permit!)
-
-    if context.billing_address.save(:billing) & context.shipping_address.save(:shipping)
-      @order.add_delivery_method!
+    context.billing_address = AddressForm.new(context.billing.permit!)
+    if context.check
+      context.shipping_address = AddressForm.new(context.billing.permit!)
     else
-      context.fail!(message: I18n.t('interactors.errors.address'), render: :address)
+      context.shipping_address = AddressForm.new(context.shipping.permit!)
     end
+
+    return if context.billing_address.save && context.shipping_address.save
+    
+    context.fail!(message: I18n.t('interactors.errors.address'), render: :address)
   end
 
   def delivery
     set_order
     @order.delivery_id = context.delivery[:id]
-    if @order.save
-      @order.add_payment!
-    else
-      context.fail!(message: I18n.t('interactors.errors.delivery'))
-    end
+    return if @order.save
+    
+    context.fail!(message: I18n.t('interactors.errors.delivery', render: :delivery))
   end
 
   def payment
     set_order
-    context.card = PaymentForm.new(context)
+    context.card = PaymentForm.new(card_params)
     if context.card.save
-      @order.add_confirmation!
+      @order.card_id = context.card.card.id 
+      @order.save
     else
-      context.fail!(message: I18n.t('interactors.errors.payment'))
+      context.fail!(message: I18n.t('interactors.errors.payment'), render: :payment)
     end
   end
 
   def confirmation
     set_order
+    @order.subtotal = @order.total_price + @order.delivery.price - @order.coupon&.price.to_i
     @order.add_complete!
   end
 
   def set_order
-    @order = Order.find_by(id: context.id)
+    @order ||= Order.find_by(id: context.id)
+  end
+
+  def card_params
+    {
+      card_number: context.card_number,
+      name_on_card: context.name_on_card,
+      mm_yy: context.mm_yy,
+      cvv: context.cvv,
+      order_id: context.id
+    }
   end
 end

@@ -29,3 +29,4 @@
     %span.help-block= adress_error_message(address, :phone) if address.errors.any?
     = f.text_field :order_id, { id: 'checkbox-input', hidden: "true", value: @order.id }
     = f.text_field :user_id, { id: 'checkbox-input', hidden: "true", value: current_user.id }
+    = f.text_field :address_type, { id: 'checkbox-input', hidden: "true", value: address_type}

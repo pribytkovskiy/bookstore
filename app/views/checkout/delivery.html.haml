@@ -32,7 +32,7 @@
         %th
           %span.in-grey-600= t('.price')
     %tbody
-    = form_for @delivery, :url => checkout_path, :method => :put do |f|
+    = form_for @delivery, :url => checkout_path(step: :delivery_method, next_render: :payment), :method => :put do |f|
       %tr
         %td
           .form-group.radio.mt-0.mb-0

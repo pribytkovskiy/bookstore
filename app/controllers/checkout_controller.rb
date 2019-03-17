@@ -16,7 +16,7 @@ class CheckoutController < ApplicationController
     set_instance
 
     render params[:next_render].to_sym
-    #set_in_queued
+    set_in_queued
   end
 
   def update

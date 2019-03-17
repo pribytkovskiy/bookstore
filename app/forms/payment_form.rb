@@ -17,6 +17,8 @@ class PaymentForm
   validates :mm_yy, format: { with: EXPESSION_MONTH_YEAR, message: I18n.t('mm_yy') }
   validates :cvv, length: { in: 3..4 }
 
+  attr_reader :card
+
   def save
     return false unless valid?
 

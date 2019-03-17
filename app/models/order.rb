@@ -21,34 +21,14 @@ class Order < ApplicationRecord
 
   aasm column: 'state' do
     state :cart, initial: true
-    state :address
-    state :delivery_method
-    state :payment
-    state :confirmation
     state :complete
     state :in_queued
     state :in_delivering
     state :delivering
     state :canceling
 
-    event :add_address do
-      transitions from: %i[cart confirmation], to: :address
-    end
-
-    event :add_delivery_method do
-      transitions from: %i[address confirmation], to: :delivery_method
-    end
-
-    event :add_payment do
-      transitions from: %i[delivery_method confirmation], to: :payment
-    end
-
-    event :add_confirmation do
-      transitions from: :payment, to: :confirmation
-    end
-
     event :add_complete do
-      transitions from: :confirmation, to: :complete
+      transitions from: :cart, to: :complete
     end
 
     event :add_in_queued do

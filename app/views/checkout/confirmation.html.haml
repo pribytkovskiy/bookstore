@@ -27,7 +27,7 @@
     %h3.general-subtitle= t('.shipping_address')
     %p.general-address
       = @order.shipping_name
-      %span.general-edit= link_to t('.edit'), edit_checkout_path(state: :address), method: :get, class: 'general-edit'
+      %span.general-edit= link_to t('.edit'), checkout_path(user_id: current_user, next_render: :address, step: :address), method: :get, class: 'general-edit'
       %br
       = @order.shipping_address
       %br
@@ -40,7 +40,7 @@
     %h3.general-subtitle= t('.billing_address')
     %p.general-address
       = @order.billing_name
-      %span.general-edit= link_to t('.edit'), edit_checkout_path(state: :address, check: :true), method: :get, class: 'general-edit' 
+      %span.general-edit= link_to t('.edit'), checkout_path(user_id: current_user, next_render: :address, step: :address), method: :get, class: 'general-edit' 
       %br
       = @order.billing_address
       %br
@@ -53,14 +53,14 @@
     %h3.general-subtitle= t('.shipments')
     %p.general-address
       = "Delivery #{@order.delivery.days} Days"
-      %span.general-edit= link_to t('.edit'), edit_checkout_path(state: :delivery_method), method: :get, class: 'general-edit' 
+      %span.general-edit= link_to t('.edit'), checkout_path(user_id: current_user, step: :address, next_render: :delivery), method: :get, class: 'general-edit' 
       %br
       = @order.delivery.method
   .col-sm-3
     %h3.general-subtitle= t('.payment_information')
     %p.general-address
       = @order.safe_card_number
-      %span.general-edit= link_to t('.edit'), edit_checkout_path(state: :payment), method: :get, class: 'general-edit' 
+      %span.general-edit= link_to t('.edit'), checkout_path(step: :delivery_method, next_render: :payment), method: :get, class: 'general-edit' 
       %br
       = @order.card&.mm_yy
 .hidden-xs.divider-lg.pt-20
@@ -110,4 +110,4 @@
       %td
         %strong.font-18= number_to_currency(@order.total_price + @order.delivery.price - @order.coupon&.price.to_i)
 .text-center
-  = button_to "Place Order", checkout_path(complete: true), method: :patch, class: 'btn btn-default mb-20'
+  = button_to "Place Order", checkout_path(complete: true, step: :confirmation, next_render: :complete), method: :patch, class: 'btn btn-default mb-20'

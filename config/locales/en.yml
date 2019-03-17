@@ -87,7 +87,7 @@ en:
       add_current_item_quantity: Add current_item quantity failure
       address: Address error
 
-  orders:
+  checkout:
     form:
       checkout: 'Checkout'
       address: 'Address'

@@ -16,6 +16,7 @@ class AddressForm
   attribute :order_id, Integer
   attribute :user_id, Integer
   attribute :zip, Integer
+  attribute :address_type, String
 
   validates :first_name, :last_name, :address, :city, :zip, :country, :phone, :zip, presence: true
   validates :first_name, :last_name, :address, :city, :country, length: { maximum: 50 }
@@ -23,11 +24,11 @@ class AddressForm
   validates :zip, length: { maximum: 5 }, format: { with: ONLY_NUMBERS, message: I18n.t('only_numbers') }
   validates :phone, length: { maximum: 15 }, format: { with: STARTS_WITH_PLUS, message: I18n.t('starts_with_plus') }
 
-  def save(address_type)
+  def save
     set_order
     return false unless valid?
 
-    persist!(address_type)
+    persist!
     true
   end
 
@@ -37,7 +38,7 @@ class AddressForm
     @order = Order.find_by(id: order_id)
   end
 
-  def persist!(address_type)
+  def persist!
     save_address_billing if address_type = :billing
     save_address_shipping if address_type = :shipping
   end
@@ -66,7 +67,8 @@ class AddressForm
       city: city,
       zip: zip,
       country: country,
-      phone: phone
+      phone: phone,
+      address_type: address_type
     }
   end
 end 
