@@ -8,8 +8,8 @@ class SettingsController < ApplicationController
   end
 
   def create
-    @billing_address = AddressForm.new(params.billing)
-    @shipping_adress = AddressForm.new(params.shipping)
+    @billing_address = AddressForm.new(params[:billing].permit!)
+    @shipping_adress = AddressForm.new(params[:shipping].permit!)
     if @billing_address.save && @shipping_adress.save
       redirect_to settings_path(user_id: current_user.id)
     else

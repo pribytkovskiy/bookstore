@@ -6,10 +6,11 @@
     %a{href: "#privacy", 'aria-controls': "privacy", role: "tab", 'data-toggle': "tab"}= t('.privacy')
 .tab-content
   #address.tab-pane.fade.in.active.general-main-wrap{role: "tabpanel"}
-    = form_for @billing_address, :url => settings_path(user_id: current_user.id, id: current_user.id), :method => :post, :html => {:id => "form1"} do |f|
+    = form_for @billing_address, :url => settings_path(user_id: current_user.id, id: current_user.id), :method => :post do |f|
       .col-md-5.mb-40
-        = render '/checkout/address_form', address: @billing_address, address_type: :billing
+        = render partial: 'address_form', locals: { address: @billing_address, address_type: :billing }
       .col-md-5.col-md-offset-1.mb-60#form2
-        = render '/checkout/address_form', address: @shipping_address, address_type: :shipping
+        = render partial: 'address_form', locals: { address: @shipping_address, address_type: :shipping }
+      = f.submit I18n.t('save_and_continue'), { class: 'btn center-block mb-20' }
   #privacy.tab-pane.fade{role: "tabpanel"}
     = render 'form_settings'
