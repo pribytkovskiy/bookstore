@@ -26,8 +26,9 @@
           %input.form-control.quantity-input{id: "quantity", type: "text", name: "quantity", min: 1, max: 999, value: 1}
           %input.form-control.quantity-input.hidden{type: "text", name: "product_id", value: "#{@product.id}"}
           %input.form-control.quantity-input.hidden{type: "text", name: "order_id", value: "#{@order.id}"}
+          %input.form-control.quantity-input.hidden{type: "text", name: "redirect_to", value: "#{product_path(id: @product.id)}"}
           %a.input-link.plus.fa.fa-plus.line-height-40.help_fa{href: ""}
-          %input.btn.btn-default.pull-right.general-positionid.hidden{id: '1', type: "submit", value: "Add to Cart"}
+          %input.btn.btn-default.pull-right.general-positionid.hidden{id: '1', type: "submit", value: t('.add_to_cart')}
       .col-xs-7.col-md-5
         %button.btn.btn-default.pull-right.general-position{type: "submit", id: 'add-to-cart', onclick: "document.getElementById('1').click()"}= t('.add_to_cart')
         .hidden
