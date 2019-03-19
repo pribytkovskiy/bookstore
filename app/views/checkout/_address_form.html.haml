@@ -1,4 +1,6 @@
 = fields_for address_type, address do |f|
+  - address = @billing_address if address_type == 'billing'
+  - address = @shipping_address if address_type == 'shipping'
   .form-group{class: "#{"has-error" if adress_has_error?(address, :first_name)}"}
     = f.label :first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "first_name" }
     = f.text_field :first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
@@ -27,6 +29,7 @@
     = f.label :phone, t('.phone'), { class: 'control-label font-weight-lights', for: "phone" }
     = f.text_field :phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
     %span.help-block= adress_error_message(address, :phone) if address.errors.any?
-    = f.text_field :order_id, { id: 'checkbox-input', hidden: "true", value: @order.id }
+    - if order
+      = f.text_field :order_id, { id: 'checkbox-input', hidden: "true", value: @order.id }
     = f.text_field :user_id, { id: 'checkbox-input', hidden: "true", value: current_user.id }
     = f.text_field :address_type, { id: 'checkbox-input', hidden: "true", value: address_type}

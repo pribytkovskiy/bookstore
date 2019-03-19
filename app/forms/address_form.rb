@@ -25,7 +25,6 @@ class AddressForm
   validates :phone, length: { maximum: 15 }, format: { with: STARTS_WITH_PLUS, message: I18n.t('starts_with_plus') }
 
   def save
-    set_order
     return false unless valid?
 
     persist!
@@ -35,27 +34,37 @@ class AddressForm
   private
 
   def set_order
-    @order = Order.find_by(id: order_id)
+    Order.find_by(id: order_id)
+  end
+
+  def set_user
+    User.find_by(id: user_id)
+  end
+
+  def set_inst_save
+    return set_order if order_id
+
+    set_user if user_id
   end
 
   def persist!
-    save_address_billing if address_type = :billing
-    save_address_shipping if address_type = :shipping
+    save_address_billing(set_inst_save) if address_type == 'billing'
+    save_address_shipping(set_inst_save) if address_type == 'shipping'
   end
 
-  def save_address_billing
-    if @order.addresses.billing.exists?
-      @order.addresses.billing.last.update(address_params)
+  def save_address_billing(inst_save)
+    if inst_save.addresses.billing.exists?
+      inst_save.addresses.billing.last.update(address_params)
     else
-      @order.addresses.billing.create(address_params)
+      inst_save.addresses.billing.create(address_params)
     end
   end
 
-  def save_address_shipping
-    if @order.addresses.shipping.exists?
-      @order.addresses.shipping.last.update(address_params)
+  def save_address_shipping(inst_save)
+    if inst_save.addresses.shipping.exists?
+      inst_save.addresses.shipping.last.update(address_params)
     else
-      @order.addresses.shipping.create(address_params)
+      inst_save.addresses.shipping.create(address_params)
     end
   end
 

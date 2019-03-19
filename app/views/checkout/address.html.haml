@@ -30,9 +30,9 @@
         %p.general-info-text= t('address.all_fields_required')
   .row
     .col-md-5.mb-40
-      = render 'address_form', address: @billing_address, address_type: :billing
-    .col-md-5.col-md-offset-1.mb-60#form2
-      = render 'address_form', address: @shipping_address, address_type: :shipping
+      = render 'address_form', address: @billing_address, address_type: :billing, order: true
+    .col-md-5.col-md-offset-1.mb-60#form2{style: "#{'display: none;' if check?}" }
+      = render 'address_form', address: @shipping_address, address_type: :shipping, order: true
     .col-md-5.mb-40
     .col-md-5.col-md-offset-1.mb-60
       .form-group.checkbox

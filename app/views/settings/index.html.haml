@@ -8,9 +8,9 @@
   #address.tab-pane.fade.in.active.general-main-wrap{role: "tabpanel"}
     = form_for @billing_address, :url => settings_path(user_id: current_user.id, id: current_user.id), :method => :post do |f|
       .col-md-5.mb-40
-        = render partial: 'address_form', locals: { address: @billing_address, address_type: :billing }
+        = render partial: 'checkout/address_form', locals: { address: @billing_address, address_type: :billing, order: false }
       .col-md-5.col-md-offset-1.mb-60#form2
-        = render partial: 'address_form', locals: { address: @shipping_address, address_type: :shipping }
+        = render partial: 'checkout/address_form', locals: { address: @shipping_address, address_type: :shipping, order: false }
       = f.submit I18n.t('save_and_continue'), { class: 'btn center-block mb-20' }
   #privacy.tab-pane.fade{role: "tabpanel"}
     = render 'form_settings'

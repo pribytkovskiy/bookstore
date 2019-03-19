@@ -4,13 +4,13 @@ class SettingsController < ApplicationController
 
   def index
     @billing_address = current_user.addresses.billing.last || current_user.addresses.billing.new
-    @shipping_adress = current_user.addresses.shipping.last || current_user.addresses.shipping.new
+    @shipping_address = current_user.addresses.shipping.last || current_user.addresses.shipping.new
   end
 
   def create
     @billing_address = AddressForm.new(params[:billing].permit!)
-    @shipping_adress = AddressForm.new(params[:shipping].permit!)
-    if @billing_address.save && @shipping_adress.save
+    @shipping_address = AddressForm.new(params[:shipping].permit!)
+    if @billing_address.save && @shipping_address.save
       redirect_to settings_path(user_id: current_user.id)
     else
       render :index
