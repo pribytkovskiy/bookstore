@@ -16,28 +16,8 @@ describe Order, type: :model do
       expect(subject).to have_state(:cart)
     end
 
-    it 'add_address' do
-      expect(subject).to transition_from(:cart, :confirmation).to(:address)
-        .on_event(:add_address)
-    end
-
-    it 'add_delivery_method' do
-      expect(subject).to transition_from(:address, :confirmation).to(:delivery_method)
-        .on_event(:add_delivery_method)
-    end
-
-    it 'add_payment' do
-      expect(subject).to transition_from(:delivery_method, :confirmation).to(:payment)
-        .on_event(:add_payment)
-    end
-
-    it 'add_confirmation' do
-      expect(subject).to transition_from(:payment).to(:confirmation)
-        .on_event(:add_confirmation)
-    end
-
     it 'add_complete' do
-      expect(subject).to transition_from(:confirmation).to(:complete)
+      expect(subject).to transition_from(:cart).to(:complete)
         .on_event(:add_complete)
     end
 

@@ -22,8 +22,9 @@ RSpec.describe SettingsController, type: :controller do
       expect(response).to have_http_status(200)
     end
 
-    it 'assigns @address' do
-      expect(assigns(:address)).not_to be_nil
+    it 'assigns @billing_address and @shipping_address' do
+      expect(assigns(:billing_address)).not_to be_nil
+      expect(assigns(:shipping_address)).not_to be_nil
     end
   end
 
@@ -31,22 +32,32 @@ RSpec.describe SettingsController, type: :controller do
     let(:bed_phone) { 123 }
 
     it 'redirect to the edit' do
-      post :create, params: { address_form: {
-        first_name:                   users_address_billing.first_name,
-        last_name:                    users_address_billing.last_name,
-        address:                      users_address_billing.address,
-        city:                         users_address_billing.city,
-        zip:                          users_address_billing.zip,
-        country:                      users_address_billing.country,
-        phone:                        bed_phone,
-        shipping_first_name:          users_address_shipping.first_name,
-        shipping_last_name:           users_address_shipping.last_name,
-        shipping_address:             users_address_shipping.address,
-        shipping_city:                users_address_shipping.city,
-        shipping_zip:                 users_address_shipping.zip,
-        shipping_country:             users_address_shipping.country,
-        shipping_phone:               bed_phone
-      }, user_id: users_address_shipping.addressable_id, id: user.id }
+      post :create, params: { 
+        billing: {
+          first_name:          users_address_billing.first_name,
+          last_name:           users_address_billing.last_name,
+          address:             users_address_billing.address,
+          city:                users_address_billing.city,
+          zip:                 users_address_billing.zip,
+          country:             users_address_billing.country,
+          phone:               bed_phone,
+          user_id:             users_address_shipping.addressable_id,
+          address_type:        :billing
+        },
+        shipping: {
+          first_name:          users_address_shipping.first_name,
+          last_name:           users_address_shipping.last_name,
+          address:             users_address_shipping.address,
+          city:                users_address_shipping.city,
+          zip:                 users_address_shipping.zip,
+          country:             users_address_shipping.country,
+          phone:               bed_phone,
+          user_id:             users_address_shipping.addressable_id,
+          address_type:        :shipping
+        },
+        user_id: users_address_shipping.addressable_id,
+        id: user.id 
+      }
       expect(response).to have_http_status(200)
     end
 

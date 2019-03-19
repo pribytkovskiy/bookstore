@@ -17,25 +17,25 @@ describe 'address step' do
 
     before do
       page.set_rack_session(order_id: order.id)
-      visit checkout_path(id: order.id)
+      visit checkout_path(id: order.id, step: :address, next_render: :address) 
     end
 
     it 'have all fields' do
-      expect(page).to have_field(I18n.t('orders.form.first_name'))
-      expect(page).to have_field(I18n.t('orders.form.last_name'))
-      expect(page).to have_field(I18n.t('orders.form.address'))
-      expect(page).to have_field(I18n.t('orders.form.city'))
-      expect(page).to have_field(I18n.t('orders.form.zip'))
-      expect(page).to have_field(I18n.t('orders.form.country'))
-      expect(page).to have_field(I18n.t('orders.form.phone'))
+      expect(page).to have_field(I18n.t('checkout.form.first_name'))
+      expect(page).to have_field(I18n.t('checkout.form.last_name'))
+      expect(page).to have_field(I18n.t('checkout.form.address'))
+      expect(page).to have_field(I18n.t('checkout.form.city'))
+      expect(page).to have_field(I18n.t('checkout.form.zip'))
+      expect(page).to have_field(I18n.t('checkout.form.country'))
+      expect(page).to have_field(I18n.t('checkout.form.phone'))
     end
 
-    it 'click use billing' do
-      first('.checkbox-icon').click
-      expect(page).to have_selector('.shipping_address', visible: false)
+    it 'click use billing', js: true do
+      first('.checkbox-input').click
+      expect(page).to have_selector('#form2', visible: false)
 
-      click_button(I18n.t('orders.form.save_and_continue'))
-      expect(page).to have_selector('.shipping_address', visible: false)
+      click_button(I18n.t('checkout.form.save_and_continue'))
+      expect(page).to have_selector('#form2', visible: false)
     end
   end
 end

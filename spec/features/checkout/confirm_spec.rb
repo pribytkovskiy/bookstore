@@ -9,7 +9,7 @@ describe 'confirm step' do
   before do
     sign_in user
     page.set_rack_session(order_id: order.id)
-    visit checkout_path(id: order.id)
+    visit checkout_path(id: order.id, step: :payment, next_render: :confirmation)
   end
 
   it 'show order info' do
@@ -35,6 +35,6 @@ describe 'confirm step' do
 
   it 'can edit' do
     click_link('edit', match: :first)
-    expect(current_path).to eq(checkout_path(id: order.id, locale: :en))
+    expect(current_path).to eq(checkout_path(id: order.id, locale: 'en'))
   end
 end

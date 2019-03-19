@@ -20,34 +20,18 @@ RSpec.describe CheckoutController, type: :controller do
   end
 
   describe 'PATCH #update' do
+    let(:results) { instance_double('Result', billing_address: 'billing_address',
+                                    shipping_address: 'shipping_address',
+                                    delivery: 'delivery',
+                                    card: 'card',
+                                    failure?: false) }
+
     before do
-      patch :update, params: { id: user.orders.first.id }
+      allow(Checkout::UpdateOrder).to receive(:call).and_return(results)
     end
 
-    it 'assigns the requested order to @order' do
-      expect(assigns(:order)).to eq Order.last
-    end
-
-    it 'product should be decorated' do
-      expect(assigns(:order)).to be_decorated
-    end
-
-    it 'renders the :show template' do
-      expect(response).to redirect_to checkout_path
-    end
-  end
-
-  describe 'GET #edit' do
-    before do
-      get :edit, params: { id: user.orders.first.id, state: :address }
-    end
-
-    it 'assigns the requested order to @order' do
-      expect(assigns(:order)).to eq Order.last
-    end
-
-    it 'renders the :show template' do
-      expect(response).to redirect_to checkout_path
+    it 'assigns the requested order to @result' do
+      expect(assigns(:result)).to eq nil
     end
   end
 end

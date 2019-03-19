@@ -2,6 +2,7 @@ class Checkout::UpdateOrder
   include Interactor
 
   def call
+    set_order
     case context.step.to_sym
     when CheckoutController::ORDER_STATE[:address] then address
     when CheckoutController::ORDER_STATE[:delivery] then delivery
@@ -13,22 +14,18 @@ class Checkout::UpdateOrder
   private
 
   def address
-    set_order
-
     context.billing_address = AddressForm.new(context.billing.permit!)
     if context.check
       context.shipping_address = AddressForm.new(context.billing.permit!)
     else
       context.shipping_address = AddressForm.new(context.shipping.permit!)
     end
-
     return if context.billing_address.save && context.shipping_address.save
     
     context.fail!(message: I18n.t('interactors.errors.address'), render: :address)
   end
 
   def delivery
-    set_order
     @order.delivery_id = context.delivery[:id]
     return if @order.save
     
@@ -36,7 +33,6 @@ class Checkout::UpdateOrder
   end
 
   def payment
-    set_order
     context.card = PaymentForm.new(card_params)
     if context.card.save
       @order.card_id = context.card.card.id 
@@ -47,8 +43,7 @@ class Checkout::UpdateOrder
   end
 
   def confirmation
-    set_order
-    @order.subtotal = @order.total_price + @order.delivery.price - @order.coupon&.price.to_i
+    @order.subtotal = @order.total_price + @order.delivery&.price.to_i - @order.coupon&.price.to_i
     @order.add_complete!
   end
 

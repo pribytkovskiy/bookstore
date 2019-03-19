@@ -10,10 +10,10 @@ describe 'delivery step' do
     order.state = :delivery_method
     order.save
     page.set_rack_session(order_id: order.id)
-    visit checkout_path(id: order.id)
+    visit checkout_path(id: order.id, step: :address, next_render: :delivery)
   end
 
   it 'show delivery info' do
-    expect(page).to have_content(I18n.t('orders.address_form.regular_delivery'))
+    expect(page).to have_content(I18n.t('checkout.address_form.regular_delivery'))
   end
 end

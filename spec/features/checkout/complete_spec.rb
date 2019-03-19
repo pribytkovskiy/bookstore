@@ -7,15 +7,13 @@ RSpec.describe 'checkout order complete' do
   let(:billing_address) { order.addresses.billing.first }
 
   before do
-    order.state = :complete
-    order.save
     sign_in user
     page.set_rack_session(order_id: order.id)
-    visit checkout_path(id: order.id)
+    visit checkout_path(id: order.id, step: :confirmation, next_render: :complete)
   end
 
   it 'show complete order info' do
-    expect(page).to have_content(I18n.t('orders.complete.thank'))
+    expect(page).to have_content(I18n.t('checkout.complete.thank'))
 
     expect(page).to have_content(shipping_address.first_name)
     expect(page).to have_content(shipping_address.address)
@@ -28,7 +26,7 @@ RSpec.describe 'checkout order complete' do
   end
 
   it 'redirect to store' do
-    click_button(I18n.t('orders.complete.back_to_store'))
+    click_button(I18n.t('checkout.complete.back_to_store'))
     expect(current_path).to eq(store_path(locale: :en))
   end
 end

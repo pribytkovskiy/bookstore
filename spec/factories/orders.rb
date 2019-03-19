@@ -9,13 +9,13 @@ FactoryBot.define do
   end
 
   factory :order_address, parent: :order do
-    state { :address }
+    state { :cart }
   end
 
   factory :order_checkout_page, parent: :order do
     delivery { create :delivery }
     card { create :card }
-    state { :confirmation }
+    state { :complete }
 
     after(:create) do |order|
       order.addresses << FactoryBot.create(:users_address, :shipping)
