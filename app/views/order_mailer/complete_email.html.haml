@@ -1,4 +1,4 @@
 %p
   = I18n.t('order_mailer.complete_email.thanks')
 %p
-  = I18n.t('order_mailer.complete_email.orders_number') + @order.id.to_s
+  = I18n.t('order_mailer.complete_email.orders_number') + ' ' + @order.id.to_s
