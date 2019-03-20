@@ -51,6 +51,7 @@ gem 'omniauth-facebook'
 gem 'pagy'
 gem 'rectify'
 gem 'sassc-rails', '>= 2.0.0'
+gem 'sidekiq'
 gem 'virtus'
 
 group :development, :test do

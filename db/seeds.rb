@@ -195,4 +195,6 @@ Delivery.create!(method: 'Regular Delivery', days: '3', price: 10)
 
 Coupon.create!(number: 0000, price: 0)
 Coupon.create!(number: 1111, price: 10)
-User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password', role: :admin) if Rails.env.development?
+
+covers = Cover.all.map { |inst| inst.image_url = 'http://res.cloudinary.com/dkixe8cv6/image/upload/v1551946976/s0ervnznh4brszke2vpc.jpg' }
+covers.map{ |inst| inst.save }

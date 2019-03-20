@@ -149,8 +149,15 @@ en:
     forbidden_event: "Forbidden event %{event} requested on instance %{order.id}"
     сhange_state: Change state
     euro: €
-
-
+  order_mailer:
+    complete_email:
+      thanks: Thank you for your purchase!
+      orders_number: Your orders number is
+    order_mailer:
+      subject: "Your order %{order_number} is accepted"
+  mailers:
+    order_mailer:
+      subject: "Your order %{order_number} is accepted"
 
   starts_with_plus: should starts with +
   only_letters: only allows letters

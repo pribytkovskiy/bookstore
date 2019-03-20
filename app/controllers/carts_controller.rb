@@ -1,6 +1,4 @@
 class CartsController < ApplicationController
-  authorize_resource class: false
-
   def show
     redirect_to store_url, notice: t('.cart_empty') if check_order_items?
   end

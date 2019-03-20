@@ -43,6 +43,8 @@ class Checkout::UpdateOrder
   end
 
   def confirmation
+    user = User.find_by(id: @order.user_id)
+    OrderMailer.complete_email(user, @order).deliver_now
     @order.subtotal = @order.total_price + @order.delivery&.price.to_i - @order.coupon&.price.to_i
     @order.add_complete!
   end
