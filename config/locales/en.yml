@@ -153,8 +153,6 @@ en:
     complete_email:
       thanks: Thank you for your purchase!
       orders_number: Your orders number is
-    order_mailer:
-      subject: "Your order %{order_number} is accepted"
   mailers:
     order_mailer:
       subject: "Your order %{order_number} is accepted"
