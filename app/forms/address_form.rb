@@ -5,6 +5,7 @@ class AddressForm
   ONLY_LETTERS = /\A[а-яА-ЯёЁa-zA-Z]+\z/
   ONLY_NUMBERS = /\A[0-9]+\z/
   STARTS_WITH_PLUS = /\A^\+[0-9]+\z/
+  ADDRESS_TYPE = { billing: 'billing', shipping: 'shipping'}.freeze
   
   attribute :first_name, String
   attribute :last_name, String
@@ -17,6 +18,8 @@ class AddressForm
   attribute :user_id, Integer
   attribute :zip, Integer
   attribute :address_type, String
+
+  attr_accessor :check
 
   validates :first_name, :last_name, :address, :city, :zip, :country, :phone, :zip, presence: true
   validates :first_name, :last_name, :address, :city, :country, length: { maximum: 50 }
@@ -48,23 +51,24 @@ class AddressForm
   end
 
   def persist!
-    save_address_billing(set_inst_save) if address_type == 'billing'
-    save_address_shipping(set_inst_save) if address_type == 'shipping'
+    return save_address_shipping(set_inst_save) if check || address_type == ADDRESS_TYPE[:shipping]
+
+    save_address_billing(set_inst_save) if address_type == ADDRESS_TYPE[:billing]
   end
 
   def save_address_billing(inst_save)
     if inst_save.addresses.billing.exists?
-      inst_save.addresses.billing.last.update(address_params)
+      inst_save.addresses.billing.last.update(address_params(ADDRESS_TYPE[:billing]))
     else
-      inst_save.addresses.billing.create(address_params)
+      inst_save.addresses.billing.create(address_params(ADDRESS_TYPE[:billing]))
     end
   end
 
   def save_address_shipping(inst_save)
     if inst_save.addresses.shipping.exists?
-      inst_save.addresses.shipping.last.update(address_params)
+      inst_save.addresses.shipping.last.update(address_params('shipping'))
     else
-      inst_save.addresses.shipping.create(address_params)
+      inst_save.addresses.shipping.create(address_params('shipping'))
     end
   end
 
@@ -77,7 +81,20 @@ class AddressForm
       zip: zip,
       country: country,
       phone: phone,
-      address_type: address_type
+      address_type: address_type_for_params 
+    }
+  end
+
+  def address_params(type)
+    { 
+      first_name: first_name,
+      last_name: last_name,
+      address: address,
+      city: city,
+      zip: zip,
+      country: country,
+      phone: phone,
+      address_type: type 
     }
   end
 end 

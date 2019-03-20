@@ -17,6 +17,7 @@ class Checkout::UpdateOrder
     context.billing_address = AddressForm.new(context.billing.permit!)
     if context.check
       context.shipping_address = AddressForm.new(context.billing.permit!)
+      context.shipping_address.check = true
     else
       context.shipping_address = AddressForm.new(context.shipping.permit!)
     end

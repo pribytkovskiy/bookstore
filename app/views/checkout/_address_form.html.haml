@@ -1,6 +1,6 @@
 = fields_for address_type, address do |f|
-  - address = @billing_address if address_type == 'billing'
-  - address = @shipping_address if address_type == 'shipping'
+  - address = @billing_address if address_type == AddressForm::ADDRESS_TYPE[:billing]
+  - address = @shipping_address if address_type == AddressForm::ADDRESS_TYPE[:shipping]
   .form-group{class: "#{"has-error" if adress_has_error?(address, :first_name)}"}
     = f.label :first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "first_name" }
     = f.text_field :first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
