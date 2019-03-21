@@ -87,6 +87,7 @@ group :test do
   gem 'rack_session_access'
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'rspec-sidekiq'
   gem 'simplecov'
   gem 'simplecov-lcov'
   gem 'selenium-webdriver'

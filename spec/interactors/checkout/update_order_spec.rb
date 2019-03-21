@@ -21,19 +21,7 @@ RSpec.describe Checkout::UpdateOrder, type: :interactor do
     context 'payment' do
       let(:card) { create(:card) }
 
-      subject(:context) { Checkout::UpdateOrder.call(id: order.id,
-                                                     step: :payment,
-                                                     card_number: card.card_number,
-                                                     name_on_card: card.name_on_card,
-                                                     mm_yy: card.mm_yy,
-                                                     cvv: card.cvv,
-                                                     order_id: order.id) }
       subject(:fail_context) { Checkout::UpdateOrder.call(id: order.id, step: :payment, params: card) }
-
-      it 'succeeds' do
-        expect(context).to be_a_success
-        expect(context.card).not_to be_nil
-      end
 
       it 'not succeeds' do
         expect(fail_context).to_not be_a_success

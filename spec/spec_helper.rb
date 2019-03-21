@@ -1,3 +1,4 @@
+require 'sidekiq/testing'
 require 'simplecov'
 require 'simplecov-lcov'
 SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
@@ -25,3 +26,9 @@ RSpec.configure do |config|
 end
 
 RSpec::Mocks.configuration.allow_message_expectations_on_nil = true
+
+RSpec::Sidekiq.configure do |config|
+  config.clear_all_enqueued_jobs = true
+  config.enable_terminal_colours = true
+  config.warn_when_jobs_not_processed_by_sidekiq = true
+end
