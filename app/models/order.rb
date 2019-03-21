@@ -10,13 +10,13 @@ class Order < ApplicationRecord
   has_many :addresses, as: :addressable
   has_many :order_items
 
-  scope :active_order, ->(order_id) {
+  scope :active_order, lambda(order_id) {
     where(state: %i[cart address delivery_method payment confirmation complete]).find(order_id)
   }
-  scope :sort_order, ->(user_id, sort_order = nil) {
+  scope :sort_order, lambda(user_id, sort_order = nil) {
     where(user_id: user_id)
-    .where(state: sort_order || %i[in_queued in_delivering delivering canceling])
-    .order(id: :desc)
+      .where(state: sort_order || %i[in_queued in_delivering delivering canceling])
+      .order(id: :desc)
   }
 
   aasm column: 'state' do

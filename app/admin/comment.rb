@@ -1,4 +1,4 @@
-ActiveAdmin.register Comment do
+ActiveAdmin.register Comment do # rubocop:disable Metrics/BlockLength
   permit_params :product_id, :created_at, :title, :approved, :rate, :body, :user_id
 
   filter :approved, as: :select, collection: %w[unprocessed approved rejected]
@@ -23,9 +23,11 @@ ActiveAdmin.register Comment do
       truncate(review.body, length: 100)
     end
     actions defaults: true do |review|
-      link_to('Approve', admin_comment_path(review, params.permit(:approved).merge(approved: 'approved')), html_options = { 'data-method' => 'put' }) +
+      # rubocop:disable Metrics/LineLength, Style/BracesAroundHashParameters
+      link_to('Approve', admin_comment_path(review, params.permit(:approved).merge(approved: 'approved')), { 'data-method': 'put' }) +
         ' ' +
-        link_to('Reject', admin_comment_path(review, params.permit(:approved).merge(approved: 'rejected')), html_options = { 'data-method' => 'put' })
+        link_to('Reject', admin_comment_path(review, params.permit(:approved).merge(approved: 'rejected')), { 'data-method': 'put' })
+      # rubocop:enable Metrics/LineLength, Style/BracesAroundHashParameters
     end
   end
 

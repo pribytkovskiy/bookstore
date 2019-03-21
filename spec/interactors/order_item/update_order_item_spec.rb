@@ -12,6 +12,7 @@ RSpec.describe OrderItem::UpdateOrderItem, type: :interactor do
         expect(context).to be_a_success
       end
 
+      # rubocop:disable Metrics/LineLength, RSpec/ExpectChange
       it 'add order item' do
         expect { OrderItem::UpdateOrderItem.call(id: order_item.id, type: 'add') }.to change { order_item.quantity }.by(0)
       end
@@ -19,6 +20,7 @@ RSpec.describe OrderItem::UpdateOrderItem, type: :interactor do
       it 'minus order item' do
         expect { OrderItem::UpdateOrderItem.call(id: order_item.id, type: 'minus') }.to change { order_item.quantity }.by(0)
       end
+      # rubocop:enable Metrics/LineLength, RSpec/ExpectChange
     end
 
     context 'when given invalid credentials' do

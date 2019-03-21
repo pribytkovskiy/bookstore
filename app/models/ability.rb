@@ -11,7 +11,7 @@ class Ability
     can :manage, Order, user_id: user.id
     can :create, Comment
     return unless user.role == 'admin'
-    
+
     can :read, ActiveAdmin::Page, namespace_name: :admin
     can :manage, :all
   end

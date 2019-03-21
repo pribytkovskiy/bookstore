@@ -1,6 +1,6 @@
-ActiveAdmin.register_page 'Dashboard' do
+ActiveAdmin.register_page 'Dashboard' do # rubocop:disable Metrics/BlockLength
   menu priority: 1
-  content title: proc { I18n.t('active_admin.dashboard') } do
+  content title: proc { I18n.t('active_admin.dashboard') } do # rubocop:disable Metrics/BlockLength
     columns do
       column do
         panel I18n.t('active_admin.recent_orders') do
@@ -26,7 +26,9 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         div do
           br
+          # rubocop:disable Metrics/LineLength
           text_node %(<iframe src="https://rpm.newrelic.com/public/charts/6VooNO2hKWB" width="500" height="300" scrolling="no" frameborder="no"></iframe>).html_safe
+          # rubocop:enable Metrics/LineLength
         end
       end
     end

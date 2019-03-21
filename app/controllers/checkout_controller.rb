@@ -14,16 +14,14 @@ class CheckoutController < ApplicationController
   def show
     @result = Checkout::ShowOrder.call(params)
     set_instance
-
     render params[:next_render].to_sym
     set_in_queued
   end
 
-  def update
+  def update # rubocop:disable Metrics/AbcSize
     session[:check] = params[:check]
     @result = Checkout::UpdateOrder.call(params)
     set_instance
-
     if @result.failure?
       render @result.render.to_sym
     else

@@ -2,13 +2,12 @@ class SettingsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @billing_address = current_user.addresses.billing.last || current_user.addresses.billing.new
-    @shipping_address = current_user.addresses.shipping.last || current_user.addresses.shipping.new
+    @billing_address = set_billing_address
+    @shipping_address = set_shipping_address
   end
 
   def create
-    @billing_address = AddressForm.new(params[:billing].permit!)
-    @shipping_address = AddressForm.new(params[:shipping].permit!)
+    form_address(params)
     if @billing_address.save && @shipping_address.save
       redirect_to settings_path(user_id: current_user.id)
     else
@@ -35,5 +34,18 @@ class SettingsController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :reset_password_token)
+  end
+
+  def set_billing_address
+    current_user.addresses.billing.last || current_user.addresses.billing.new
+  end
+
+  def set_shipping_address
+    current_user.addresses.shipping.last || current_user.addresses.shipping.new
+  end
+
+  def form_address(params)
+    @billing_address = AddressForm.new(params[:billing].permit!)
+    @shipping_address = AddressForm.new(params[:shipping].permit!)
   end
 end

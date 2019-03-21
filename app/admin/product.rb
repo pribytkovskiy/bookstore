@@ -1,4 +1,4 @@
-ActiveAdmin.register Product do
+ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
   permit_params :id, :title, :category_id, :price, :description,
                 :year, :dimensions, :materials, covers: [], author_ids: []
 
@@ -43,14 +43,20 @@ ActiveAdmin.register Product do
 
   controller do
     def update
-      @cover = Cover.find_by(id: params[:cover][:id])
-      @cover.image_url = params[:cover][:cover_product]
-      @product = Product.update(permitted_params[:id], permitted_params[:product])
+      meaning(params)
       if @product.save && @cover.save
         render :index
       else
         render :edit
       end
+    end
+
+    private
+
+    def meaning(params)
+      @cover = Cover.find_by(id: params[:cover][:id])
+      @cover.image_url = params[:cover][:cover_product]
+      @product = Product.update(permitted_params[:id], permitted_params[:product])
     end
   end
 end

@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
     return I18n.locale = params[:locale] if I18n.available_locales.include?(params[:locale].to_sym)
 
     flash.now[:notice] = I18n.t('translation_no', locale: params[:locale])
-    logger.error flash.now[:notice]
   end
 
   def default_url_options
@@ -30,7 +29,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_categories
-    @labels ||= Category.all
+    @labels ||= Category.all # rubocop:disable Naming/MemoizedInstanceVariableName
   end
 
   def set_order
@@ -42,7 +41,7 @@ class ApplicationController < ActionController::Base
 
   def set_user_for_order
     return unless user_signed_in? && @order.user_id.nil?
-    
+
     @order.user_id = current_user.id
     @order.save
   end

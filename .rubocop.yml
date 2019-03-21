@@ -46,3 +46,6 @@ FrozenStringLiteralComment:
 
 Layout/AlignHash:
   Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false

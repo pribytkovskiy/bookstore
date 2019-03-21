@@ -2,11 +2,11 @@ class AddressForm
   include ActiveModel::Model
   include Virtus.model
 
-  ONLY_LETTERS = /\A[а-яА-ЯёЁa-zA-Z]+\z/
-  ONLY_NUMBERS = /\A[0-9]+\z/
-  STARTS_WITH_PLUS = /\A^\+[0-9]+\z/
-  ADDRESS_TYPE = { billing: 'billing', shipping: 'shipping'}.freeze
-  
+  ONLY_LETTERS = /\A[а-яА-ЯёЁa-zA-Z]+\z/.freeze
+  ONLY_NUMBERS = /\A[0-9]+\z/.freeze
+  STARTS_WITH_PLUS = /\A^\+[0-9]+\z/.freeze
+  ADDRESS_TYPE = { billing: 'billing', shipping: 'shipping' }.freeze
+
   attribute :first_name, String
   attribute :last_name, String
   attribute :address, String
@@ -66,27 +66,14 @@ class AddressForm
 
   def save_address_shipping(inst_save)
     if inst_save.addresses.shipping.exists?
-      inst_save.addresses.shipping.last.update(address_params('shipping'))
+      inst_save.addresses.shipping.last.update(address_params(ADDRESS_TYPE[:shipping]))
     else
-      inst_save.addresses.shipping.create(address_params('shipping'))
+      inst_save.addresses.shipping.create(address_params(ADDRESS_TYPE[:shipping]))
     end
   end
 
-  def address_params
-    { 
-      first_name: first_name,
-      last_name: last_name,
-      address: address,
-      city: city,
-      zip: zip,
-      country: country,
-      phone: phone,
-      address_type: address_type_for_params 
-    }
-  end
-
   def address_params(type)
-    { 
+    {
       first_name: first_name,
       last_name: last_name,
       address: address,
@@ -94,7 +81,7 @@ class AddressForm
       zip: zip,
       country: country,
       phone: phone,
-      address_type: type 
+      address_type: type
     }
   end
-end 
+end

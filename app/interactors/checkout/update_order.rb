@@ -14,6 +14,13 @@ class Checkout::UpdateOrder
   private
 
   def address
+    set_address
+    return if context.billing_address.save && context.shipping_address.save
+
+    context.fail!(message: I18n.t('interactors.errors.address'), render: :address)
+  end
+
+  def set_address # rubocop:disable Metrics/AbcSize
     context.billing_address = AddressForm.new(context.billing.permit!)
     if context.check
       context.shipping_address = AddressForm.new(context.billing.permit!)
@@ -21,22 +28,19 @@ class Checkout::UpdateOrder
     else
       context.shipping_address = AddressForm.new(context.shipping.permit!)
     end
-    return if context.billing_address.save && context.shipping_address.save
-    
-    context.fail!(message: I18n.t('interactors.errors.address'), render: :address)
   end
 
   def delivery
     @order.delivery_id = context.delivery[:id]
     return if @order.save
-    
+
     context.fail!(message: I18n.t('interactors.errors.delivery', render: :delivery))
   end
 
   def payment
     context.card = PaymentForm.new(card_params)
     if context.card.save
-      @order.card_id = context.card.card.id 
+      @order.card_id = context.card.card.id
       @order.save
     else
       context.fail!(message: I18n.t('interactors.errors.payment'), render: :payment)
@@ -44,14 +48,18 @@ class Checkout::UpdateOrder
   end
 
   def confirmation
-    user_email = User.find_by(id: @order.user_id).email
-    ReportWorker.perform_async(user_email, @order.id)
+    send_email
     @order.subtotal = @order.total_price + @order.delivery&.price.to_i - @order.coupon&.price.to_i
     @order.add_complete!
   end
 
+  def send_email
+    user_email = User.find_by(id: @order.user_id).email
+    ReportWorker.perform_async(user_email, @order.id)
+  end
+
   def set_order
-    @order ||= Order.find_by(id: context.id)
+    @order ||= Order.find_by(id: context.id) # rubocop:disable Naming/MemoizedInstanceVariableName
   end
 
   def card_params

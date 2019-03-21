@@ -14,7 +14,7 @@ class OrderItem::UpdateOrderItem
   def decrement_current_item
     return @current_item.decrement!(:quantity) if @current_item.quantity > 1 && @current_item
 
-    @current_item.destroy if @current_item
+    @current_item.destroy if @current_item # rubocop:disable Style/SafeNavigation
   end
 
   def set_current_item
