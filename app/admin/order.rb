@@ -1,5 +1,5 @@
 ActiveAdmin.register Order do
-  permit_params :active_admin_requested_event, :id, :state
+  permit_params :active_admin_requested_event, :id, :state, :order, :order_id
 
   index do
     column :id
@@ -21,8 +21,10 @@ ActiveAdmin.register Order do
   end
 
   form do |f|
-    f.input :state, input_html: { disabled: true }, label: I18n.t('active_admin.сurrent_state')
-    f.input :active_admin_requested_event, label: I18n.t('active_admin.сhange_state'), as: :select, collection: f.object.aasm.events(permitted: true).map(&:name)
+    order = Order.find_by(id: params[:id])
+    f.input :order_id, input_html: { disabled: true, value: order.id }
+    f.input :state, input_html: { disabled: true, value: order.state }, label: I18n.t('active_admin.сurrent_state')
+    f.input :active_admin_requested_event, label: I18n.t('active_admin.сhange_state'), as: :select, collection: order.aasm.events(permitted: true).map(&:name)
     f.actions
   end
 end

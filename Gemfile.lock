@@ -1,3 +1,15 @@
+GIT
+  remote: https://github.com/sinatra/sinatra.git
+  revision: 6f15fba2790ebdf4d1215cebf425dea2ea3130ea
+  specs:
+    rack-protection (2.0.5)
+      rack
+    sinatra (2.0.5)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.5)
+      tilt (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -266,8 +278,6 @@ GEM
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.6)
-    rack-protection (2.0.5)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rack_session_access (0.2.0)
@@ -409,11 +419,6 @@ GEM
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
     simplecov-lcov (0.7.0)
-    sinatra (2.0.5)
-      mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.5)
-      tilt (~> 2.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -517,6 +522,7 @@ DEPENDENCIES
   sidekiq
   simplecov
   simplecov-lcov
+  sinatra!
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

@@ -53,6 +53,7 @@ gem 'rectify'
 gem 'sassc-rails', '>= 2.0.0'
 gem 'sendgrid-ruby'
 gem 'sidekiq'
+gem 'sinatra', github: 'sinatra/sinatra'
 gem 'virtus'
 
 group :development, :test do
