@@ -44,8 +44,8 @@ class Checkout::UpdateOrder
   end
 
   def confirmation
-    user = User.find_by(id: @order.user_id)
-    ReportWorker.perform_async(user, @order)
+    user_email = User.find_by(id: @order.user_id).email
+    ReportWorker.perform_async(user_email, @order.id)
     @order.subtotal = @order.total_price + @order.delivery&.price.to_i - @order.coupon&.price.to_i
     @order.add_complete!
   end
