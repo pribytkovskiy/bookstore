@@ -1,4 +1,6 @@
 class OrderDecorator < Draper::Decorator
+  CARD_SYMBOLS = { count_stars: 12, count_card_symbols: 4}
+
   delegate_all
 
   def shipping_name
@@ -42,7 +44,7 @@ class OrderDecorator < Draper::Decorator
   end
 
   def safe_card_number
-    '*' * 12 + object.card&.card_number.last(4)
+    '*' * CARD_SYMBOLS[:count_stars] + object.card&.card_number.last(CARD_SYMBOLS[:count_card_symbols])
   end
 
   def number
