@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Bestsellers do
-  let!(:order) { create(:order, :with_items) }
+  let!(:order) { create(:order, :with_items) } # rubocop:disable RSpec/LetSetup
 
   context 'when response query' do
     it '1 product in query' do

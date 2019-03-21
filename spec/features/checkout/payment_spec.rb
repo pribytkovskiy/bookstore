@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'payment step' do
+describe 'payment step' do # rubocop:disable RSpec/DescribeClass
   let(:user) { create(:user, :with_orders_address) }
   let(:order) { user.orders.first }
   let(:card) { create(:card) }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'product page' do
+describe 'product page' do # rubocop:disable RSpec/DescribeClass
   let(:order) { create(:order, :with_items) }
   let(:product) { order.order_items.first.product.decorate }
 

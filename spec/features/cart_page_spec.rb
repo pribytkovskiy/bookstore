@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'cart' do
+describe 'cart' do # rubocop:disable RSpec/DescribeClass
   it 'when no current order redirect to home' do
     visit cart_path(id: 1)
     expect(page).to have_current_path('/en')
@@ -8,7 +8,7 @@ describe 'cart' do
 
   context 'when user have current order' do
     let(:user) { create(:user, :with_orders_address) }
-    let!(:product) { create(:product) }
+    let!(:product) { create(:product) } # rubocop:disable RSpec/LetSetup
     let(:coupon) { create(:coupon) }
 
     before do

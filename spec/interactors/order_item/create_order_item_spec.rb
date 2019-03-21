@@ -14,4 +14,3 @@ RSpec.describe OrderItem::CreateOrderItem, type: :interactor do
     end
   end
 end
- 

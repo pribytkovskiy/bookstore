@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-describe 'delivery step' do
+describe 'delivery step' do # rubocop:disable RSpec/DescribeClass
   let(:user) { create(:user, :with_orders_address) }
   let(:order) { user.orders.first }
-  let!(:delivery) { create(:delivery) }
+  let!(:delivery) { create(:delivery) } # rubocop:disable RSpec/LetSetup
 
   before do
     sign_in create(:user)

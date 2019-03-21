@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'confirm step' do
+describe 'confirm step' do # rubocop:disable RSpec/DescribeClass
   let(:user) { create(:user, :for_checkout_page) }
   let(:order) { user.orders.first }
   let(:shipping_address) { order.addresses.shipping.first }
@@ -12,7 +12,7 @@ describe 'confirm step' do
     visit checkout_path(id: order.id, step: :payment, next_render: :confirmation)
   end
 
-  it 'show order info' do
+  it 'show order info' do # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
     expect(page).to have_content(shipping_address.first_name)
     expect(page).to have_content(shipping_address.address)
     expect(page).to have_content(shipping_address.city)
@@ -35,6 +35,10 @@ describe 'confirm step' do
 
   it 'can edit' do
     click_link('edit', match: :first)
-    expect(current_path).to eq(checkout_path(id: order.id, locale: 'en'))
+    expect(page).to have_current_path(checkout_path(id: order.id,
+                                                    locale: 'en',
+                                                    next_render: :address,
+                                                    step: :address,
+                                                    user_id: user.id))
   end
 end

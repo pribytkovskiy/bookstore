@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe 'catalog' do
+describe 'catalog' do # rubocop:disable RSpec/DescribeClass
   let!(:products) { create_list(:product, 2) }
-  let!(:params) { params = { category_id: 1, name_sort: I18n.t('pages.catalog.popular_first') } }
+  let!(:params) { { category_id: 1, name_sort: I18n.t('pages.catalog.popular_first') } }
 
   context 'when products show or products ordering' do
-    before(:each) do
+    before do
       visit catalog_path(params, locale: 'en')
       within('ul.categories-list') do
         click_link products.second.category.category

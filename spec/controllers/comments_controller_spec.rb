@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe CommentsController do
-
   describe 'GET #create' do
     let(:comment) { create(:comment) }
     let(:product) { comment.product }

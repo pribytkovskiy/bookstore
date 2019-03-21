@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe CartsController do
   let(:user) { create(:user, :with_orders_address) }
   let!(:order) { user.orders.first }
-  
-  before do 
+
+  before do
     allow(controller).to receive(:check_order_items?).and_return(false)
   end
 
   describe 'GET #show' do
-    before do 
+    before do
       get :show, params: { id: order.id }
     end
 

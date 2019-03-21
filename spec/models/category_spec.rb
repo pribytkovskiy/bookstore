@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  describe "validations" do
-    it { expect validate_presence_of :category }
-    it { expect validate_uniqueness_of :category }
+  describe 'validations' do
+    it { validate_presence_of :category }
+    it { validate_uniqueness_of :category }
   end
 
-  describe "associations" do
-    it { expect have_many(:products) }
+  describe 'associations' do
+    it { have_many(:products) }
   end
 end

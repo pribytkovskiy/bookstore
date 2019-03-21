@@ -8,7 +8,7 @@ RSpec.describe SettingsController, type: :controller do
   before do
     sign_in user
     request.env['devise.mapping'] = Devise.mappings[:user]
-  end 
+  end
 
   describe 'GET #index' do
     before { get :index, params: { user_id: user.id } }
@@ -31,8 +31,8 @@ RSpec.describe SettingsController, type: :controller do
   describe 'POST #create' do
     let(:bed_phone) { 123 }
 
-    it 'redirect to the edit' do
-      post :create, params: { 
+    it 'redirect to the edit' do # rubocop:disable RSpec/ExampleLength
+      post :create, params: {
         billing: {
           first_name:          users_address_billing.first_name,
           last_name:           users_address_billing.last_name,
@@ -56,7 +56,7 @@ RSpec.describe SettingsController, type: :controller do
           address_type:        :shipping
         },
         user_id: users_address_shipping.addressable_id,
-        id: user.id 
+        id: user.id
       }
       expect(response).to have_http_status(200)
     end

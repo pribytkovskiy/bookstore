@@ -4,8 +4,7 @@ describe ReportWorker, type: :worker do
   let(:user_email) { user.email }
   let(:order_id) { user.id }
 
-
-  it 'should call OrderMailer' do
+  it 'call OrderMailer' do
     delivery = double
     expect(delivery).to receive(:deliver_now).with(no_args)
     expect(OrderMailer).to receive(:complete_email).and_return(delivery)

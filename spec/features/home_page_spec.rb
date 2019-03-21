@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'home page' do
+describe 'home page' do # rubocop:disable RSpec/DescribeClass
   before { visit home_path }
 
   context 'when visit everyone must present elemets' do
@@ -41,9 +41,9 @@ feature 'home page' do
     expect(page).to have_current_path('/en/catalog')
   end
 
-  context 'create order for favorites' do
+  context 'when create order for favorites' do
     let!(:order) { create(:order, :with_items) }
-    
+
     it 'can add book to cart', js: true do
       visit home_path
       click_button(I18n.t('pages.home.buy_now'))

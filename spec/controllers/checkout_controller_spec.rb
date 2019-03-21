@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe CheckoutController, type: :controller do
   let(:user) { create(:user, :with_orders_address) }
-  before { sign_in user } 
+
+  before { sign_in user }
 
   describe 'GET #index' do
     before do
@@ -20,7 +21,8 @@ RSpec.describe CheckoutController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    let(:results) { instance_double('Result', billing_address: 'billing_address',
+    let(:results) { instance_double('Result',
+                                    billing_address: 'billing_address',
                                     shipping_address: 'shipping_address',
                                     delivery: 'delivery',
                                     card: 'card',

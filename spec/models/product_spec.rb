@@ -1,19 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  describe "associations" do
-    it { expect have_many(:comments).dependent(:destroy) }
-    it { expect have_many(:authors) }
-    it { expect have_many(:covers).dependent(:destroy) }
-    it { expect belong_to :category }
-    it { expect have_many :order_items }
-    it { expect have_many(:orders).through :order_items }
-    it { expect have_many :author_products }
-    it { expect have_many(:authors).through :author_products }
+  describe 'associations' do
+    it { have_many(:comments).dependent(:destroy) }
+    it { have_many(:authors) }
+    it { have_many(:covers).dependent(:destroy) }
+    it { belong_to :category }
+    it { have_many :order_items }
+    it { have_many(:orders).through :order_items }
+    it { have_many :author_products }
+    it { have_many(:authors).through :author_products }
   end
 
   describe 'scopes' do
-    let(:context) { instance_double('Context', category_id: FFaker.numerify('#'), params: { sort: nil, direction: nil }) }
+    let(:category_id) { FFaker.numerify('#') }
+    let(:context) { instance_double('Context', category_id: category_id, params: { sort: nil, direction: nil }) }
     let!(:products) { create_list(:product, 2) }
 
     it 'latest_products' do
@@ -29,7 +30,7 @@ RSpec.describe Product, type: :model do
     end
 
     it 'sort_product' do
-      expect(Product.sort_product(context).where_values_hash).to eq('category_id'=>context.category_id)
+      expect(Product.sort_product(context).where_values_hash).to eq('category_id' => context.category_id)
     end
   end
 end

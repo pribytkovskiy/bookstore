@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PagesController do
+RSpec.describe PagesController do # rubocop:disable RSpec/FilePath
   TEST_PARAMETER = 'test_parameter'.freeze
 
   describe 'GET #home' do

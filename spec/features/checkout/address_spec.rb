@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'address step' do
+describe 'address step' do # rubocop:disable RSpec/DescribeClass
   let(:user) { create(:user, :with_orders_address) }
   let(:order) { user.orders.first }
 
@@ -17,10 +17,10 @@ describe 'address step' do
 
     before do
       page.set_rack_session(order_id: order.id)
-      visit checkout_path(id: order.id, step: :address, next_render: :address) 
+      visit checkout_path(id: order.id, step: :address, next_render: :address)
     end
 
-    it 'have all fields' do
+    it 'have all fields' do # rubocop:disable RSpec/MultipleExpectations
       expect(page).to have_field(I18n.t('checkout.form.first_name'))
       expect(page).to have_field(I18n.t('checkout.form.last_name'))
       expect(page).to have_field(I18n.t('checkout.form.address'))
