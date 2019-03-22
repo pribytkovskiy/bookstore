@@ -7,6 +7,8 @@ class Product < ApplicationRecord
   has_many :covers, dependent: :destroy
   belongs_to :category
 
+  accepts_nested_attributes_for :covers
+
   scope :latest_products, ->(latest_default_quantity) { Product.last(latest_default_quantity) }
   scope :sort_column, ->(context) {
     Product.column_names.include?(context.params[:sort]) ? context.params[:sort] : 'created_at'
