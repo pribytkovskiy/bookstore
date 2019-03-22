@@ -49,3 +49,6 @@ Layout/AlignHash:
 
 Style/ClassAndModuleChildren:
   Enabled: false
+
+Style/Lambda:
+  Enabled: false

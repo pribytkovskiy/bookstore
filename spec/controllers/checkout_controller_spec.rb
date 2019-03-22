@@ -21,12 +21,9 @@ RSpec.describe CheckoutController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    let(:results) { instance_double('Result',
-                                    billing_address: 'billing_address',
-                                    shipping_address: 'shipping_address',
-                                    delivery: 'delivery',
-                                    card: 'card',
-                                    failure?: false) }
+    # rubocop:disable Metrics/LineLength
+    let(:results) { instance_double('Result', billing_address: 'billing_address', shipping_address: 'shipping_address', delivery: 'delivery', card: 'card', failure?: false) }
+    # rubocop:enable Metrics/LineLength
 
     before do
       allow(Checkout::UpdateOrder).to receive(:call).and_return(results)

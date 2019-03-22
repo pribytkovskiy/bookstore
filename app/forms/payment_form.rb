@@ -3,7 +3,7 @@ class PaymentForm
   include Virtus.model
 
   ONLY_LETTERS = /\A[а-яА-ЯёЁa-zA-Z]+\z/.freeze
-  EXPESSION_MONTH_YEAR = /\A(0[1-9]|10|11|12)\/\d\d\z/.freeze
+  EXPESSION_MONTH_YEAR = %r{ /\A(0[1-9]|10|11|12)\/\d\d\z/ }.freeze
 
   attribute :card_number, String
   attribute :name_on_card, String

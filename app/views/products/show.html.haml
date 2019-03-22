@@ -24,6 +24,7 @@
         .input-group.general-position
           %a.input-link.minus.fa.fa-minus.line-height-40.help_fa{href: ""}
           %input.form-control.quantity-input{id: "quantity", type: "text", name: "quantity", min: 1, max: 999, value: 1}
+          %input.form-control.quantity-input.hidden{type: "text", name: "id", value: "#{@product.id}"}
           %input.form-control.quantity-input.hidden{type: "text", name: "product_id", value: "#{@product.id}"}
           %input.form-control.quantity-input.hidden{type: "text", name: "order_id", value: "#{@order.id}"}
           %input.form-control.quantity-input.hidden{type: "text", name: "redirect_to", value: "#{product_path(id: @product.id)}"}
