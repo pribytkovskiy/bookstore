@@ -9,9 +9,4 @@
     = f.input :dimensions
     = f.input :materials
     = f.input :price
-  = semantic_form_for [:admin, @product.covers.first], builder: ActiveAdmin::FormBuilder do |f|
-    = f.inputs do
-      = f.input :id, :as => :hidden
-      = f.input :product_id, :as => :hidden
-      = f.input :cover_product, :as => :file, :hint => image_tag(f.object.image_url.url(:thumb))
-      = f.actions
+  = f.actions

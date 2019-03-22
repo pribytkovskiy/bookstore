@@ -17,7 +17,7 @@ ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
     column :dimensions
     column :materials
     column :covers do |product|
-      image_tag(product.covers.first&.image_url.try(:url), width: '50')
+      image_tag(product.covers.first&.image_url.try(:url), width: '50') if product.covers.first
     end
     column :price do |product|
       number_to_currency product.price, unit: '€'
@@ -33,7 +33,7 @@ ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
 
       attributes_table_for product do
         row :covers do
-          image_tag(product.covers.first.image_url.try(:url), width: '50')
+          image_tag(product.covers.first.image_url.try(:url), width: '50') if product.covers.first
         end
       end
     end
