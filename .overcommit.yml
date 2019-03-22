@@ -3,6 +3,3 @@ PreCommit:
     enabled: true
   Fasterer:
     enabled: true
-PrePush:
-  Brakeman:
-    enabled: true
