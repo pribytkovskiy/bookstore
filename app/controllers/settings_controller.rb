@@ -46,6 +46,11 @@ class SettingsController < ApplicationController
 
   def form_address(params)
     @billing_address = AddressForm.new(params[:billing].permit!)
-    @shipping_address = AddressForm.new(params[:shipping].permit!)
+    if params[:check]
+      @shipping_address = AddressForm.new(params[:billing].permit!)
+      @shipping_address.check = true
+    else
+      @shipping_address = AddressForm.new(params[:shipping].permit!)
+    end
   end
 end
