@@ -23,7 +23,7 @@ class AddressForm
 
   validates :first_name, :last_name, :address, :city, :zip, :country, :phone, :zip, presence: true
   validates :first_name, :last_name, :address, :city, :country, length: { maximum: 50 }
-  validates :first_name, :last_name, :city, :country, format: { with: ONLY_LETTERS, message: I18n.t('only_letters') }
+  validates :first_name, :last_name, :country, format: { with: ONLY_LETTERS, message: I18n.t('only_letters') }
   validates :zip, length: { maximum: 5 }, format: { with: ONLY_NUMBERS, message: I18n.t('only_numbers') }
   validates :phone, length: { maximum: 15 }, format: { with: STARTS_WITH_PLUS, message: I18n.t('starts_with_plus') }
 
