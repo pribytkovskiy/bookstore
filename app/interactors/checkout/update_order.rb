@@ -40,8 +40,7 @@ class Checkout::UpdateOrder
   def payment
     context.card = PaymentForm.new(card_params)
     if context.card.save
-      @order.card_id = context.card.card.id
-      @order.save
+      @order.update(card: context.card.card)
     else
       context.fail!(message: I18n.t('interactors.errors.payment'), render: :payment)
     end

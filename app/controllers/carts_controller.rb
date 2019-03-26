@@ -6,8 +6,7 @@ class CartsController < ApplicationController
   def update
     coupon = Coupon.find_by(number: coupon_params)
     if coupon
-      @order.coupon_id = coupon.id
-      @order.save
+      @order.update(coupon: coupon)
     else
       flash.now[:message] = t('.no_coupon')
     end

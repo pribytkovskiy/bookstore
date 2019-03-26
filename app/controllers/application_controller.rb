@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_categories
-    @labels ||= Category.all # rubocop:disable Naming/MemoizedInstanceVariableName
+    @labels = Category.all # rubocop:disable Naming/MemoizedInstanceVariableName
   end
 
   def set_order
@@ -42,7 +42,6 @@ class ApplicationController < ActionController::Base
   def set_user_for_order
     return unless user_signed_in? && @order.user_id.nil?
 
-    @order.user_id = current_user.id
-    @order.save
+    @order.update(user: current_user)
   end
 end
