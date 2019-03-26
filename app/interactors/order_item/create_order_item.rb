@@ -16,7 +16,7 @@ class OrderItem::CreateOrderItem
   def create_order_item
     current_item = OrderItem.create(product_id: context.product_id, order_id: context.order_id)
     if current_item
-      current_item.quantity = context.quantity.to_i if context.quantity
+      current_item.quantity = context.quantity.to_i.abs if context.quantity
       current_item.save
     else
       context.fail!(message: I18n.t('interactors.errors.create_order_item_failure'))
@@ -24,7 +24,7 @@ class OrderItem::CreateOrderItem
   end
 
   def add_current_item_quantity(current_item)
-    current_item.quantity = current_item.quantity + context.quantity.to_i
+    current_item.quantity = current_item.quantity + context.quantity.to_i.abs
     if current_item.quantity
       current_item.save
     else
