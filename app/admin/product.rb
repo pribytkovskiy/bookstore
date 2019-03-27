@@ -1,5 +1,5 @@
+include ActiveAdminHelpers # rubocop:disable Style/MixinUsage
 ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
-  include ActiveAdminHelpers
   permit_params :id, :title, :category_id, :price, :description, :product, :locale,
                 :year, :dimensions, :materials, covers: [], author_ids: []
 
