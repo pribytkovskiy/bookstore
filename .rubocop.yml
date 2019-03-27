@@ -27,6 +27,9 @@ RSpec/MessageSpies:
 RSpec/NamedSubject:
   Enabled: false
 
+Style/RegexpLiteral:
+  AllowInnerSlashes: true
+
 Metrics/BlockLength:
   Exclude:
     - 'Gemfile'

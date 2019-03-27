@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_categories
-    @labels = Category.all # rubocop:disable Naming/MemoizedInstanceVariableName
+    @labels = Category.all
   end
 
   def set_order
