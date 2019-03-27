@@ -41,17 +41,17 @@ ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
   end
 
   form do |f|
-    f.inputs 'Product' do
+    f.inputs :product do
       f.input :title
       f.input :authors, as: :check_boxes, collection: collected_authors(f)
-      f.input :category, label: 'category', as: :select, collection: category_all
+      f.input :category, label: :category, as: :select, collection: category_all
       f.input :description
       f.input :year
       f.input :dimensions
       f.input :materials
       f.input :price
     end
-    f.inputs 'Covers' do
+    f.inputs :covers do
       f.has_many :covers, heading: nil, allow_destroy: true, new_record: true do |ff|
         ff.input :image_url
       end
@@ -61,8 +61,7 @@ ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
 
   controller do
     def update
-      meaning(params)
-      if @product.save && @covers.map(&:save)
+      if update_product(params) && update_cover(params)
         render :index
       else
         render :edit
@@ -71,13 +70,16 @@ ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
 
     private
 
-    def meaning(params)
-      @product = Product.update(permitted_params[:id], permitted_params[:product])
+    def update_product(_params)
+      product = Product.find_by(id: permitted_params[:id])
+      product.update(permitted_params[:product])
+    end
+
+    def update_cover(params)
       @covers = params[:product][:covers_attributes].to_unsafe_h.map do |_k, v|
         cover = Cover.find_by(id: v[:id])
-        upload = Cloudinary::Uploader.upload(v[:image_url].tempfile)
-        cover.image_url = upload
-        cover
+        upload = Cloudinary::Uploader.upload(v[:image_url].tempfile) if v[:image_url]
+        cover.update(image_url: upload) if v[:image_url]
       end
     end
   end
