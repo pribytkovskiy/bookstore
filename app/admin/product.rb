@@ -1,4 +1,5 @@
 ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
+  include ActiveAdminHelpers
   permit_params :id, :title, :category_id, :price, :description, :product, :locale,
                 :year, :dimensions, :materials, covers: [], author_ids: []
 
@@ -42,12 +43,8 @@ ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
   form do |f|
     f.inputs 'Product' do
       f.input :title
-      collected_authors = Author.all.map do |author|
-        ["#{author.first_name} #{author.last_name}", author.id, { checked: f.object.authors.include?(author.id.to_s) }]
-      end
-      f.input :authors, as: :check_boxes, collection: collected_authors
-      f.input :category, label: 'category', as: :select,
-        collection: Category.all.map { |category| [category.category, category.id] }
+      f.input :authors, as: :check_boxes, collection: collected_authors(f)
+      f.input :category, label: 'category', as: :select, collection: category_all
       f.input :description
       f.input :year
       f.input :dimensions
