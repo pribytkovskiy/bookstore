@@ -4,6 +4,8 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :product
 
+  attr_accessor :active_admin_requested_event
+
   scope :approved, -> { where("approved = 'approved'").order(created_at: :desc) }
 
   validates :rate, :title, :body, presence: true

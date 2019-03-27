@@ -13,7 +13,7 @@ class OrderItem::CreateOrderItem
 
   private
 
-  def create_order_item
+  def create_order_item # rubocop:disable Metrics/AbcSize
     current_item = OrderItem.create(product_id: context.product_id, order_id: context.order_id)
     if current_item
       current_item.update(quantity: context.quantity.to_i.abs) if context.quantity
