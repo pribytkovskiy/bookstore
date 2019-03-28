@@ -1,7 +1,7 @@
 include ActiveAdminHelpers # rubocop:disable Style/MixinUsage
 ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
   permit_params :id, :title, :category_id, :price, :description, :product, :locale,
-                :year, :dimensions, :materials, covers: [], author_ids: []
+                :year, :dimensions, :materials, covers: [], author_ids: [], covers_attributes: %i[id _destroy image_url]
 
   index do
     column :title
@@ -53,34 +53,16 @@ ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
     end
     f.inputs :covers do
       f.has_many :covers, heading: nil, allow_destroy: true, new_record: true do |ff|
-        ff.input :image_url
+        if !ff.object.new_record?
+          ff.input :image_url,
+                   as: :file,
+                   hint: image_tag(ff.object.image_url.try(:url), width: '50'),
+                   label: ff.object.image_url.filename
+        else
+          ff.input :image_url, as: :file
+        end
       end
     end
     f.actions
-  end
-
-  controller do
-    def update
-      if update_product(params) && update_cover(params)
-        render :index
-      else
-        render :edit
-      end
-    end
-
-    private
-
-    def update_product(_params)
-      product = Product.find_by(id: permitted_params[:id])
-      product.update(permitted_params[:product])
-    end
-
-    def update_cover(params)
-      @covers = params[:product][:covers_attributes].to_unsafe_h.map do |_k, v|
-        cover = Cover.find_by(id: v[:id])
-        upload = Cloudinary::Uploader.upload(v[:image_url].tempfile) if v[:image_url]
-        cover.update(image_url: upload) if v[:image_url]
-      end
-    end
   end
 end

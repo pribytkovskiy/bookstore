@@ -7,7 +7,7 @@ class Product < ApplicationRecord
   has_many :covers, dependent: :destroy
   belongs_to :category
 
-  accepts_nested_attributes_for :covers
+  accepts_nested_attributes_for :covers, allow_destroy: true
 
   scope :latest_products, ->(latest_default_quantity) { Product.last(latest_default_quantity) }
   scope :sort_column, ->(context) {
