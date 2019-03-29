@@ -4,7 +4,9 @@ ActiveAdmin.register Order do # rubocop:disable Metrics/BlockLength
   index do
     column :id
     column :card_id
-    tag_column :state
+    column :state, sortable: :state do |order|
+      column_select(order, :state, order.aasm.states(permitted: true).map(&:name) << order.state.to_sym)
+    end
     column :subtotal do |product|
       number_to_currency product.subtotal, unit: I18n.t('active_admin.euro')
     end

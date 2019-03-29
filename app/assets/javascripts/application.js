@@ -12,5 +12,9 @@
 //
 //= require rails-ujs
 //= require jquery
+//= require jquery_ujs
 //= require bootstrap
 //= require app
+//= require active_admin/base
+//= require activeadmin_addons/all
+//= require order_active_admin

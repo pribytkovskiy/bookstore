@@ -13,4 +13,5 @@ $(document).ready(function() {
         $input.change();
         return false;
     });
+    $('select.admin-selectable').change(function() { alert('it works'); });
 });
