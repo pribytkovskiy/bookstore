@@ -3,6 +3,8 @@ ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
   permit_params :id, :title, :category_id, :price, :description, :product, :locale,
                 :year, :dimensions, :materials, covers: [], author_ids: [], covers_attributes: %i[id _destroy image_url]
 
+  actions :all, except: %i[show]
+
   index do
     column :title
     column :authors do |product|
@@ -24,20 +26,6 @@ ActiveAdmin.register Product do # rubocop:disable Metrics/BlockLength
       number_to_currency product.price, unit: '€'
     end
     actions
-  end
-
-  show do
-    attributes_table do
-      default_attribute_table_rows.each do |field|
-        row field
-      end
-
-      attributes_table_for product do
-        row :covers do
-          image_tag(product.covers.first.image_url.try(:url), width: '50') if product.covers.first
-        end
-      end
-    end
   end
 
   form do |f|

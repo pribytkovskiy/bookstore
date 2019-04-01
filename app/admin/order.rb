@@ -1,6 +1,8 @@
 ActiveAdmin.register Order do # rubocop:disable Metrics/BlockLength
   permit_params :active_admin_requested_event, :id, :state, :order, :order_id
 
+  actions :all, except: %i[edit]
+
   index do
     column :id
     column :card_id
