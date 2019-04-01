@@ -6,6 +6,5 @@ class AddIndex < ActiveRecord::Migration[5.2]
     add_index :orders, :coupon_id
     add_index :orders, :card_id
     add_index :coupons, :number
-    add_index :cards,: order_id
   end
 end
