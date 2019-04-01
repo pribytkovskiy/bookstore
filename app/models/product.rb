@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   has_many :comments, dependent: :destroy
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
   has_many :orders, through: :order_items
   has_many :author_products
   has_many :authors, through: :author_products
