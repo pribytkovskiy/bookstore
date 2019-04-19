@@ -9,7 +9,11 @@
         %h3.general-subtitle.mt-0= t('.write_a_review')
       .form-group.mb-20
         %label.control-label.font-weight-light.in-grey-600{for: :rate}= t('.rating')
-        = f.number_field :rate, type: "text", required: true, pattern:"[1-5]{1,}", maxlength: "1", class: 'form-control', placeholder: '1-5'
+        .rating.form-group.mb-15
+          - 5.times do |rate|
+            %label
+              = f.radio_button :rate, "#{rate + 1}"
+              %i.fa.fa-star
         %span.help-block
       .form-group
         %label.control-label.font-weight-light.in-grey-600{for: :body}= t('.review')
