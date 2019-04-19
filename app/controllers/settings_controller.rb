@@ -8,7 +8,7 @@ class SettingsController < ApplicationController
 
   def create
     form_address(params)
-    if @billing_address.save && @shipping_address.save
+    if save_address
       redirect_to settings_path(user_id: current_user.id)
     else
       render :index
@@ -45,12 +45,18 @@ class SettingsController < ApplicationController
   end
 
   def form_address(params)
-    @billing_address = AddressForm.new(params[:billing].permit!)
-    if params[:check]
-      @shipping_address = AddressForm.new(params[:billing].permit!)
-      @shipping_address.check = true
+    return @billing_address = AddressForm.new(params[:billing].permit!) if params[:billing]
+
+    @shipping_address = AddressForm.new(params[:shipping].permit!) if params[:shipping]
+  end
+
+  def save_address
+    if @billing_address
+      @shipping_address = set_shipping_address
+      @billing_address.save
     else
-      @shipping_address = AddressForm.new(params[:shipping].permit!)
+      @billing_address = set_billing_address
+      @shipping_address.save
     end
   end
 end
