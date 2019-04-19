@@ -36,6 +36,10 @@
 .general-order-wrap
   .row
     .col-sm-4
+      .flash.text-center
+        - flash.each do |message_type, message|
+          %div{ class: "text-danger alert alert-#{message_type}" }
+            = message
       = form_for :order, url: cart_path, method: :patch do |f|
         = f.label :number, t('.enter_your_coupon_code'), { class: 'font-weight-light', for: "number" }
         = f.text_field :number, { class: 'form-control mb-30', type: "text", placeholder: "Enter Your Coupon Code", value: '' }

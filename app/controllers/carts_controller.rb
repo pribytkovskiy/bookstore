@@ -5,10 +5,10 @@ class CartsController < ApplicationController
 
   def update
     coupon = Coupon.find_by(number: coupon_params)
-    if coupon
+    if coupon && coupon.id != 1
       @order.update(coupon: coupon)
     else
-      flash.now[:message] = t('.no_coupon')
+      flash[:message] = t('.no_coupon')
     end
     redirect_to cart_path
   end

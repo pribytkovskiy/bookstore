@@ -33,6 +33,8 @@ en:
       coupon: 'Coupon'
       order_total: 'Order Total'
       checkout: 'Checkout'
+    update:
+      no_coupon: Coupon does not exist
 
   number:
     currency:
