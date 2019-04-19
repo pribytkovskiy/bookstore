@@ -3,6 +3,7 @@ class Ability
 
   def initialize(user)
     user ||= User.new
+
     can :read, :all
     return unless user.persisted?
 

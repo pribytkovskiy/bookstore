@@ -1,0 +1,24 @@
+.row
+  .col-sm-6
+    .product-gallery
+      .mb-20#img_container
+        %img.img-responsive{src: @product.covers.first&.image_url}
+      %p
+      .images.clearfix
+        - @product.covers.each do |picture|
+          %a.img-link{href: "#"}
+            %img.width-full.height-preview{src: picture.image_url}
+  .col-sm-6
+    %h1.mt-res-0.row-bordered= @product.title
+    .card.row-bordered
+      %h4= t('.authors')
+      %p.in-grey-600.small= @product.authors.map { |author| "#{author.first_name} #{author.last_name}" }.join(', ')
+    .card.row-bordered
+      %p.h1.in-gold-500.mt-10= number_to_currency(@product.price, unit: '€')
+    .card.row-bordered
+      %h4= t('.description')
+      %p.in-grey-600.small.line-height-2
+        = @product.description
+      %h4= t('.materials')
+      %p.in-grey-600.small.line-height-2
+        = @product.materials
