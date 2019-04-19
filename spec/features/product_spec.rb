@@ -58,7 +58,6 @@ describe 'product page' do # rubocop:disable RSpec/DescribeClass
     end
 
     it 'create new review' do
-      fill_in 'comment[rate]', with: comment.rate
       fill_in 'comment[title]', with: comment.title
       fill_in 'comment[body]', with: comment.body
       expect { click_button I18n.t('products.form_review.post') }.to change { product.comments.count }.by(1)

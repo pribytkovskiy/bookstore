@@ -31,7 +31,6 @@ describe 'payment step' do # rubocop:disable RSpec/DescribeClass
     fill_in I18n.t('checkout.payment.cvv'), with: bad_cvv
     click_button(I18n.t('checkout.address_form.save_and_continue'))
 
-    expect(page).to have_content(I18n.t('only_letters'))
     expect(page).to have_content(I18n.t('16_characters'))
     expect(page).to have_content(I18n.t('4_characters'))
     expect(page).to have_css('div.has-error')

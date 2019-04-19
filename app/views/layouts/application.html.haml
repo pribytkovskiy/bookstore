@@ -41,7 +41,7 @@
                 %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}= t('.my_account')
                 %ul.dropdown-menu
                   %li
-                    %a.filter-link{:href => checkout_index_path}= t('.orders')
+                    %a.filter-link{:href => orders_path}= t('.orders')
                   %li
                     %a.filter-link{:href => "/settings/index?"}= t('.settings')
                   %li.divider{:role => "separator"}
@@ -69,7 +69,7 @@
                   %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}= t('.my_account')
                   %ul.dropdown-menu
                     %li
-                      %a.filter-link{:href => checkout_index_path}= t('.orders')
+                      %a.filter-link{:href => orders_path}= t('.orders')
                     %li
                       %a.filter-link{:href => settings_path(user_id: current_user.id)}= t('.settings')
                     %li.divider{:role => "separator"}
@@ -93,7 +93,7 @@
                 %a.nav-link{href: "#{catalog_path(:category_id => @labels.ids)}"}= t('.shop')
               - if user_signed_in?
                 %li
-                  %a.nav-link{:href => checkout_index_path}= t('.orders')
+                  %a.nav-link{:href => orders_path}= t('.orders')
                 %li
                   %a.nav-link{:href => settings_path(user_id: current_user.id)}= t('.settings')
           .col-sm-3

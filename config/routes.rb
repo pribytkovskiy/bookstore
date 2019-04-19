@@ -9,9 +9,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   scope '(:locale)' do
-    resources :checkout, only: %i[index show edit update]
+    resources :checkout, only: %i[show edit update]
     resources :order_items, only: %i[create update destroy]
     resources :carts, only: %i[show update]
+    resources :orders, only: %i[index show]
     resource :product, only: %i[show] do
       resources :comments, only: %i[index create]
     end

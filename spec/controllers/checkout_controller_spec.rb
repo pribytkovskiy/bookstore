@@ -5,21 +5,6 @@ RSpec.describe CheckoutController, type: :controller do
 
   before { sign_in user }
 
-  describe 'GET #index' do
-    before do
-      allow(controller).to receive(:current_user).and_return(user)
-      get :index
-    end
-
-    it 'assigns @orders' do
-      expect(assigns(:orders)).not_to be_nil
-    end
-
-    it 'renders the :index template' do
-      expect(response).to render_template :index
-    end
-  end
-
   describe 'PATCH #update' do
     # rubocop:disable Metrics/LineLength
     let(:results) { instance_double('Result', billing_address: 'billing_address', shipping_address: 'shipping_address', delivery: 'delivery', card: 'card', failure?: false) }

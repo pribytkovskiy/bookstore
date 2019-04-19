@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   def show
-    redirect_to store_url, notice: t('.cart_empty') if check_order_items?
+    redirect_to store_url if check_order_items?
   end
 
   def update
