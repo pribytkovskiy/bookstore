@@ -54,6 +54,7 @@ gem 'sassc-rails', '>= 2.0.0'
 gem 'sendgrid-ruby'
 gem 'sidekiq'
 gem 'virtus'
+gem 'letter_avatar'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

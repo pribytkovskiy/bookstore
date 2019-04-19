@@ -1,4 +1,7 @@
+require 'letter_avatar/has_avatar'
+
 class User < ApplicationRecord
+  include LetterAvatar::HasAvatar
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :omniauthable, omniauth_providers: [:facebook]
 
@@ -29,5 +32,9 @@ class User < ApplicationRecord
 
   def soft_delete
     update_attribute(:deleted_at, Time.current)
+  end
+
+  def name
+    addresses.billing.last.last_name
   end
 end

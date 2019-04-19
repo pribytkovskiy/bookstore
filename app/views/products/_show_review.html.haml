@@ -5,7 +5,7 @@
       - comment.rate
       %li.media.card
         .media-left
-          %img.img-circle.logo-size.media-object{src: "#{comment.user.pictures || 'https://avavatar.ru/images/avatars/4/avatar_N54FIHsB1Aw8cS2m.jpg' }"}
+          %img.img-circle.logo-size.media-object{src: "#{ comment.user.pictures || comment.user.avatar_url(200) }"}
         .media-body
           %div
             %p.general-message-date.hidden-xs= comment.created_at
