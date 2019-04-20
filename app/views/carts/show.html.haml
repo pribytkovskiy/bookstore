@@ -1,0 +1,67 @@
+%h1.general-title-margin= t('.cart')
+.hidden-xs
+  %table.table.table-hover
+    %tr.no-hover
+      %th.col-pic.pl-0
+        %span.in-grey-600= t('.product')
+      %th.col-title
+      %th.col-price
+        %span.in-grey-600= t('.price')
+      %th.col-quantity
+        %span.in-grey-600= t('.quantity')
+      %th.col-total
+        %span.in-grey-600= t('.subtotal')
+      %th.col-close
+    - @order.order_items.each do |item|
+      %tr
+        %td
+          .general-img-wrap-table
+            %img.cart-img-shadow.pull-left.width-full{src: item.product.covers.first&.image_url}
+        %td
+          %p.general-title= item.product.title
+        %td
+          %span.font-16.in-gold-500= "€#{item.product.price}"
+        %td
+          .input-group
+            = link_to order_item_path(item, type: OrderItemsController::COMMANDS[:delete], redirect_to: cart_path(@order)), method: :patch, class: "input-link" do
+              %i.fa.switchers.fa-minus.line-height-40
+            %input.form-control.quantity-input{:type => "text", :value => item.quantity, readonly: true}
+            = link_to order_item_path(item, type: OrderItemsController::COMMANDS[:add], redirect_to: cart_path(@order)), method: :patch, class: "input-link" do
+              %i.fa.switchers.fa-plus.line-height-40
+        %td
+          %span.font-16.in-gold-500= number_to_currency(item.total_price)
+        %td
+          = button_to order_item_path(item), method: :delete, class: 'close general-cart-close' do
+            %span{'aria-hidden': 'true'} &times;
+.general-order-wrap
+  .row
+    .col-sm-4
+      .flash.text-center
+        - flash.each do |message_type, message|
+          %div{ class: "text-danger alert alert-#{message_type}" }
+            = message
+      = form_for :order, url: cart_path, method: :patch do |f|
+        = f.label :number, t('.enter_your_coupon_code'), { class: 'font-weight-light', for: "number" }
+        = f.text_field :number, { class: 'form-control mb-30', type: "text", placeholder: "Enter Your Coupon Code", value: '' }
+        = f.submit t('.update_cart'), {class: 'btn btn-primary mb-15 res-block'}
+    .col-sm-8
+      .res-mr-200.text-center.general-text-right
+        %p.in-gold-500.font-18= t('.order_summary')
+        %table.general-summary-table.general-summary-table-right.general-text-right
+          %tr
+            %td
+              %p.font-16= t('.subtotal')
+            %td
+              %p.font-16= number_to_currency(@order.total_price)
+          %tr
+            %td
+              %p.font-16= t('.coupon')
+            %td
+              %p.font-16= number_to_currency(@order.coupon&.price)
+          %tr
+            %td
+              %strong.font-18= t('.order_total')
+            %td
+              %strong.font-18= number_to_currency(@order.total_price - (@order.coupon&.price || 0))
+        %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
+= button_to t('.checkout'), checkout_path, method: :get, class: 'btn btn-default mb-20 hidden-xs center-block', params: { next_render: :address, step: :address }

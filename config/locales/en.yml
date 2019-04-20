@@ -1,0 +1,169 @@
+en:
+  layouts:
+    application:
+      title: 'Bookstore'
+      home: 'Home'
+      shop: 'Shop'
+      orders: 'Orders'
+      settings: 'Settings'
+      my_account: 'My account'
+      mobile_development: 'Mobile development'
+      photo: 'Photo'
+      web_design: 'Web design'
+      email: support@bookstore.com
+      telephone: (555)-555-5555
+      sign_in: Sign in
+      sign_up: Sign up
+      orders: Orders
+      settings: Settings
+      log_out: Log out
+      log_in: Log in
+
+  carts:
+    show:
+      cart: 'Cart'
+      product: 'Product' 
+      price: 'Price'
+      quantity: 'Quantity'
+      subtotal: 'SubTotal'
+      enter_your_coupon_code: 'Enter Your Coupon Code'
+      apply_coupon: 'Apply Coupon'
+      update_cart: 'Update cart'
+      order_summary: 'Order Summary'
+      coupon: 'Coupon'
+      order_total: 'Order Total'
+      checkout: 'Checkout'
+    update:
+      no_coupon: Coupon does not exist
+
+  number:
+    currency:
+      format:
+        unit: '€'
+        precision: 2
+        separator: '.'
+        delimiter: ','
+  
+  controllers:
+    admin:
+      translation_no: '%{locale} translation not available'
+    pages:
+      cart_empty: Your cart is empty
+    orders:
+      no_coupon: No coupon
+    catalog:
+      newest_first: Newest first
+
+  models:
+    card:
+      only_letters: only allows letters
+
+  pages:
+    catalog:
+      newest_first: Newest first
+      popular_first: Popular first
+      low_to_high: 'Price: Low to high'
+      high_to_low: 'Price: High to low'
+      title_a_z: Title A-Z
+      title_z_a: Title Z-A
+      all: All
+      shop: Shop
+    home:
+      buy_now: Buy Now
+      get_started: Get Started
+
+  products:
+    form_review:
+      write_a_review: Write a review
+      rating: Rating
+      review: Review
+      post: Post
+    show:
+      add_to_cart: Add to cart
+      back_to_results: Back to results
+
+  interactors:
+    errors:
+      current_item_failure: Current_item failure
+      create_order_item_failure: Create order_item failure
+      add_current_item_quantity: Add current_item quantity failure
+      address: Address error
+
+  checkout:
+    form:
+      checkout: 'Checkout'
+      address: 'Address'
+      delivery: 'Delivery'
+      payment: 'Payment'
+      confirm: 'Confirm'
+      complete: 'Complete'
+      billing_address: 'Billing Address' 
+      all_fields_are_required: 'all fields are required'
+      shipping_address: 'Shipping Address'
+      first_name: 'First Name'
+      last_name: 'Last Name'
+      address: 'Address'
+      city: 'City'
+      zip: 'Zip'
+      country: 'Country'
+      phone: 'Phone'
+      save_and_continue: 'Save and Continue'
+      use_billing_adress: 'Use Billing Adress'
+      order_summary: 'Order Summary'
+      item_total: 'Item Total:'
+      order_total: 'Order Total:'
+    payment:
+      card_number: Card Number
+      name_on_card: Name on Card
+      mm_yy: MM / YY
+      cvv: CVV
+    index:
+      all: All
+      in_queue: In queue
+      in_delivery: In delivery
+      delivered: Delivered
+      canceled: Canceled
+    address_form:
+      save_and_continue: Save and Continue
+      regular_delivery: Regular Delivery
+    confirmation:
+      edit: edit
+    complete:
+      thank: Thank
+      an_order: "An order confirmation has been sent to %{email}"
+      back_to_store: Back to Store
+  
+  settings:
+    form_settings:
+      remove_account: Remove account
+      sure: Sure?
+
+  active_admin:
+    dashboard: Dashboard
+    recent_orders: Recent orders
+    state: State
+    customer: Customer_id
+    total: Total
+    email: email
+    id: id
+    create_product: Create Product
+    сurrent_state: Current state
+    forbidden_event: "Forbidden event %{event} requested on instance %{order.id}"
+    сhange_state: Change state
+    euro: €
+  order_mailer:
+    complete_email:
+      thanks: Thank you for your purchase!
+      orders_number: Your orders number is
+  mailers:
+    order_mailer:
+      subject: "Your order %{order_number} is accepted"
+
+  starts_with_plus: should starts with +
+  only_letters: only allows letters
+  only_numbers: only allows numbers
+  cant_be_blank: can't be blank
+  16_characters: is the wrong length (should be 16 characters)
+  4_characters: too long (maximum is 4 characters)
+  save_and_continue: Save and Continue
+  mm_yy: the expiration date must be MM/YY

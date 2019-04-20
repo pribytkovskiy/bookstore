@@ -1,0 +1,29 @@
+%h1.general-title-margin= t('.settings')
+%ul.nav.nav-tabs.mb-20{role: "tablist"}
+  %li.mb-10.active{role: "presentation"}
+    %a{href: "#address", 'aria-controls': "address", role: "tab", 'data-toggle': "tab"}= t('.address')
+  %li.mb-10{role: "presentation"}
+    %a{href: "#privacy", 'aria-controls': "privacy", role: "tab", 'data-toggle': "tab"}= t('.privacy')
+.tab-content
+  #address.tab-pane.fade.in.active.general-main-wrap{role: "tabpanel"}
+    .hidden-xs.hidden-sm
+      .row
+        .col-md-5 
+          %h3.general-subtitle= t('.billing_address')
+          %p.general-info-text= t('.all_fields_are_required')
+        .col-md-5.col-md-offset-1
+          %h3.general-subtitle= t('.shipping_address')
+          %p.general-info-text= t('address.all_fields_required')
+    .row
+      .col-md-5.mb-40
+        = form_for @billing_address, :url => settings_path(user_id: current_user.id, id: current_user.id), :method => :post do |f|
+          = render partial: 'checkout/address_form', locals: { address: @billing_address, address_type: :billing, order: false }
+          = f.submit I18n.t('save_and_continue'), { class: 'btn center-block mb-20' }
+      .col-md-5.col-md-offset-1.mb-60#form2{style: "#{'display: none;' if check?}" }
+        = form_for @shipping_address, :url => settings_path(user_id: current_user.id, id: current_user.id), :method => :post do |f|
+          = render partial: 'checkout/address_form', locals: { address: @shipping_address, address_type: :shipping, order: false }
+          = f.submit I18n.t('save_and_continue'), { class: 'btn center-block mb-20' }
+      .col-md-5.mb-40
+      .col-md-5.col-md-offset-1.mb-60
+#privacy.tab-pane.fade{role: "tabpanel"}
+  = render 'form_settings'

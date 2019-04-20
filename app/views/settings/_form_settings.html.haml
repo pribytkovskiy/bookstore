@@ -1,0 +1,30 @@
+.row.mb-60
+  .col-sm-5
+    %p.in-gold-500.font-18.mb-25= t('.email')
+    .general-text-align
+    = form_for( current_user, :url => update_password_settings_path(user_id: current_user.id), :method => :patch, html: { :class => 'general-form-md'} ) do |f|
+      .form-group.mb-35
+        = f.label :email, 'Enter Email', { class: 'control-label font-weight-lights', for: "email" }
+        = f.text_field :email, { class: 'form-control', id: 'email', type: "email", placeholder: "Enter your email" }
+      .general-text-align
+        = f.submit 'Save', {class: 'btn btn-default mb-35'}
+  .col-sm-5.col-sm-offset-1
+    %p.in-gold-500.font-18.mb-25= t('.password')
+    = form_for(current_user, as: :user, url: update_password_settings_path(user_id: current_user.id), html: { method: :patch, class: "general-form" }) do |f|
+      = f.hidden_field :reset_password_token
+      .form-group.mb-30
+        %label.control-label.font-weight-light{for: "password"}= t('.type_a_new_password')
+        = f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "Type a new Password", id: "password", class: "form-control"
+      .form-group.mb-40
+        %label.control-label.font-weight-light{for: "confirmPassword"}= t('.confirm_password')
+        = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm Password", id: "confirmPassword", class: "form-control"
+      .actions
+        = f.submit "Change", class: "btn btn-default center-block mb-20"
+  .col-sm-12
+    .divider-lg-bottom
+    %p.in-gold-500.font-18.mb-25.pt-20= t('.remove_account')
+    %form
+      .general-settings-btn
+        = link_to t('.remove_account'), setting_path(current_user), class: 'btn btn-default remove-btn mb-20', method: :delete, id: "removeBtn"
+      .form-group.checkbox.general-settings-checkbox
+        %label.font-weight-light.pl-0

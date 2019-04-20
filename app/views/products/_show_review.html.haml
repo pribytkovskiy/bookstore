@@ -1,0 +1,20 @@
+.mb-80
+  %h3.in-gold-500.mb-25= "Reviews (#{@product.comments.approved.count})"
+  %ul.media-list
+    - @product.comments.approved.each do |comment|
+      - comment.rate
+      %li.media.card
+        .media-left
+          %img.img-circle.logo-size.media-object{src: "#{ comment.user.pictures || comment.user.avatar_url(200) }"}
+        .media-body
+          %div
+            %p.general-message-date.hidden-xs= comment.created_at
+            %h4.media-heading.max-240.general-message-name
+            .in-gold-500.media-left
+              = comment.user.email
+          .mb-15
+            - 5.times.collect do |i|
+              %i.fa.fa-star.rate-star{:class => ('rate-empty' if i >= comment.rate)}
+          %p= comment.title
+          %p= comment.body
+            

@@ -1,0 +1,61 @@
+ru:
+  layouts:
+    application:
+      title: 'Bookstore'
+      home: 'Домой'
+      shop: 'Магазин'
+      orders: 'Заказы'
+      settings: 'Настройки'
+      my_account: 'Мой аккаунт'
+      mobile_development: 'Мобильная разработка'
+      photo: 'Фотография'
+      web_design: 'Веб-дизайн'
+      email: support@bookstore.com
+      telephone: (555)-555-5555
+
+  carts:
+    cart:
+      cart: 'Корзина'
+      product: 'Книга' 
+      price: 'Цена'
+      quantity: 'Количество'
+      subtotal: 'Общая стоимость'
+      enter_your_coupon_code: 'Введите код купона'
+      apply_coupon: 'Применить купон'
+      update_cart: 'Обновить корзину'
+      order_summary: 'Стоимость заказа'
+      coupon: 'Купон'
+      order_total: 'Стоимость заказ всего'
+      checkout: 'Покупка'
+
+  orders:
+    form:
+      checkout: 'Покупка'
+      address: 'Адрес'
+      delivery: 'Доставка'
+      payment: 'Оплата'
+      confirm: 'Подтвердить'
+      complete: 'Завершить'
+      billing_address: 'Платежный адрес' 
+      all_fields_are_required: 'Все поля обязательны для заполнения'
+      shipping_address: 'Адрес доставки'
+      first_name: 'Имя'
+      last_name: 'Фамилия'
+      address: 'Адрес'
+      city: 'Город'
+      zip: 'Индекс'
+      country: 'Страна'
+      phone: 'Телефон'
+      save_and_continue: 'Сохранить и продолжить'
+      use_billing_adress: 'Использовать платежный адрес'
+      order_summary: 'Стоимость заказа'
+      item_total: 'Позиция всего:'
+      order_total: 'Заказ всего:'
+
+  number:
+    currency:
+      format:
+        unit: '€'
+        precision: 2
+        separator: '.'
+        delimiter: ','

@@ -1,0 +1,113 @@
+%h1.general-title-margin= t('.checkout')
+%ul.steps.list-inline
+  %li.step.active
+    %span.step-number
+      %i.fa.fa-check.step-icon
+    %span.step-text.hidden-xs= t('.address')
+  %li.step-divider
+  %li.step.active
+    %span.step-number
+      %i.fa.fa-check.step-icon
+    %span.step-text.hidden-xs= t('.delivery')
+  %li.step-divider
+  %li.step.active
+    %span.step-number
+      %i.fa.fa-check.step-icon
+    %span.step-text.hidden-xs= t('.payment')
+  %li.step-divider
+  %li.step.active
+    %span.step-number 4
+    %span.step-text.hidden-xs= t('.confirm')
+  %li.step-divider
+  %li.step
+    %span.step-number 5
+    %span.step-text.hidden-xs= t('.complete')
+.row.mb-20
+  .col-sm-3
+    %h3.general-subtitle= t('.shipping_address')
+    %p.general-address
+      = @order.shipping_name
+      %span.general-edit= link_to t('.edit'), checkout_path(user_id: current_user, next_render: :address, step: :address), method: :get, class: 'general-edit'
+      %br
+      = @order.shipping_address
+      %br
+      = @order.shipping_city
+      %br
+      = @order.shipping_country
+      %br
+      = @order.shipping_phone
+  .col-sm-3
+    %h3.general-subtitle= t('.billing_address')
+    %p.general-address
+      = @order.billing_name
+      %span.general-edit= link_to t('.edit'), checkout_path(user_id: current_user, next_render: :address, step: :address), method: :get, class: 'general-edit' 
+      %br
+      = @order.billing_address
+      %br
+      = @order.billing_city
+      %br
+      = @order.billing_country
+      %br
+      = @order.billing_phone
+  .col-sm-3
+    %h3.general-subtitle= t('.shipments')
+    %p.general-address
+      = "Delivery #{@order.delivery.days} Days"
+      %span.general-edit= link_to t('.edit'), checkout_path(user_id: current_user, step: :address, next_render: :delivery), method: :get, class: 'general-edit' 
+      %br
+      = @order.delivery.method
+  .col-sm-3
+    %h3.general-subtitle= t('.payment_information')
+    %p.general-address
+      = @order.safe_card_number
+      %span.general-edit= link_to t('.edit'), checkout_path(step: :delivery_method, next_render: :payment), method: :get, class: 'general-edit' 
+      %br
+      = @order.card&.mm_yy
+.hidden-xs.divider-lg.pt-20
+  %table.table.table-hover
+    %thead
+      %tr
+        %th
+          %span.in-grey-600= t('.book')
+        %th.col-method
+        %th
+          %span.in-grey-600= t('.price')
+        %th
+          %span.in-grey-600= t('.quantity')
+        %th
+          %span.in-grey-600= t('.total') 
+    - @order.order_items.each do |item|
+      %tbody
+        %tr
+          %td
+            .general-img-wrap-table
+              %img.cart-img-shadow.pull-left.width-full{src: item.product.covers.first.image_url}
+          %td
+            %p.general-title= item.product.title
+            %p.in-grey-600.font-weight-light= item.product.title
+          %td
+            %span.font-16.in-gold-500= "€#{item.product.price}"
+          %td
+            %span.ml-30= item.quantity
+          %td
+            %span.font-16.in-gold-500= number_to_currency(item.total_price)
+.text-center.general-text-right
+  %p.in-gold-500.font-18= t('.order_summary')
+  %table.general-summary-table.general-summary-table-right.general-text-right
+    %tr
+      %td
+        %p.font-16= t('.subtotal')
+      %td
+        %p.font-16= number_to_currency(@order.total_price + @order.delivery.price)
+    %tr
+      %td
+        %p.font-16= t('.coupon') 
+      %td
+        %p.font-16= number_to_currency(@order.coupon&.price.to_i)
+    %tr
+      %td
+        %strong.font-18= t('.order_total')
+      %td
+        %strong.font-18= number_to_currency(@order.total_price + @order.delivery.price - @order.coupon&.price.to_i)
+.text-center
+  = button_to "Place Order", checkout_path(complete: true, step: :confirmation, next_render: :complete), method: :patch, class: 'btn btn-default mb-20'

@@ -1,0 +1,26 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+
+production:
+  <<: *default
+  host: <%= ENV['DB_HOST'] %>
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+
+development:
+  <<: *default
+  host: 127.0.0.1
+  database: bookstore_development2
+  username: <%= ENV['USERNAME'] %>
+  password: <%= ENV['PASSWORD'] %>
+
+test:
+  <<: *default
+  host: 127.0.0.1
+  database: bookstore_test2
+  username: <%= ENV['USERNAME'] %>
+  password: <%= ENV['PASSWORD'] %>
